@@ -16,8 +16,7 @@ public final class Coordinate {
      * Coordinate value, intentionally "package-friendly" due to performance
      * constraints
      */
-    double coord;
-
+    final double coord;
 
     /**
      * Coordinate constructor receiving a coordinate value

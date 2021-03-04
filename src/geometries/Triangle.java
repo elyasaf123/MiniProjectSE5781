@@ -12,8 +12,6 @@ public class Triangle extends Polygon{
         super(x,y,z);
     }
 
-
-
     @Override
     public String toString() {
         return "Triangle{" +

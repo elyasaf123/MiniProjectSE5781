@@ -6,12 +6,23 @@ import java.util.Objects;
  * basic geometric object for 3D point
  */
 public class Point3D {
-    Coordinate x;
-    Coordinate y;
-    Coordinate z;
-
+    private Coordinate x;
+    private Coordinate y;
+    private Coordinate z;
 
     public static Point3D ZERO = new Point3D(0, 0, 0);
+
+    public Coordinate getX() {
+        return x;
+    }
+
+    public Coordinate getY() {
+        return y;
+    }
+
+    public Coordinate getZ() {
+        return z;
+    }
 
     /**
      * @param x coordinate for x axis
@@ -27,7 +38,6 @@ public class Point3D {
         y = new Coordinate(_y);
         z = new Coordinate(_z);
     }
-
 
     /**
      *
@@ -50,33 +60,22 @@ public class Point3D {
      * @param point3D
      * @return
      */
-    public double distance(Point3D point3D){
+    public double distance(Point3D point3D) {
         return Math.sqrt(distanceSquared(point3D));
     }
 
-    public Point3D add(Vector vector)
-    {
+    public Point3D add(Vector vector) {
         return new Point3D(
-                x.coord + vector.head.x.coord,
-                y.coord + vector.head.y.coord,
-                z.coord + vector.head.z.coord);
+                x.coord + vector.getHead().x.coord,
+                y.coord + vector.getHead().y.coord,
+                z.coord + vector.getHead().z.coord);
     }
 
-    public Vector subtract(Point3D point3D)
-    {
+    public Vector subtract(Point3D point3D) {
         return new Vector(
-                x.coord - point3D.x.coord,
-                y.coord - point3D.y.coord,
-                z.coord - point3D.z.coord);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "x=" + x.toString() +
-                ", y=" + y.toString() +
-                ", z=" + z.toString() +
-                '}';
+                 point3D.x.coord - x.coord,
+                 point3D.y.coord - y.coord,
+                 point3D.z.coord - z.coord);
     }
 
     @Override
@@ -88,8 +87,11 @@ public class Point3D {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(x.coord, y.coord, z.coord);
+    public String toString() {
+        return "{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
-
 }
