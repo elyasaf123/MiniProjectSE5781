@@ -74,7 +74,8 @@ public class Vector {
     }
 
     public Vector normalized() {
-        return new Vector (this.normalize().head);
+        Vector vector = new Vector(this.head);
+        return new Vector (vector.normalize().head);
     }
 
     @Override
