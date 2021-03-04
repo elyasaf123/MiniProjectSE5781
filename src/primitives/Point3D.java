@@ -6,9 +6,9 @@ import java.util.Objects;
  * basic geometric object for 3D point
  */
 public class Point3D {
-    private Coordinate x;
-    private Coordinate y;
-    private Coordinate z;
+    final Coordinate x;
+    final Coordinate y;
+    final Coordinate z;
 
     public static Point3D ZERO = new Point3D(0, 0, 0);
 
