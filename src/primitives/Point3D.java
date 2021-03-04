@@ -73,9 +73,9 @@ public class Point3D {
 
     public Vector subtract(Point3D point3D) {
         return new Vector(
-                 point3D.x.coord - x.coord,
-                 point3D.y.coord - y.coord,
-                 point3D.z.coord - z.coord);
+                  x.coord - point3D.x.coord,
+                  y.coord - point3D.y.coord,
+                  z.coord - point3D.z.coord);
     }
 
     @Override

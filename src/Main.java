@@ -59,7 +59,7 @@ public final class Main {
         // test vector normalization vs vector length and cross-product
         Vector v = new Vector(1, 2, 3);
         Vector vCopy = new Vector(v.getHead());
-        Vector vCopyNormalize = vCopy.normalized();
+        Vector vCopyNormalize = vCopy.normalize();
         if (vCopy != vCopyNormalize)
             out.println("ERROR: normalize() function creates a new vector");
         if (!isZero(vCopyNormalize.length() - 1))
