@@ -9,8 +9,6 @@ import static primitives.Util.*;
  * @author Dan Zilberstein
  * @version 5780B updated according to new requirements
  */
-//hello world
-    //yoyooooo
 
 public final class Coordinate {
     /**
