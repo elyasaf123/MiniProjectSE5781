@@ -54,6 +54,11 @@ public class Point3D {
         return Math.sqrt(distanceSquared(point3D));
     }
 
+    /**
+     *
+     * @param vector
+     * @return
+     */
     public Point3D add(Vector vector)
     {
         return new Point3D(
@@ -62,6 +67,11 @@ public class Point3D {
                 z.coord + vector.head.z.coord);
     }
 
+    /**
+     *
+     * @param point3D
+     * @return
+     */
     public Vector subtract(Point3D point3D)
     {
         return new Vector(
@@ -70,6 +80,10 @@ public class Point3D {
                 z.coord - point3D.z.coord);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "{" +
@@ -79,6 +93,11 @@ public class Point3D {
                 '}';
     }
 
+    /**
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,6 +106,10 @@ public class Point3D {
         return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(x.coord, y.coord, z.coord);
