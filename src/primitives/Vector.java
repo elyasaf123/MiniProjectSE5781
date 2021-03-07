@@ -3,6 +3,7 @@ package primitives;
 import static primitives.Point3D.ZERO;
 
 public class Vector {
+
     private Point3D head;
 
     public Vector(double x, double y, double z) {

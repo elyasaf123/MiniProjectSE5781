@@ -1,7 +1,13 @@
 package primitives;
 
 public class Ray {
+    /**
+     *
+     */
     private Point3D p0;
+    /**
+     *
+     */
     private Vector dir;
 
 
