@@ -1,3 +1,6 @@
+// Netanel Bashan, 323056077, netanebashan12@gmail.com
+// Elyasaf Dimant, 204006415, elyasafdi@gmail.com
+
 import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
@@ -20,9 +23,9 @@ public final class Main {
         try { // test zero vector
             new Vector(0, 0, 0);
             out.println("ERROR: zero vector does not throw an exception");
-        } catch (Exception e)
-        {
-
+        }
+        catch (Exception e) {
+            //out.println("ERROR!!!");
         }
 
         Vector v1 = new Vector(1, 2, 3);
@@ -45,7 +48,11 @@ public final class Main {
         try { // test zero vector
             v1.crossProduct(v2);
             out.println("ERROR: crossProduct() for parallel vectors does not throw an exception");
-        } catch (Exception e) {}
+        }
+        catch (Exception e) {
+            //out.println("ERROR!!!");
+        }
+
         Vector vr = v1.crossProduct(v3);
         if (!isZero(vr.length() - v1.length() * v3.length()))
             out.println("ERROR: crossProduct() wrong result length");
@@ -55,14 +62,14 @@ public final class Main {
         // test vector normalization vs vector length and cross-product
         Vector v = new Vector(1, 2, 3);
         Vector vCopy = new Vector(v.getHead());
-        Vector vCopyNormalize = vCopy.normalized();
+        Vector vCopyNormalize = vCopy.normalize();
         if (vCopy != vCopyNormalize)
             out.println("ERROR: normalize() function creates a new vector");
         if (!isZero(vCopyNormalize.length() - 1))
             out.println("ERROR: normalize() result is not a unit vector");
         Vector u = v.normalized();
         if (u == v)
-            out.println("ERROR: normalizated() function does not create a new vector");
+            out.println("ERROR: normalized() function does not create a new vector");
 
         // Test operations with points and vectors
         Point3D p1 = new Point3D(1, 2, 3);
