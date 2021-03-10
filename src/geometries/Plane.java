@@ -26,8 +26,9 @@ public class Plane implements Geometry {
     public Plane(Point3D x,Point3D y,Point3D z){
         q0 = x;
         Vector a = x.subtract(y);
-        Vector b = x.subtract(z);
+        Vector b = y.subtract(z);
         normal = a.crossProduct(b);
+        normal.normalize();
     }
 
     /**

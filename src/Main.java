@@ -1,6 +1,7 @@
 // Netanel Bashan, 323056077, netanebashan12@gmail.com
 // Elyasaf Dimant, 204006415, elyasafdi@gmail.com
 
+import geometries.Polygon;
 import primitives.*;
 import static java.lang.System.out;
 import static primitives.Util.*;
@@ -23,8 +24,7 @@ public final class Main {
         try { // test zero vector
             new Vector(0, 0, 0);
             out.println("ERROR: zero vector does not throw an exception");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //out.println("ERROR!!!");
         }
 
@@ -48,8 +48,7 @@ public final class Main {
         try { // test zero vector
             v1.crossProduct(v2);
             out.println("ERROR: crossProduct() for parallel vectors does not throw an exception");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //out.println("ERROR!!!");
         }
 
