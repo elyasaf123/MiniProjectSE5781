@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CylinderTests {
 
+    //test normal of cylinder
     @Test
     void testGetNormal() {
         Cylinder cylinder =
