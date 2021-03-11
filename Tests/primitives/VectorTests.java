@@ -22,19 +22,22 @@ class VectorTests {
     Vector v3 = new Vector(0, 3, -2);
 
     @Test
-    void subtract() {
+    void testSubtract() {
+        assertEquals(new Vector(3,6,9), v1.subtract(v2), "subtract() wrong result");
     }
 
     @Test
-    void add() {
+    void testAdd() {
+        assertEquals(new Vector(-1,-2,-3), v1.add(v2), "add() wrong result");
     }
 
     @Test
-    void scale() {
+    void testScale() {
+        assertEquals(new Vector(2,4,6), v1.scale(2), "scale() wrong result");
     }
 
     @Test
-    void dotProduct() {
+    void testDotProduct() {
         // test Dot-Product
         if (!isZero(v1.dotProduct(v3)))
             out.println("ERROR: dotProduct() for orthogonal vectors is not zero");
@@ -49,7 +52,6 @@ class VectorTests {
     public void testCrossProduct() {
 
         // ============ Equivalence Partitions Tests ==============
-        Vector v3 = new Vector(0, 3, -2);
         Vector vr = v1.crossProduct(v3);
 
         // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
@@ -60,7 +62,7 @@ class VectorTests {
         assertTrue(isZero(vr.dotProduct(v3)), "crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
-        // test zero vector from cross-productof co-lined vectors
+        // test zero vector from cross-product of co-lined vectors
         try {
             v1.crossProduct(v2);
             fail("crossProduct() for parallel vectors does not throw an exception");
@@ -68,22 +70,21 @@ class VectorTests {
         }
     }
 
+    // test length..
     @Test
-    void lengthSquared() {
-        // test length..
+    void testLengthSquared() {
         if (!isZero(v1.lengthSquared() - 14))
             out.println("ERROR: lengthSquared() wrong value");
     }
 
     @Test
-    void length() {
+    void testLength() {
         if (!isZero(new Vector(0, 3, 4).length() - 5))
             out.println("ERROR: length() wrong value");
     }
 
     @Test
-    void normalize() {
-
+    void testNormalize() {
         Vector v = new Vector(3.5, -5, 10);
         v.normalize();
         assertEquals(1, v.length(), 1e-10);
@@ -101,7 +102,7 @@ class VectorTests {
 
 
     @Test
-    void normalized() {
+    void testNormalized() {
         Vector v = new Vector(1, 2, 3);
         Vector u = v.normalized();
         if (u == v)
