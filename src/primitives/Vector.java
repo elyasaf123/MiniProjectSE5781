@@ -83,6 +83,9 @@ public class Vector {
      * @return New vector after multiplication
      */
     public Vector scale(double scalar) {
+        if(scalar == 0){
+            throw new IllegalArgumentException("can't scale by Zero");
+        }
         return new Vector(
                 this.head.getX().coord * scalar,
                 this.head.getY().coord * scalar,
@@ -133,6 +136,9 @@ public class Vector {
      * @return the vector himself after the normalization operation
      */
     public Vector normalize() {
+        if(length() == 0){
+            throw new ArithmeticException("cannot devide by zero!!");
+        }
         this.head = (scale(1/length()).head);
         return this;
     }

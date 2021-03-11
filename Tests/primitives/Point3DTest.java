@@ -2,6 +2,7 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Point3DTest {
@@ -22,5 +23,31 @@ class Point3DTest {
         double result = p1.distanceSquared(p3);
         assertEquals(52.39, result, 0.001);
         System.out.println(result);
+    }
+
+    @Test
+    void testDistanceSquared() {
+
+    }
+
+    @Test
+    void distance() {
+
+    }
+
+    @Test
+    void add() {
+        // Test operations with points and vectors
+        Point3D p1 = new Point3D(1, 2, 3);
+        if (!Point3D.ZERO.equals(p1.add(new Vector(-1, -2, -3))))
+            out.println("ERROR: Point + Vector does not work correctly");
+    }
+
+    @Test
+    void subtract() {
+        // Test operations with points and vectors
+        Point3D p1 = new Point3D(1, 2, 3);
+        if (!new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)))
+            out.println("ERROR: Point - Point does not work correctly");
     }
 }

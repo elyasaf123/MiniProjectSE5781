@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import static primitives.Util.isZero;
+
 /**
  * class that represents a tube in 32
  */
@@ -51,7 +53,23 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D point3D) {
-        return null;
+        //The vector from the point of the cylinder to the given point
+        Point3D o = axisRay.getP0();//at this point o = p0
+        Vector v = axisRay.getDir();
+
+        Vector vector1  = point3D.subtract(o);
+
+        //we need the projection to multiply the direction until unit vector
+        double projection = vector1.dotProduct(v);
+        if(!isZero(projection)){
+            //projection of p0 on the ray:
+            o = o.add(v.scale(projection));
+        }
+
+
+        //this vector is orthogonal to the dir vector
+        Vector check = point3D.subtract(o);
+        return check.normalize();
     }
 
     /**

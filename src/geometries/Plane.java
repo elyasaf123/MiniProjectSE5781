@@ -53,7 +53,7 @@ public class Plane implements Geometry {
      * getter for the normal
      * @return normal of the point
      */
-    public Vector getNormal() {
+    public Vector getThisNormal() {
         return normal;
     }
 
