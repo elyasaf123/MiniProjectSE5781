@@ -36,13 +36,15 @@ class VectorTests {
         assertEquals(new Vector(2,4,6), v1.scale(2), "scale() wrong result");
     }
 
+    // test Dot-Product
     @Test
     void testDotProduct() {
-        // test Dot-Product
-        if (!isZero(v1.dotProduct(v3)))
-            out.println("ERROR: dotProduct() for orthogonal vectors is not zero");
-        if (!isZero(v1.dotProduct(v2) + 28))
-            out.println("ERROR: dotProduct() wrong value");
+        assertEquals(0,v1.dotProduct(v3),"ERROR: dotProduct() for orthogonal vectors is not zero");
+        assertEquals(0,v1.dotProduct(v2) + 28,"ERROR: dotProduct() wrong value");
+//        if (!isZero(v1.dotProduct(v3)))
+//            out.println("ERROR: dotProduct() for orthogonal vectors is not zero");
+//        if (!isZero(v1.dotProduct(v2) + 28))
+//            out.println("ERROR: dotProduct() wrong value");
     }
 
     /**
@@ -73,14 +75,16 @@ class VectorTests {
     // test length..
     @Test
     void testLengthSquared() {
-        if (!isZero(v1.lengthSquared() - 14))
-            out.println("ERROR: lengthSquared() wrong value");
+        assertEquals(0,v1.lengthSquared() - 14,"ERROR: lengthSquared() wrong value");
+//        if (!isZero(v1.lengthSquared() - 14))
+//            out.println("ERROR: lengthSquared() wrong value");
     }
 
     @Test
     void testLength() {
-        if (!isZero(new Vector(0, 3, 4).length() - 5))
-            out.println("ERROR: length() wrong value");
+        assertEquals(0,new Vector(0, 3, 4).length() - 5,"ERROR: length() wrong value");
+//        if (!isZero(new Vector(0, 3, 4).length() - 5))
+//            out.println("ERROR: length() wrong value");
     }
 
     @Test
@@ -104,8 +108,10 @@ class VectorTests {
     @Test
     void testNormalized() {
         Vector v = new Vector(1, 2, 3);
-        Vector u = v.normalized();
-        if (u == v)
-            out.println("ERROR: normalized() function does not create a new vector");
+        assertNotEquals(v, v.normalized(), "ERROR: normalized() function does not create a new vector");
+//        Vector v = new Vector(1, 2, 3);
+//        Vector u = v.normalized();
+//        if (u == v)
+//            out.println("ERROR: normalized() function does not create a new vector");
     }
 }
