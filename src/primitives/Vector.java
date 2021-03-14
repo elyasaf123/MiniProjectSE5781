@@ -152,6 +152,13 @@ public class Vector {
         return new Vector (vector.normalize().head);
     }
 
+
+    /**
+     * override function to check if two objects are equal
+     * @param o to compare
+     * @return true if equal and false if not
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,6 +167,11 @@ public class Vector {
         return head.equals(vector.head);
     }
 
+
+    /**
+     * string that represents the class
+     * @return string that represents the class
+     */
     @Override
     public String toString() {
         return "Vector{" +

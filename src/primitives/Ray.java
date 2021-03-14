@@ -31,6 +31,11 @@ public class Ray {
         return dir;
     }
 
+    /**
+     * override function to check if two objects are equal
+     * @param o to compare
+     * @return true if equal and false if not
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +44,10 @@ public class Ray {
         return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
+    /**
+     * string that represents the class
+     * @return string that represents the class
+     */
     @Override
     public String toString() {
         return "Ray{" +
