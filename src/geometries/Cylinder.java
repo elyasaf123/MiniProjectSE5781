@@ -6,7 +6,7 @@ import primitives.Vector;
 import static primitives.Util.isZero;
 
 /**
- * class cylinder which adds height to  tube
+ * class cylinder which adds height to tube
  */
 public class Cylinder extends Tube  {
 

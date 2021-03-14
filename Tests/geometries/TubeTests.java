@@ -6,9 +6,14 @@ import primitives.Ray;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for geometries.Tube class
+ * @author Netanel & Elyasaf
+ */
 class TubeTests {
-
+    /**
+     * Test method for {@link geometries.Tube#getNormal(primitives.Point3D)}.
+     */
     @Test
     void testGetNormal() {
         Tube tube = new Tube(new Ray(new Point3D(0,0,0), new Vector(0,0,1)), 1);

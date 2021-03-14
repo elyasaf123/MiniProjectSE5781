@@ -5,9 +5,14 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for geometries.Plane class
+ * @author Netanel & Elyasaf
+ */
 class PlaneTests {
-
+    /**
+     * Test method for {@link geometries.Plane#getNormal(primitives.Point3D)}.
+     */
     @Test
     void testGetNormal() {
         Plane pl = new Plane(
