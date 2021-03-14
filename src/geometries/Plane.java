@@ -7,15 +7,16 @@ import primitives.Vector;
  * class that reperesents a plane in 3d
  */
 public class Plane implements Geometry {
+
     /**
      * a point for the axis
      */
     private  Point3D q0;
+
     /**
      * a vector to know the normal of the plane
      */
     private Vector normal;
-
 
     /**
      * ctor for plane that excepts 3 points
@@ -56,7 +57,6 @@ public class Plane implements Geometry {
     public Vector getThisNormal() {
         return normal;
     }
-
 
     /**
      * getter for normal

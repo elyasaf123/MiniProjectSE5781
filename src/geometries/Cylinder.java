@@ -15,15 +15,6 @@ public class Cylinder extends Tube  {
      */
     private double height;
 
-//    /**
-//     * ctor of cylinder  which has to call super(Tube)
-//     * @param axisRay axis ray for super(Tube)
-//     * @param radius radius for super(Tube)
-//     */
-//    public Cylinder(Ray axisRay, double radius) {
-//        super(axisRay, radius);
-//    }
-
     /**
      * ctor of cylinder  which has to call super(Tube)
      * @param axisRay axis which the cylinder will be there
@@ -50,23 +41,30 @@ public class Cylinder extends Tube  {
      */
     @Override
     public Vector getNormal(Point3D point3D) {
-        //The vector from the point of the cylinder to the given point
         Point3D o = axisRay.getP0();//at this point o = p0
-        Vector v = axisRay.getDir();
+        Vector v = axisRay.getDir();//v == dir
 
+        //The vector from the point of the cylinder to the given point
         Vector vector1  = point3D.subtract(o);
-        //Ax + By + Cz = d
+
+        //  Based on the plane equation (Ax + By + Cz = d) Calculate the sliding vector value.
+        //  According to this sliding vector we will check if the given point is on the planes that block the cylinder from its 2 ends (d or d+height).
+        //  then the normal vector will be a dir vector (and so also in boundary cases).
+        //  If the given point is not on planes then it will necessarily be across the round cylinder shell,
+        //  and the normal will be an orthogonal vector to dir
         double d = -1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble());
 
         //we need the projection to multiply the direction until unit vector
         double projection = vector1.dotProduct(v);
+        // Check that the point is not outside the cylinder
         if(!(projection <= 0) && (projection <= height)){
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
-
+        // sliding vector of the point given
         double DGiven = -1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble());
 
+        // ============ Equivalence Partitions Tests ==============
         if (DGiven == d || DGiven == d + height){
             return v.normalized();
         }

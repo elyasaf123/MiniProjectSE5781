@@ -15,6 +15,7 @@ public class Tube implements Geometry {
      * Ray includes a point and a vector which represents an axis
      */
     protected Ray axisRay;
+
     /**
      * radius of tube
      */
@@ -53,10 +54,10 @@ public class Tube implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D point3D) {
-        //The vector from the point of the cylinder to the given point
+
         Point3D o = axisRay.getP0();//at this point o = p0
         Vector v = axisRay.getDir();
-
+        //The vector from the point of the cylinder to the given point
         Vector vector1  = point3D.subtract(o);
 
         //we need the projection to multiply the direction until unit vector
@@ -65,7 +66,6 @@ public class Tube implements Geometry {
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
-
 
         //this vector is orthogonal to the dir vector
         Vector check = point3D.subtract(o);
