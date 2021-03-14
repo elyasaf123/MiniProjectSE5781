@@ -12,7 +12,7 @@ import static primitives.Util.isZero;
 
 /**
  * Unit tests for primitives.Vector class
- * @author Dan
+ * @author Netanel & Elyasaf
  */
 
 class VectorTests {
@@ -21,23 +21,35 @@ class VectorTests {
     Vector v2 = new Vector(-2, -4, -6);
     Vector v3 = new Vector(0, 3, -2);
 
+
+    /**
+     * Test method for {@link primitives.Vector#subtract(Vector)} (primitives.Vector)}.
+     */
     @Test
     void testSubtract() {
         assertEquals(new Vector(3,6,9), v1.subtract(v2), "subtract() wrong result");
     }
 
+
+    /**
+     * Test method for {@link primitives.Vector#add(Vector)} (primitives.Vector)}.
+     */
     @Test
     void testAdd() {
         assertEquals(new Vector(-1,-2,-3), v1.add(v2), "add() wrong result");
     }
 
+    /**
+     * Test method for {@link primitives.Vector#scale(double)} (primitives.Vector)}.
+     */
     @Test
     void testScale() {
         assertEquals(new Vector(2,4,6), v1.scale(2), "scale() wrong result");
     }
 
-    // test Dot-Product
-    @Test
+    /**
+     * Test method for {@link primitives.Vector#dotProduct(Vector)} Product(primitives.Vector)}.
+     */    @Test
     void testDotProduct() {
         assertEquals(0,v1.dotProduct(v3),"ERROR: dotProduct() for orthogonal vectors is not zero");
         assertEquals(0,v1.dotProduct(v2) + 28,"ERROR: dotProduct() wrong value");
@@ -72,14 +84,19 @@ class VectorTests {
         }
     }
 
-    // test length..
-    @Test
+    /**
+     * Test method for {@link Vector#lengthSquared()} (primitives.Vector)}.
+     */    @Test
     void testLengthSquared() {
         assertEquals(0,v1.lengthSquared() - 14,"ERROR: lengthSquared() wrong value");
 //        if (!isZero(v1.lengthSquared() - 14))
 //            out.println("ERROR: lengthSquared() wrong value");
     }
 
+
+    /**
+     * Test method for {@link Vector#length()} (primitives.Vector)}.
+     */
     @Test
     void testLength() {
         assertEquals(0,new Vector(0, 3, 4).length() - 5,"ERROR: length() wrong value");
@@ -87,6 +104,9 @@ class VectorTests {
 //            out.println("ERROR: length() wrong value");
     }
 
+    /**
+     * Test method for {@link Vector#normalize()} (primitives.Vector)}.
+     */
     @Test
     void testNormalize() {
         Vector v = new Vector(3.5, -5, 10);
@@ -104,7 +124,9 @@ class VectorTests {
         }
     }
 
-
+    /**
+     * Test method for {@link Vector#normalized()} (primitives.Vector)}.
+     */
     @Test
     void testNormalized() {
         Vector v = new Vector(1, 2, 3);

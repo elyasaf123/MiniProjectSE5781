@@ -7,11 +7,22 @@ import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Point3D.ZERO;
 
+
+
+/**
+ * Unit tests for primitives.Point3D class
+ * @author Netanel & Elyasaf
+ */
 class Point3DTests {
 
     Point3D p1 = new Point3D(1.0d, 2.0d, 3.0d);
     Point3D p2 = new Point3D(1.0000000000000001, 2, 3);
 
+
+
+    /**
+     * Test method for {@link primitives.Point3D#equals(Object)} (Vector)} (primitives.Vector)}.
+     */
     //boolean equality = p1.equals(p2);
     @Test
     void testEquals() {
@@ -19,6 +30,10 @@ class Point3DTests {
         assertEquals(p1, p2);
     }
 
+
+    /**
+     * Test method for {@link primitives.Point3D#distanceSquared(Point3D)} (Object)} (Vector)} (primitives.Vector)}.
+     */
     @Test
     void testDistanceSquared() {
         Point3D p3 = new Point3D(-1, -1.52, -3);
@@ -27,6 +42,10 @@ class Point3DTests {
         System.out.println(result);
     }
 
+
+    /**
+     * Test method for {@link primitives.Point3D#distance(Point3D)} (Object)} (Vector)} (primitives.Vector)}.
+     */
     @Test
     void testDistance() {
         Point3D p3 = new Point3D(-1, -1.52, -3);
@@ -35,6 +54,11 @@ class Point3DTests {
         System.out.println(result);
     }
 
+
+
+    /**
+     * Test method for {@link primitives.Point3D#add(Vector)} (Object)} (Vector)} (primitives.Vector)}.
+     */
     // Test operations with points and vectors
     @Test
     void testAdd() {
@@ -44,6 +68,10 @@ class Point3DTests {
 //            out.println("ERROR: Point + Vector does not work correctly");
     }
 
+
+    /**
+     * Test method for {@link primitives.Point3D#subtract(Point3D)} (Object)} (Vector)} (primitives.Vector)}.
+     */
     // Test operations with points and vectors
     @Test
     void testSubtract() {
