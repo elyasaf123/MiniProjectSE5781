@@ -55,6 +55,8 @@ public class Cylinder extends Tube  {
         Vector v = axisRay.getDir();
 
         Vector vector1  = point3D.subtract(o);
+        //Ax + By + Cz = d
+        double d = -1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble());
 
         //we need the projection to multiply the direction until unit vector
         double projection = vector1.dotProduct(v);
@@ -63,7 +65,11 @@ public class Cylinder extends Tube  {
             o = o.add(v.scale(projection));
         }
 
-        //double d = -1d*(v.getHead().getX()*o.getX() + v.getHead().getY()*o.getY() + v.getHead().getZ()*o.getZ())d;
+        double DGiven = -1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble());
+
+        if (DGiven == d || DGiven == d + height){
+            return v.normalized();
+        }
         //this vector is orthogonal to the dir vector
         Vector check = point3D.subtract(o);
         return check.normalize();

@@ -48,6 +48,28 @@ public class Point3D {
     }
 
     /**
+     * x getter
+     * @return x
+     */
+    public Double getXDouble() {
+        return x.coord;
+    }
+
+    /**
+     * y getter
+     * @return y
+     */
+    public Double getYDouble() { return y.coord; }
+
+    /**
+     * z getter
+     * @return z
+     */
+    public Double getZDouble() {
+        return z.coord;
+    }
+
+    /**
      * CTOR Which gets 3 types of Coordinate type
      * @param x coordinate for x axis
      * @param y coordinate for y axis
