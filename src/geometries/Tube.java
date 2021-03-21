@@ -57,6 +57,7 @@ public class Tube implements Geometry {
 
         Point3D o = axisRay.getP0();//at this point o = p0
         Vector v = axisRay.getDir();
+
         //The vector from the point of the cylinder to the given point
         Vector vector1  = point3D.subtract(o);
 
