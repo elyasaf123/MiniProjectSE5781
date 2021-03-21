@@ -26,5 +26,6 @@ class TriangleTests {
 
     @Test
     void findIntersections() {
+
     }
 }
