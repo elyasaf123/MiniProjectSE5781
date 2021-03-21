@@ -97,6 +97,7 @@ public class Plane implements Geometry {
         }
 
         double nv = normal.dotProduct(v);
+
         //the ray is parallel to the plane doesn't matter if contained or not
         if(isZero(nv)) {
             return null;
@@ -109,6 +110,11 @@ public class Plane implements Geometry {
         //...
         //t = normal*(Q - p0)/n*v
         double t = normal.dotProduct(q0.subtract(p0));
+
+        //check if exiting point is on plane
+        if(isZero(t)) {
+            return null;
+        }
         //we checked already that nv isn't zero!
         t /= nv;
         //P = P0 + t*v
