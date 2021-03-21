@@ -3,23 +3,24 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Geometries implements Intersectable {
-    List<Intersectable> intersectables = null;
+    List<Intersectable> intersectables;
+
     public Geometries(){
         intersectables = new LinkedList<>();
     }
 
-    public Geometries(Intersectable...intersectables){
-        for (Intersectable item : intersectables){
-            add(intersectables); // // TODO: 21/03/2021  
-        }
+    public Geometries(Intersectable...intersectables1){
+        this();
+        intersectables.addAll(Arrays.asList(intersectables1));
     }
 
-    public void add (Intersectable...intersectables){
+    public void add (Intersectable...intersectables) {
         Collections.addAll(this.intersectables, intersectables);
     }
 
