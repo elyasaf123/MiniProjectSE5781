@@ -91,4 +91,8 @@ public class PolygonTests {
                 pl.getNormal(new Point3D(0, 0, 1)),
                 "Bad normal to polygon");
     }
+
+    @Test
+    void findIntersections() {
+    }
 }

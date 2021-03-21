@@ -19,4 +19,8 @@ class TubeTests {
         Tube tube = new Tube(new Ray(new Point3D(0,0,0), new Vector(0,0,1)), 1);
         assertEquals(new Vector(new Point3D(1,0,0)),tube.getNormal(new Point3D(1,0,0)),"Bad normal to tube");
     }
+
+    @Test
+    void findIntersections() {
+    }
 }

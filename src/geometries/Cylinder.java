@@ -3,6 +3,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -71,6 +73,11 @@ public class Cylinder extends Tube  {
         //this vector is orthogonal to the dir vector
         Vector check = point3D.subtract(o);
         return check.normalize();
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 
     /**

@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -19,6 +20,11 @@ public class Triangle extends Polygon{
      */
     public Triangle(Point3D x,Point3D y,Point3D z) {
         super(x,y,z);
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
     }
 
     /**

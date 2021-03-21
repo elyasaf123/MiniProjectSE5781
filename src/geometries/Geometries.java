@@ -15,7 +15,7 @@ public class Geometries implements Intersectable {
 
     public Geometries(Intersectable...intersectables){
         for (Intersectable item : intersectables){
-            add(intersectables); // what?????
+            add(intersectables); // // TODO: 21/03/2021  
         }
     }
 

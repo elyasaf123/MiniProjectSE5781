@@ -31,8 +31,13 @@ class CylinderTests {
         Point3D point3D = new Point3D(1,0,0);
         assertEquals(new Vector(new Point3D(0,0,1)) ,cylinder.getNormal(point3D), "Bad normal to cylinder");
 
-        // =============== Boundary Values Tests ==================
+        // =============== Equivalence Values Tests ==================
         Point3D point3D2 = new Point3D(1,0,0.5);
         assertEquals(new Vector(new Point3D(1,0,0)) ,cylinder.getNormal(point3D2), "Bad normal to cylinder");
+    }
+
+    @Test
+    void findIntersections() {
+
     }
 }

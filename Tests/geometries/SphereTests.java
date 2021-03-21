@@ -70,6 +70,6 @@ class SphereTests {
         // TC21: Ray starts after the tangent point
 
         // **** Group: Special cases
-        // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
+        // TC22: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
     }
 }

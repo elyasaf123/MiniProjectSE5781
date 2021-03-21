@@ -19,6 +19,12 @@ class TriangleTests {
                 new Point3D(0,0,1),
                 new Point3D(1,0,1),
                 new Point3D(0,1,1));
-        assertEquals(new Vector(new Point3D(0,0,1)),tr.getNormal(new Point3D(0,0,1)),"Bad normal to plane");
+        assertTrue((new Vector(new Point3D(0,0,1))).equals(tr.getNormal(new Point3D(0,0,1))) ||
+                        (new Vector(new Point3D(0,0,-1))).equals(tr.getNormal(new Point3D(0,0,1)))
+                        ,"Bad normal to plane");
+    }
+
+    @Test
+    void findIntersections() {
     }
 }
