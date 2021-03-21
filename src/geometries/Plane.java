@@ -90,18 +90,28 @@ public class Plane implements Geometry {
         Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
 
+        //the ray is intersecting with starting point p0 which is not called intersecting!
         if (q0.equals(p0)) {
-            return List.of(q0);
+            //return List.of(q0);
+            return null;
         }
 
         double nv = normal.dotProduct(v);
-
+        //the ray is parallel to the plane doesn't matter if contained or not
         if(isZero(nv)) {
             return null;
         }
 
+
+        //P is the point which the vector intersects with the plane
+        //Ray points: P = P0 + t*v
+        //Plane points: normal*(q0-p) = 0
+        //...
+        //t = normal*(Q - p0)/n*v
         double t = normal.dotProduct(q0.subtract(p0));
+        //we checked already that nv isn't zero!
         t /= nv;
+        //P = P0 + t*v
         Point3D p = ray.getTargetPoint(t);
         return List.of(p);
     }
