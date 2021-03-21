@@ -55,4 +55,8 @@ public class Ray {
                 ", dir=" + dir +
                 '}';
     }
+
+    public Point3D getTargetPoint(double t) {
+        return getP0().add(dir.scale(t));
+    }
 }

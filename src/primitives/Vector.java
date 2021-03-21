@@ -21,7 +21,7 @@ public class Vector {
     public Vector(double x, double y, double z) {
         Point3D temp = new Point3D(x, y, z);
         if (temp.equals(ZERO)) {
-            throw new IllegalArgumentException("head cannot be point(0,0,0,)");
+            throw new IllegalArgumentException("head cannot be point(0,0,0)");
         }
         head = temp;
     }
