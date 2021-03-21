@@ -102,7 +102,6 @@ public class Plane implements Geometry {
             return null;
         }
 
-
         //P is the point which the vector intersects with the plane
         //Ray points: P = P0 + t*v
         //Plane points: normal*(q0-p) = 0
