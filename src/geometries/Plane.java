@@ -1,7 +1,12 @@
 package geometries;
 
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
+import static primitives.Util.isZero;
 
 /**
  * class that reperesents a plane in 3d
@@ -39,7 +44,7 @@ public class Plane implements Geometry {
      */
     public Plane(Point3D q0, Vector normal) {
         this.q0 = q0;
-        this.normal = normal;
+        this.normal = normal.normalized();
     }
 
     /**
@@ -78,5 +83,26 @@ public class Plane implements Geometry {
                 "q0=" + q0 +
                 ", normal=" + normal +
                 '}';
+    }
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        Point3D p0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        if (q0.equals(p0)) {
+            return List.of(q0);
+        }
+
+        double nv = normal.dotProduct(v);
+
+        if(isZero(nv)) {
+            return null;
+        }
+
+        double t = normal.dotProduct(q0.subtract(p0));
+        t /= nv;
+        Point3D p = ray.getTargetPoint(t);
+        return List.of(p);
     }
 }
