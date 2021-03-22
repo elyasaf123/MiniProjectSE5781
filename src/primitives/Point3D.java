@@ -51,7 +51,7 @@ public class Point3D {
      * x getter
      * @return x
      */
-    public Double getXDouble() {
+    public double getXDouble() {
         return x.coord;
     }
 
@@ -59,13 +59,13 @@ public class Point3D {
      * y getter
      * @return y
      */
-    public Double getYDouble() { return y.coord; }
+    public double getYDouble() { return y.coord; }
 
     /**
      * z getter
      * @return z
      */
-    public Double getZDouble() {
+    public double getZDouble() {
         return z.coord;
     }
 

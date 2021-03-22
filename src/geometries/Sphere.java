@@ -50,7 +50,7 @@ public class Sphere extends RadialGeometry implements Geometry {
 
     /**
      * to string to represent sphere class
-     * @return
+     * @return toString
      */
     @Override
     public String toString() {
@@ -62,6 +62,10 @@ public class Sphere extends RadialGeometry implements Geometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+        if (getCenter().equals(ray.getP0())) {
+            return List.of(ray.getTargetPoint(getRadius()));
+        }
+
         Vector u = getCenter().subtract(ray.getP0());
         Vector v = ray.getDir();
         double tm = u.dotProduct(v);

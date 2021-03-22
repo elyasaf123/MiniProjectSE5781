@@ -29,11 +29,11 @@ public class Plane implements Geometry {
      * @param y second point
      * @param z third point
      */
-    public Plane(Point3D x,Point3D y,Point3D z){
+    public Plane(Point3D x,Point3D y,Point3D z) {
         q0 = x;
         Vector a = x.subtract(y);
         Vector b = y.subtract(z);
-        normal = a.crossProduct(b);
+        normal = a.crossProduct(b).scale(-1);
         normal.normalize();
     }
 
@@ -103,7 +103,6 @@ public class Plane implements Geometry {
             return null;
         }
 
-
         //P is the point which the vector intersects with the plane
         //Ray points: P = P0 + t*v
         //Plane points: normal*(q0-p) = 0
@@ -117,6 +116,12 @@ public class Plane implements Geometry {
         }
         //we checked already that nv isn't zero!
         t /= nv;
+
+        // if t is negative there are no intersections
+        if (t < 0) {
+            return null;
+        }
+
         //P = P0 + t*v
         Point3D p = ray.getTargetPoint(t);
         return List.of(p);
