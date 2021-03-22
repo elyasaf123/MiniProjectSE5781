@@ -2,7 +2,11 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -94,5 +98,37 @@ public class PolygonTests {
 
     @Test
     void findIntersections() {
+        Polygon polygon = new Polygon(new Point3D(1,0,0),new Point3D(2,0,0),new Point3D(2,1,0) ,new Point3D(1,1,0));
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01:Ray is intersecting in polygon (1 Points)
+        Ray ray1 = new Ray(new Point3D(1,0,1), new Vector(new Point3D(0.1,0.1,-1)));
+        assertEquals(List.of(new Point3D(1.1,0.1,0)),polygon.findIntersections(ray1),"ERROR - TC01:Ray is intersecting in triangle (1 Points)");
+
+
+        // TC02:Ray is not intersecting with polygon and is parallel to the edge (0 Points)
+        Ray ray2 = new Ray(new Point3D(1.5,-1,1), new Vector(new Point3D(0,0,-1)));
+        assertNull(polygon.findIntersections(ray2),"ERROR - TC02:Ray is not intersecting with polygon and is parallel to the edge (0 Points)");
+
+        // TC03:Ray is not intersecting with polygon and is parallel to the vertx (0 Points)
+        Ray ray3 = new Ray(new Point3D(0.5,-1,1), new Vector(new Point3D(0,0,-1)));
+        assertNull(polygon.findIntersections(ray3),"ERROR - TC03:Ray is not intersecting with polygon and is parallel to the vertx (0 Points)");
+
+
+        // =============== Boundary Values Tests ==================
+        // TC04:Ray is intersecting with polygon on edge (0 Points)
+        Ray ray4 = new Ray(new Point3D(1.5,0,1), new Vector(new Point3D(0,0,-1)));
+        assertNull(polygon.findIntersections(ray4),"ERROR - TC04:Ray is intersecting with polygon on edge (0 Points)");
+
+        // TC05:Ray is intersecting with polygon on vertx (0 Points)
+        Ray ray5 = new Ray(new Point3D(1,0,1), new Vector(new Point3D(0,0,-1)));
+        assertNull(polygon.findIntersections(ray5),"ERROR - TC05:Ray is intersecting with polygon on vertx (0 Points)");
+
+        // TC06:Ray is intersecting with the continuation of the edge (0 Points)
+        Ray ray6 = new Ray(new Point3D(0.5,0,1), new Vector(new Point3D(0,0,-1)));
+        assertNull(polygon.findIntersections(ray6),"ERROR - TC06:Ray is intersecting with the continuation of the edge (0 Points)");
+
+
     }
 }
