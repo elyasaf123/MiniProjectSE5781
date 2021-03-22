@@ -93,7 +93,7 @@ public class Plane implements Geometry {
             return null;
         }
 
-        double nv = normal.dotProduct(v);
+        double nv = alignZero(normal.dotProduct(v));
 
         //the ray is parallel to the plane doesn't matter if contained or not
         if(isZero(nv)) {
