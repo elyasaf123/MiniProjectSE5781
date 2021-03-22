@@ -1,6 +1,7 @@
 package primitives;
 
 import static primitives.Point3D.ZERO;
+import static primitives.Util.alignZero;
 
 /**
  * A basic object in geometry with direction and size, defined by the end point
@@ -98,9 +99,9 @@ public class Vector {
      * @return The result of the scalar product (double)
      */
     public double dotProduct(Vector vector) {
-        return  this.head.getX().coord * vector.head.getX().coord +
+        return  alignZero(this.head.getX().coord * vector.head.getX().coord +
                 this.head.getY().coord * vector.head.getY().coord +
-                this.head.getZ().coord * vector.head.getZ().coord;
+                this.head.getZ().coord * vector.head.getZ().coord);
     }
 
     /**
@@ -110,9 +111,9 @@ public class Vector {
      */
     public Vector crossProduct(Vector vector) {
         return new Vector(
-                this.head.getY().coord * vector.head.getZ().coord - this.head.getZ().coord * vector.head.getY().coord,
-                this.head.getZ().coord * vector.head.getX().coord - this.head.getX().coord * vector.head.getZ().coord,
-                this.head.getX().coord * vector.head.getY().coord - this.head.getY().coord * vector.head.getX().coord);
+                alignZero(this.head.getY().coord * vector.head.getZ().coord - this.head.getZ().coord * vector.head.getY().coord),
+                alignZero(this.head.getZ().coord * vector.head.getX().coord - this.head.getX().coord * vector.head.getZ().coord),
+                alignZero(this.head.getX().coord * vector.head.getY().coord - this.head.getY().coord * vector.head.getX().coord));
     }
 
     /**
@@ -120,7 +121,7 @@ public class Vector {
      * @return the square of the distance between 2 vectors
      */
     public double lengthSquared() {
-        return this.head.distanceSquared(new Point3D(0,0,0));
+        return alignZero(this.head.distanceSquared(new Point3D(0,0,0)));
     }
 
     /**
@@ -128,7 +129,7 @@ public class Vector {
      * @return the distance between 2 vectors
      */
     public double length() {
-        return this.head.distance(new Point3D(0,0,0));
+        return alignZero(this.head.distance(new Point3D(0,0,0)));
     }
 
     /**

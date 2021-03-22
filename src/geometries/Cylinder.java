@@ -1,11 +1,10 @@
 package geometries;
+
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * class cylinder which adds height to tube
@@ -18,7 +17,7 @@ public class Cylinder extends Tube  {
     private double height;
 
     /**
-     * ctor of cylinder  which has to call super(Tube)
+     * CTOR of cylinder which has to call super (Tube)
      * @param axisRay axis which the cylinder will be there
      * @param radius radius of cylinder
      * @param height height of cylinder
@@ -49,22 +48,22 @@ public class Cylinder extends Tube  {
         //The vector from the point of the cylinder to the given point
         Vector vector1  = point3D.subtract(o);
 
-        //  Based on the plane equation (Ax + By + Cz = d) Calculate the sliding vector value.
-        //  According to this sliding vector we will check if the given point is on the planes that block the cylinder from its 2 ends (d or d+height).
-        //  then the normal vector will be a dir vector (and so also in boundary cases).
-        //  If the given point is not on planes then it will necessarily be across the round cylinder shell,
-        //  and the normal will be an orthogonal vector to dir
-        double d = -1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble());
+        //Based on the plane equation (Ax + By + Cz = d) Calculate the sliding vector value.
+        //According to this sliding vector we will check if the given point is on the planes that block the cylinder from its 2 ends (d or d+height).
+        //then the normal vector will be a dir vector (and so also in boundary cases).
+        //If the given point is not on planes then it will necessarily be across the round cylinder shell,
+        //and the normal will be an orthogonal vector to dir
+        double d = alignZero(-1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble()));
 
         //we need the projection to multiply the direction until unit vector
-        double projection = vector1.dotProduct(v);
+        double projection = alignZero(vector1.dotProduct(v));
         // Check that the point is not outside the cylinder
         if(!(projection <= 0) && (projection <= height)){
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
         // sliding vector of the point given
-        double DGiven = -1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble());
+        double DGiven = alignZero(-1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble()));
 
         // ============ Equivalence Partitions Tests ==============
         if (DGiven == d || DGiven == d + height){
@@ -81,7 +80,7 @@ public class Cylinder extends Tube  {
     }
 
     /**
-     * to string for cylinder
+     * to-string for cylinder
      * @return string that repersents a cylinder
      */
     @Override

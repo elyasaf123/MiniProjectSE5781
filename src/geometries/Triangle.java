@@ -3,20 +3,13 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-import primitives.Util;
-
-import javax.sql.PooledConnection;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-
 import static primitives.Util.*;
 
 /**
  *class that represents polygon in 3D
  */
 public class Triangle extends Polygon{
-
     /**
      *Ctor that accepts 3 points
      * @param x first point

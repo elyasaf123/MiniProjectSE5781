@@ -3,22 +3,17 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  *class to represent a sphere in 3D
  */
 public class Sphere extends RadialGeometry implements Geometry {
-
     /**
      *center of sphere in 3D
      */
     private Point3D center;
-
     /**
      *Ctor of sphere
      * @param center center of sphere in 3D
@@ -68,7 +63,7 @@ public class Sphere extends RadialGeometry implements Geometry {
 
         Vector u = getCenter().subtract(ray.getP0());
         Vector v = ray.getDir();
-        double tm = u.dotProduct(v);
+        double tm = alignZero(u.dotProduct(v));
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm*tm));
         if (d > getRadius()) {
             return null;

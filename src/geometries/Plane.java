@@ -3,10 +3,8 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * class that reperesents a plane in 3d
@@ -92,7 +90,6 @@ public class Plane implements Geometry {
 
         //the ray is intersecting with starting point p0 which is not called intersecting!
         if (q0.equals(p0)) {
-            //return List.of(q0);
             return null;
         }
 
@@ -108,14 +105,14 @@ public class Plane implements Geometry {
         //Plane points: normal*(q0-p) = 0
         //...
         //t = normal*(Q - p0)/n*v
-        double t = normal.dotProduct(q0.subtract(p0));
+        double t = alignZero(normal.dotProduct(q0.subtract(p0)));
 
         //check if exiting point is on plane
         if(isZero(t)) {
             return null;
         }
         //we checked already that nv isn't zero!
-        t /= nv;
+        t = alignZero(t / nv);
 
         // if t is negative there are no intersections
         if (t < 0) {

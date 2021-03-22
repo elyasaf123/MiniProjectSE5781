@@ -1,26 +1,18 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
-import primitives.Vector;
-
-import static java.lang.System.out;
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.isZero;
-
-
-
+import static primitives.Util.*;
 
 /**
  * Unit tests for primitives.Vector class
  * @author Netanel & Elyasaf
  */
-
 class VectorTests {
 
     Vector v1 = new Vector(1, 2, 3);
     Vector v2 = new Vector(-2, -4, -6);
     Vector v3 = new Vector(0, 3, -2);
-
 
     /**
      * Test method for {@link primitives.Vector#subtract(Vector)} (primitives.Vector)}.
@@ -29,7 +21,6 @@ class VectorTests {
     void testSubtract() {
         assertEquals(new Vector(3,6,9), v1.subtract(v2), "subtract() wrong result");
     }
-
 
     /**
      * Test method for {@link primitives.Vector#add(Vector)} (primitives.Vector)}.
@@ -92,7 +83,6 @@ class VectorTests {
 //        if (!isZero(v1.lengthSquared() - 14))
 //            out.println("ERROR: lengthSquared() wrong value");
     }
-
 
     /**
      * Test method for {@link Vector#length()} (primitives.Vector)}.

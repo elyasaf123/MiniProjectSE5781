@@ -4,16 +4,13 @@ import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for geometries.Cylinder class
  * @author Netanel & Elyasaf
  */
-
 class CylinderTests {
-
     /**
      * Test method for {@link geometries.Cylinder#getNormal(primitives.Point3D)}.
      */
