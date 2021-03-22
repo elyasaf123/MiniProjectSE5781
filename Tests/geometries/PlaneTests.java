@@ -43,8 +43,8 @@ class PlaneTests {
         assertEquals(list1, plane.findIntersections(ray1),"ERROR TC01: Ray intersect the plane");
 
         // TC02: Ray does not intersect the plane (0 points)
-//        Ray ray2 = new Ray(new Point3D(1,0,0),new Vector(-1,0,-1).normalize());
-//        assertNull(plane.findIntersections(ray2),"Error - TC02: Ray does not intersect the plane");
+        Ray ray2 = new Ray(new Point3D(1,0,0),new Vector(-1,0,-1).normalize());
+        assertNull(plane.findIntersections(ray2),"Error - TC02: Ray does not intersect the plane");
 
 
 
@@ -72,8 +72,8 @@ class PlaneTests {
 
 
         // TC07: Ray is orthogonal to the plane and start after the plane (0 point)
-//        Ray ray7 = new Ray(new Point3D(0,0,-1),new Vector(0,0,-1).normalize());
-//        assertNull(plane.findIntersections(ray7),"Error - TC07: Ray is orthogonal to the plane and start after the plane");
+        Ray ray7 = new Ray(new Point3D(0,0,-1),new Vector(0,0,-1).normalize());
+        assertNull(plane.findIntersections(ray7),"Error - TC07: Ray is orthogonal to the plane and start after the plane");
 
 
         // TC08: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane , but not the ray) (0 point)
