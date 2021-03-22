@@ -33,7 +33,7 @@ public class Plane implements Geometry {
         q0 = x;
         Vector a = x.subtract(y);
         Vector b = y.subtract(z);
-        normal = a.crossProduct(b).scale(-1);
+        normal = a.crossProduct(b);
         normal.normalize();
     }
 
