@@ -3,10 +3,8 @@ package geometries;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * class that represents a tube in 32
@@ -59,7 +57,7 @@ public class Tube extends RadialGeometry implements Geometry {
         Vector vector1  = point3D.subtract(o);
 
         //we need the projection to multiply the direction until unit vector
-        double projection = vector1.dotProduct(v);
+        double projection = alignZero(vector1.dotProduct(v));
         if(!isZero(projection)){
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));

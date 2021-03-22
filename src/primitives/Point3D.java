@@ -1,6 +1,6 @@
 package primitives;
 
-import java.util.Objects;
+import static primitives.Util.alignZero;
 
 /**
  * basic geometric object for 3D point
@@ -52,21 +52,23 @@ public class Point3D {
      * @return x
      */
     public double getXDouble() {
-        return x.coord;
+        return alignZero(x.coord);
     }
 
     /**
      * y getter
      * @return y
      */
-    public double getYDouble() { return y.coord; }
+    public double getYDouble() {
+        return alignZero(y.coord);
+    }
 
     /**
      * z getter
      * @return z
      */
     public double getZDouble() {
-        return z.coord;
+        return alignZero(z.coord);
     }
 
     /**
@@ -76,7 +78,7 @@ public class Point3D {
      * @param z coordinate for z axis
      */
     public Point3D(Coordinate x, Coordinate y, Coordinate z) {
-        this(x.coord, y.coord, z.coord);
+        this(alignZero(x.coord), alignZero(y.coord), alignZero(z.coord));
     }
 
     /**
@@ -97,14 +99,14 @@ public class Point3D {
      * @return the square of the distance between 2 three-dimensional points
      */
     public double distanceSquared(Point3D point3D) {
-        double x1 = x.coord;
-        double y1 = y.coord;
-        double z1 = z.coord;
-        double x2 = point3D.x.coord;
-        double y2 = point3D.y.coord;
-        double z2 = point3D.z.coord;
+        double x1 = alignZero(x.coord);
+        double y1 = alignZero(y.coord);
+        double z1 = alignZero(z.coord);
+        double x2 = alignZero(point3D.x.coord);
+        double y2 = alignZero(point3D.y.coord);
+        double z2 = alignZero(point3D.z.coord);
 
-        return ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+        return alignZero((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
     }
 
     /**
@@ -113,7 +115,7 @@ public class Point3D {
      * @return the distance between 2 three-dimensional
      */
     public double distance(Point3D point3D) {
-        return Math.sqrt(distanceSquared(point3D));
+        return alignZero(Math.sqrt(distanceSquared(point3D)));
     }
 
     /**
@@ -124,9 +126,9 @@ public class Point3D {
      */
     public Point3D add(Vector vector) {
         return new Point3D(
-                x.coord + vector.getHead().x.coord,
-                y.coord + vector.getHead().y.coord,
-                z.coord + vector.getHead().z.coord);
+                alignZero(x.coord + vector.getHead().x.coord),
+                alignZero(y.coord + vector.getHead().y.coord),
+                alignZero(z.coord + vector.getHead().z.coord));
     }
 
     /**
@@ -136,9 +138,9 @@ public class Point3D {
      */
     public Vector subtract(Point3D point3D) {
         return new Vector(
-                  x.coord - point3D.x.coord,
-                  y.coord - point3D.y.coord,
-                  z.coord - point3D.z.coord);
+                  alignZero(x.coord - point3D.x.coord),
+                  alignZero(y.coord - point3D.y.coord),
+                  alignZero(z.coord - point3D.z.coord));
     }
 
     /**

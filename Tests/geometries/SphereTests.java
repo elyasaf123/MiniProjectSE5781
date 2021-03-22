@@ -4,10 +4,9 @@ import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Unit tests for geometries.Sphere class
  * @author Netanel & Elyasaf
