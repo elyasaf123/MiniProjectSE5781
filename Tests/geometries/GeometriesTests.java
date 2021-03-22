@@ -6,9 +6,11 @@ class GeometriesTests {
 
     @Test
     void add() {
+
     }
 
     @Test
     void findIntersections() {
+
     }
 }
