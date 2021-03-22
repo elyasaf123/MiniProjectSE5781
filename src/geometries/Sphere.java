@@ -73,10 +73,10 @@ public class Sphere extends RadialGeometry implements Geometry {
             return null;
         }
 
-        double t1 = tm + th;
-        double t2 = tm - th;
+        double t1 = alignZero(tm + th);
+        double t2 = alignZero(tm - th);
         if (t1 > 0 && t2 > 0) {
-            return  List.of(ray.getTargetPoint(t1), ray.getTargetPoint(t2));
+            return List.of(ray.getTargetPoint(t1), ray.getTargetPoint(t2));
         }
 
         if (t1> 0 ) {
