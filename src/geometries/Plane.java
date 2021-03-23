@@ -123,7 +123,7 @@ public class Plane implements Geometry {
         t = alignZero(t / nv);
 
         // if t is negative there are no intersections
-        if (t < 0) {
+        if (alignZero(t) <= 0) {
             return null;
         }
 
