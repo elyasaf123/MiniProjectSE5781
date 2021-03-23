@@ -8,14 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class GeometriesTests {
-    /**
-     *  Test method for {@link geometries.Geometries#add(Intersectable...)}.
-     *  // TODO: 23/03/2021  
-     */
-    @Test
-    void add() {
-
-    }
 
     /**
      * Test method for {@link geometries.Geometries#findIntersections(Ray)}.

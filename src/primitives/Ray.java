@@ -52,7 +52,10 @@ public class Ray {
      * @return The 3D-point on the ray that is at a distance of t from the head of the ray
      */
     public Point3D getTargetPoint(double t) {
-        return getP0().add(dir.scale(alignZero(t)));
+        if (!isZero(alignZero(t))) {
+            return getP0().add(dir.scale(alignZero(t)));
+        }
+        return getP0();
     }
 
     /**
