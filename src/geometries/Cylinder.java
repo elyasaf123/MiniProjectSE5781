@@ -1,6 +1,6 @@
 package geometries;
 
-import primitives.Point3D;
+import primitives.*;
 import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
@@ -49,8 +49,13 @@ public class Cylinder extends Tube  {
         Vector vector1  = point3D.subtract(o);
 
         //Based on the plane equation (Ax + By + Cz = d) Calculate the sliding vector value.
-        //According to this sliding vector we will check if the given point is on the planes that block the cylinder from its 2 ends (d or d+height).
-        //then the normal vector will be a dir vector (and so also in boundary cases).
+        //According to this sliding vector we will check
+        // if the given point is on the planes that block the cylinder from its 2 ends
+        // (d or d+height).
+        //then the normal vector will be a dir vector.
+        // Additionally we decided that if the point received is exactly at the junction
+        // between the round cylinder shell and one of the planes that block the shell (boundary case)
+        // then we will calculate its normal from the plane.
         //If the given point is not on planes then it will necessarily be across the round cylinder shell,
         //and the normal will be an orthogonal vector to dir
         double d = alignZero(-1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble()));
@@ -74,6 +79,12 @@ public class Cylinder extends Tube  {
         return check.normalize();
     }
 
+    /**
+     * A method that receives a ray and checks the points of intersection of the ray with the cylinder
+     * Not implemented yet!
+     * @param ray the ray received
+     * @return null / list that includes all the intersection points (Point3D)
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         return null;

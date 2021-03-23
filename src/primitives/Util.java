@@ -28,8 +28,7 @@ public abstract class Util {
 
     /**
      * Checks whether the number is [almost] zero
-     *
-     * @param number
+     * @param number number
      * @return true if the number is zero or almost zero, false otherwise
      */
     public static boolean isZero(double number) {
@@ -38,8 +37,7 @@ public abstract class Util {
 
     /**
      * Aligns the number to zero if it is almost zero
-     *
-     * @param number
+     * @param number number
      * @return 0.0 if the number is very close to zero, the number itself otherwise
      */
     public static double alignZero(double number) {
@@ -48,7 +46,6 @@ public abstract class Util {
 
     /**
      * Check whether two numbers have the same sign
-     *
      * @param n1 1st number
      * @param n2 2nd number
      * @return true if the numbers have the same sign
@@ -59,8 +56,8 @@ public abstract class Util {
 
     /**
      * Provide a real random number in range between min and max
-     * @param min
-     * @param max
+     * @param min min
+     * @param max max
      * @return the random value
      */
     public static double random(double min, double max) {
