@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CylinderTests {
 
     /**
-     * Test method for {@link geometries.Cylinder#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Cylinder#getNormal(Point3D)}.
      * We decided that if the point received is exactly at the junction
      * between the round cylinder shell and one of the planes that block the shell (boundary case)
      * then we will calculate its normal from the plane.
@@ -39,21 +39,15 @@ class CylinderTests {
 
         // TC02: the point is on the shell
         Point3D point3D2 = new Point3D(1,0,0.5);
-        assertEquals(
-                new Vector(new Point3D(1,0,0)),
-                cylinder.getNormal(point3D2),
-        "ERROR - TC02: the point is on the shell. Bad normal to cylinder");
+        assertEquals(new Vector(new Point3D(1,0,0)), cylinder.getNormal(point3D2), "ERROR - TC02: the point is on the shell. Bad normal to cylinder");
 
         // =============== Boundary Values Tests ==================
         Point3D point3D3 = new Point3D(1,0,0);
-        assertEquals(
-                new Vector(new Point3D(0,0,1)),
-                cylinder.getNormal(point3D),
-        "Bad normal to cylinder");
+        assertEquals(new Vector(new Point3D(0,0,1)), cylinder.getNormal(point3D), "Bad normal to cylinder");
     }
 
     /**
-     * Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
+     * Test method for {@link geometries.Cylinder#findIntersections(Ray)}.
      * Not implemented yet!
      */
     @Test

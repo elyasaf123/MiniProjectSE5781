@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Netanel & Elyasaf
  */
 class PlaneTests {
+
     /**
-     * Test method for {@link geometries.Plane#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Plane#getNormal(Point3D)}.
      */
     @Test
     void testGetNormal() {
@@ -27,10 +28,12 @@ class PlaneTests {
                 "Bad normal to plane");
     }
 
+    /**
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.
+     */
     @Test
     void findIntersection() {
         Plane plane = new Plane(new Point3D(0,0,1),new Vector(0,0,1));
-
 
         // ============ Equivalence Partitions Tests ==============
 
@@ -43,9 +46,6 @@ class PlaneTests {
         // TC02: Ray does not intersect the plane (0 points)
         Ray ray2 = new Ray(new Point3D(1,0,0),new Vector(-1,0,-1).normalize());
         assertNull(plane.findIntersections(ray2),"ERROR - TC02: Ray does not intersect the plane");
-
-
-
 
         // =============== Boundary Values Tests ==================
 
@@ -63,28 +63,21 @@ class PlaneTests {
         list5.add(new Point3D(0,0,1));
         assertEquals(list5, plane.findIntersections(ray5),"ERROR - TC05: Ray is orthogonal to the plane and start before the plane");
 
-
-//        // TC06: Ray is orthogonal to the plane and start in the plane (0 point)
+        // TC06: Ray is orthogonal to the plane and start in the plane (0 point)
         Ray ray6 = new Ray(new Point3D(0,1,1),new Vector(0,0,1).normalize());
         assertNull(plane.findIntersections(ray6),"ERROR - Ray is orthogonal to the plane and start in the plane");
-
 
         // TC07: Ray is orthogonal to the plane and start after the plane (0 point)
         Ray ray7 = new Ray(new Point3D(0,0,-1),new Vector(0,0,-1).normalize());
         assertNull(plane.findIntersections(ray7),"ERROR - TC07: Ray is orthogonal to the plane and start after the plane");
 
-
         // TC08: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane , but not the ray) (0 point)
         Ray ray8 = new Ray(new Point3D(0,1,1),new Vector(0,1,1).normalize());
         assertNull(plane.findIntersections(ray8),"ERROR - TC08: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane , but not the ray)");
-
 
         // TC09: Ray is neither orthogonal nor parallel to the plane and begins in
         //the same point which appears as reference point in the plane (q0) (0 point)
         Ray ray9 = new Ray(new Point3D(0,0,1),new Vector(0,1,1).normalize());
         assertNull(plane.findIntersections(ray9),"ERROR - TC09: Ray is neither orthogonal nor parallel to the plane and begins in the same point which appears as reference point in the plane (q0)");
-
-
-        // **** Group: Ray's line crosses the sphere (but not the center)
     }
 }

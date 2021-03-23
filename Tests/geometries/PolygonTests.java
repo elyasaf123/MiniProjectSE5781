@@ -4,21 +4,17 @@ import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing Polygons
- *
  * @author Dan
- *
  */
 public class PolygonTests {
 
     /**
-     * Test method for
+     * Test method for ctor
      */
     @Test
     public void testConstructor() {
@@ -79,7 +75,7 @@ public class PolygonTests {
     }
 
     /**
-     * Test method for {@link geometries.Polygon#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Polygon#getNormal(Point3D)}.
      */
     @Test
     public void testGetNormal() {
@@ -91,11 +87,12 @@ public class PolygonTests {
                 new Point3D(0, 1, 0),
                 new Point3D(-1, 1, 1));
         double sqrt3 = Math.sqrt(1d / 3);
-        assertEquals(new Vector(sqrt3, sqrt3, sqrt3),
-                pl.getNormal(new Point3D(0, 0, 1)),
-                "Bad normal to polygon");
+        assertEquals(new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)), "Bad normal to polygon");
     }
 
+    /**
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.
+     */
     @Test
     void findIntersections() {
         Polygon polygon = new Polygon(new Point3D(1,0,0),new Point3D(2,0,0),new Point3D(2,1,0) ,new Point3D(1,1,0));
@@ -106,7 +103,6 @@ public class PolygonTests {
         Ray ray1 = new Ray(new Point3D(1,0,1), new Vector(new Point3D(0.1,0.1,-1)));
         assertEquals(List.of(new Point3D(1.1,0.1,0)),polygon.findIntersections(ray1),"ERROR - TC01:Ray is intersecting in triangle (1 Points)");
 
-
         // TC02:Ray is not intersecting with polygon and is parallel to the edge (0 Points)
         Ray ray2 = new Ray(new Point3D(1.5,-1,1), new Vector(new Point3D(0,0,-1)));
         assertNull(polygon.findIntersections(ray2),"ERROR - TC02:Ray is not intersecting with polygon and is parallel to the edge (0 Points)");
@@ -115,8 +111,8 @@ public class PolygonTests {
         Ray ray3 = new Ray(new Point3D(0.5,-1,1), new Vector(new Point3D(0,0,-1)));
         assertNull(polygon.findIntersections(ray3),"ERROR - TC03:Ray is not intersecting with polygon and is parallel to the vertx (0 Points)");
 
-
         // =============== Boundary Values Tests ==================
+
         // TC04:Ray is intersecting with polygon on edge (0 Points)
         Ray ray4 = new Ray(new Point3D(1.5,0,1), new Vector(new Point3D(0,0,-1)));
         assertNull(polygon.findIntersections(ray4),"ERROR - TC04:Ray is intersecting with polygon on edge (0 Points)");
@@ -128,7 +124,5 @@ public class PolygonTests {
         // TC06:Ray is intersecting with the continuation of the edge (0 Points)
         Ray ray6 = new Ray(new Point3D(0.5,0,1), new Vector(new Point3D(0,0,-1)));
         assertNull(polygon.findIntersections(ray6),"ERROR - TC06:Ray is intersecting with the continuation of the edge (0 Points)");
-
-
     }
 }

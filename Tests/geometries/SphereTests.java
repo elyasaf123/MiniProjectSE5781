@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Netanel & Elyasaf
  */
 class SphereTests {
+
     /**
-     * Test method for {@link geometries.Sphere#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Sphere#getNormal(Point3D)}.
      */
     @Test
     void testGetNormal() {
@@ -22,7 +23,7 @@ class SphereTests {
     }
 
     /**
-     * Test method for {@link geometries.Sphere#findIntersections(primitives.Ray)}.
+     * Test method for {@link geometries.Sphere#findIntersections(Ray)}.
      */
     @Test
     public void testFindIntersections() {
@@ -52,7 +53,6 @@ class SphereTests {
             result3 = List.of(result3.get(0));
         assertEquals(List.of(p3), result3, "ERROR - TC03: Ray is exiting sphere");
 
-
         // TC04: Ray starts after the sphere (0 points)
         assertNull(sphere.findIntersections(new Ray(new Point3D(1, 0, 2), new Vector(1, 1, 1))),
                 "ERROR - TC04: Ray is off the sphere");
@@ -60,6 +60,7 @@ class SphereTests {
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray's line crosses the sphere (but not the center)
+
         // TC05: Ray starts at sphere and goes inside (1 points)
         Point3D p5 = new Point3D(1, 0, 1);
         List<Point3D> result5 = sphere.findIntersections(new Ray(new Point3D(0, 0, 0),
@@ -72,6 +73,7 @@ class SphereTests {
                 "ERROR - TC06: Ray is start on the sphere and exiting off the sphere");
 
         // **** Group: Ray's line goes through the center
+
         // TC07: Ray starts before the sphere (2 points)
         Point3D p7a = new Point3D(0, 0, 0);
         Point3D p7b = new Point3D(2, 0, 0);
@@ -113,6 +115,7 @@ class SphereTests {
                 "ERROR - TC12: Ray is start out of the sphere and exiting off the sphere");
 
         // **** Group: Ray's line is tangent to the sphere (all tests 0 points)
+
         // TC13: Ray starts before the tangent point
         assertNull(sphere.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(1, 0, 0))),
                 "ERROR - TC13: Ray is start out of the sphere and tangent to the sphere");
@@ -126,6 +129,7 @@ class SphereTests {
                 "ERROR - TC15: Ray is start out of the sphere and tangent to the sphere");
 
         // **** Group: Special cases
+
         // TC16: Ray's line is outside, ray is orthogonal to ray start to sphere's center line
         assertNull(sphere.findIntersections(new Ray(new Point3D(3, 0, 0), new Vector(1, 0, 0))),
                 "ERROR - TC16: Ray's line is outside, ray is orthogonal to ray start to sphere's center line");

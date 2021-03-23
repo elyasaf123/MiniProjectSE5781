@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Netanel & Elyasaf
  */
 class TubeTests {
+    
     /**
-     * Test method for {@link geometries.Tube#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Tube#getNormal(Point3D)}.
      */
     @Test
     void testGetNormal() {
@@ -20,7 +21,12 @@ class TubeTests {
         assertEquals(new Vector(new Point3D(1,0,0)),tube.getNormal(new Point3D(1,0,0)),"Bad normal to tube");
     }
 
+    /**
+     * Test method for {@link geometries.Tube#findIntersections(Ray)}.
+     * Not implemented yet!
+     */
     @Test
     void findIntersections() {
+
     }
 }
