@@ -17,10 +17,8 @@ class Point3DTests {
     /**
      * Test method for {@link primitives.Point3D#equals(Object)} (Vector)} (primitives.Vector)}.
      */
-    //boolean equality = p1.equals(p2);
     @Test
     void testEquals() {
-    //assertTrue(equality);
         assertEquals(p1, p2);
     }
 
@@ -53,9 +51,6 @@ class Point3DTests {
     @Test
     void testAdd() {
         assertEquals(ZERO,(new Point3D(1, 2, 3)).add(new Vector(-1, -2, -3)),"ERROR: Point + Vector does not work correctly");
-//        Point3D p1 = new Point3D(1, 2, 3);
-//        if (!Point3D.ZERO.equals(p1.add(new Vector(-1, -2, -3))))
-//            out.println("ERROR: Point + Vector does not work correctly");
     }
 
     /**
@@ -65,8 +60,5 @@ class Point3DTests {
     @Test
     void testSubtract() {
         assertEquals(new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(new Point3D(1, 2, 3)),"ERROR: Point - Point does not work correctly");
-//        Point3D p1 = new Point3D(1, 2, 3);
-//        if (!new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)))
-//            out.println("ERROR: Point - Point does not work correctly");
     }
 }

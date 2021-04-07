@@ -30,21 +30,41 @@ class CylinderTests {
 
         // ============ Equivalence Partitions Tests ==============
 
-        // TC01: the point is on one of the planes
-        Point3D point3D = new Point3D(0.5,0,0);
+        // TC01: the point is on the bottom plane
+        Point3D point3D1 = new Point3D(0.5,0,0);
         assertEquals(
                 new Vector(new Point3D(0,0,1)),
-                cylinder.getNormal(point3D),
-        "ERROR - TC01: the point is on one of the planes. Bad normal to cylinder");
+                cylinder.getNormal(point3D1),
+        "ERROR - TC01: TC01: the point is on the bottom plane");
 
-        // TC02: the point is on the shell
-        Point3D point3D2 = new Point3D(1,0,0.5);
-        assertEquals(new Vector(new Point3D(1,0,0)), cylinder.getNormal(point3D2), "ERROR - TC02: the point is on the shell. Bad normal to cylinder");
+        // TC02: the point is on the top plane
+        Point3D point3D2 = new Point3D(0.5,0,1);
+        assertEquals(
+                new Vector(new Point3D(0,0,1)),
+                cylinder.getNormal(point3D2),
+                "ERROR - TC02: TC02: the point is on the top plane");
+
+        // TC03: the point is on the shell
+        Point3D point3D3 = new Point3D(1,0,0.5);
+        assertEquals(new Vector(new Point3D(1,0,0)), cylinder.getNormal(point3D3), "ERROR - TC03: the point is on the shell. Bad normal to cylinder");
 
         // =============== Boundary Values Tests ==================
-        // TC03:
-        Point3D point3D3 = new Point3D(1,0,0);
-        assertEquals(new Vector(new Point3D(0,0,1)), cylinder.getNormal(point3D), "ERROR - TC03: Bad normal to cylinder");
+
+        Cylinder cylinder4 =
+                new Cylinder(
+                        new Ray(
+                                new Point3D(0,0,1),
+                                new Vector(0,0,1)),
+                        1,
+                        1);
+
+        // TC04: the point is on the bottom center
+        Point3D point3D4 = new Point3D(0,0,1);
+        assertEquals(new Vector(new Point3D(0,0,1)), cylinder4.getNormal(point3D4), "ERROR - TC04: the point is on the bottom center");
+
+        // TC05: the point is on the top center
+        Point3D point3D5 = new Point3D(0,0,1);
+        assertEquals(new Vector(new Point3D(0,0,1)), cylinder.getNormal(point3D5), "ERROR - TC05: the point is on the top center");
     }
 
     /**
