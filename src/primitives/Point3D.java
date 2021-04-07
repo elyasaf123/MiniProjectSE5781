@@ -6,25 +6,29 @@ import static primitives.Util.alignZero;
  * basic geometric object for 3D point
  */
 public class Point3D {
+
     /**
      * This point represents a coordinate in a position on a horizontal axis
      */
     final Coordinate x;
+
     /**
      * This point represents a coordinate in a position on a vertical axis
      */
     final Coordinate y;
+
     /**
      * This point represents a coordinate in a three-dimensional position
      */
     final Coordinate z;
+
     /**
      * The zero point is intended to equate an empty point to it
      */
     public static Point3D ZERO = new Point3D(0, 0, 0);
 
     /**
-     * x getter
+     * x getter as the value of a coordinate
      * @return x
      */
     public Coordinate getX() {
@@ -32,7 +36,7 @@ public class Point3D {
     }
 
     /**
-     * y getter
+     * y getter as the value of a coordinate
      * @return y
      */
     public Coordinate getY() {
@@ -40,7 +44,7 @@ public class Point3D {
     }
 
     /**
-     * z getter
+     * z getter as the value of a coordinate
      * @return z
      */
     public Coordinate getZ() {
@@ -48,7 +52,7 @@ public class Point3D {
     }
 
     /**
-     * x getter
+     * x getter as the value of a double
      * @return x
      */
     public double getXDouble() {
@@ -56,7 +60,7 @@ public class Point3D {
     }
 
     /**
-     * y getter
+     * y getter as the value of a double
      * @return y
      */
     public double getYDouble() {
@@ -64,7 +68,7 @@ public class Point3D {
     }
 
     /**
-     * z getter
+     * z getter as the value of a double
      * @return z
      */
     public double getZDouble() {
@@ -88,9 +92,9 @@ public class Point3D {
      * @param _z Position on the z-axis
      */
     public Point3D(double _x, double _y, double _z) {
-        x = new Coordinate(_x);
-        y = new Coordinate(_y);
-        z = new Coordinate(_z);
+        x = new Coordinate(alignZero(_x));
+        y = new Coordinate(alignZero(_y));
+        z = new Coordinate(alignZero(_z));
     }
 
     /**
@@ -106,7 +110,10 @@ public class Point3D {
         double y2 = alignZero(point3D.y.coord);
         double z2 = alignZero(point3D.z.coord);
 
-        return alignZero((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+        return alignZero(
+                (x2 - x1) * (x2 - x1) +
+                        (y2 - y1) * (y2 - y1) +
+                        (z2 - z1) * (z2 - z1));
     }
 
     /**
@@ -155,7 +162,6 @@ public class Point3D {
         Point3D point3D = (Point3D) o;
         return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
     }
-
 
     /**
      * string that represents the class

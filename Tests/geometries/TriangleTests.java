@@ -12,8 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Netanel & Elyasaf
  */
 class TriangleTests {
+
     /**
-     * Test method for {@link geometries.Triangle#getNormal(primitives.Point3D)}.
+     * Test method for {@link geometries.Triangle#getNormal(Point3D)}.
      */
     @Test
     void testGetNormal() {
@@ -26,15 +27,18 @@ class TriangleTests {
                         ,"Bad normal to plane");
     }
 
+    /**
+     * Test method for {@link geometries.Plane#findIntersections(Ray)}.
+     */
     @Test
     void findIntersections() {
         Triangle tri = new Triangle(new Point3D(1,0,0),new Point3D(1,1,0),new Point3D(2,0,0));
+
         // ============ Equivalence Partitions Tests ==============
 
         // TC01:Ray is intersecting in triangle (1 Points)
         Ray ray1 = new Ray(new Point3D(1,0,1), new Vector(new Point3D(0.1,0.1,-1)));
         assertEquals(List.of(new Point3D(1.1,0.1,0)),tri.findIntersections(ray1),"ERROR - TC01:Ray is intersecting in triangle (1 Points)");
-
 
         // TC02:Ray is not intersecting with triangle and is parallel to the edge (0 Points)
         Ray ray2 = new Ray(new Point3D(1.5,-1,1), new Vector(new Point3D(0,0,-1)));
@@ -44,8 +48,8 @@ class TriangleTests {
         Ray ray3 = new Ray(new Point3D(0.5,-1,1), new Vector(new Point3D(0,0,-1)));
         assertNull(tri.findIntersections(ray3),"ERROR - TC03:Ray is not intersecting with triangle and is parallel to the vertx (0 Points)");
 
-
         // =============== Boundary Values Tests ==================
+
         // TC04:Ray is intersecting with triangle on edge (0 Points)
         Ray ray4 = new Ray(new Point3D(1.5,0,1), new Vector(new Point3D(0,0,-1)));
         assertNull(tri.findIntersections(ray4),"ERROR - TC04:Ray is intersecting with triangle on edge (0 Points)");

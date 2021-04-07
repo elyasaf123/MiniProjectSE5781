@@ -7,7 +7,7 @@ import java.util.List;
 import static primitives.Util.*;
 
 /**
- * class that represents a tube in 32
+ * class that represents a tube in 3D
  */
 public class Tube extends RadialGeometry implements Geometry {
 
@@ -17,9 +17,10 @@ public class Tube extends RadialGeometry implements Geometry {
     protected Ray axisRay;
 
     /**
-     *ctor of tube
+     * CTOR of tube
+     *
      * @param axisRay Ray(point 3D, vector)
-     * @param radius radius of tube
+     * @param radius  radius of tube
      */
     public Tube(Ray axisRay, double radius) {
         super(radius);
@@ -27,7 +28,8 @@ public class Tube extends RadialGeometry implements Geometry {
     }
 
     /**
-     *getter for axis of Tube
+     * getter for axis of Tube
+     *
      * @return axis ray of tube
      */
     public Ray getAxisRay() {
@@ -36,14 +38,16 @@ public class Tube extends RadialGeometry implements Geometry {
 
     /**
      * getter for tubes radius
+     *
      * @return radius of tube
      */
     public double getRadius() {
-        return radius;
+        return alignZero(radius);
     }
 
     /**
-     *getter for tubes normal
+     * getter for tubes normal
+     *
      * @param point3D init point
      * @return normal of tube
      */
@@ -54,11 +58,11 @@ public class Tube extends RadialGeometry implements Geometry {
         Vector v = axisRay.getDir();
 
         //The vector from the point of the cylinder to the given point
-        Vector vector1  = point3D.subtract(o);
+        Vector vector1 = point3D.subtract(o);
 
         //we need the projection to multiply the direction until unit vector
         double projection = alignZero(vector1.dotProduct(v));
-        if(!isZero(projection)){
+        if (!isZero(projection)) {
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
@@ -69,7 +73,18 @@ public class Tube extends RadialGeometry implements Geometry {
     }
 
     /**
-     *tostring of tube
+     * A method that receives a ray and checks the points of intersection of the ray with the tube
+     * Not implemented yet!
+     * @param ray the ray received
+     * @return null / list that includes all the intersection points (Point3D)
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
+
+    /**
+     * tostring of tube
      * @return a string that represents a tube
      */
     @Override
@@ -78,10 +93,5 @@ public class Tube extends RadialGeometry implements Geometry {
                 "axisRay=" + axisRay +
                 ", radius=" + radius +
                 '}';
-    }
-
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        return null;
     }
 }

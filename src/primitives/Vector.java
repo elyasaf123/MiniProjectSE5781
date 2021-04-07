@@ -1,13 +1,14 @@
 package primitives;
 
 import static primitives.Point3D.ZERO;
-import static primitives.Util.alignZero;
+import static primitives.Util.*;
 
 /**
  * A basic object in geometry with direction and size, defined by the end point
  * (when the starting point - the beginning of the axes).
  */
 public class Vector {
+
     /**
      * the end point of the vector
      */
@@ -20,7 +21,7 @@ public class Vector {
      * @param z The Z-axis component of the end point
      */
     public Vector(double x, double y, double z) {
-        Point3D temp = new Point3D(x, y, z);
+        Point3D temp = new Point3D(alignZero(x), alignZero(y), alignZero(z));
         if (temp.equals(ZERO)) {
             throw new IllegalArgumentException("head cannot be point(0,0,0)");
         }
@@ -29,7 +30,7 @@ public class Vector {
 
     /**
      * CTOR who gets 1 type of the Point3D (the end point of the vector)
-     * @param head
+     * @param head 1 type of the Point3D
      */
     public Vector(Point3D head) {
         if (head.equals(ZERO)){
@@ -84,7 +85,7 @@ public class Vector {
      * @return New vector after multiplication
      */
     public Vector scale(double scalar) {
-        if(scalar == 0){
+        if (isZero(alignZero(scalar))) {
             throw new IllegalArgumentException("can't scale by Zero");
         }
         return new Vector(
@@ -99,7 +100,8 @@ public class Vector {
      * @return The result of the scalar product (double)
      */
     public double dotProduct(Vector vector) {
-        return  alignZero(this.head.getX().coord * vector.head.getX().coord +
+        return  alignZero(
+         this.head.getX().coord * vector.head.getX().coord +
                 this.head.getY().coord * vector.head.getY().coord +
                 this.head.getZ().coord * vector.head.getZ().coord);
     }
@@ -111,9 +113,15 @@ public class Vector {
      */
     public Vector crossProduct(Vector vector) {
         return new Vector(
-                alignZero(this.head.getY().coord * vector.head.getZ().coord - this.head.getZ().coord * vector.head.getY().coord),
-                alignZero(this.head.getZ().coord * vector.head.getX().coord - this.head.getX().coord * vector.head.getZ().coord),
-                alignZero(this.head.getX().coord * vector.head.getY().coord - this.head.getY().coord * vector.head.getX().coord));
+                alignZero(
+                        this.head.getY().coord * vector.head.getZ().coord -
+                                this.head.getZ().coord * vector.head.getY().coord),
+                alignZero(
+                        this.head.getZ().coord * vector.head.getX().coord -
+                                this.head.getX().coord * vector.head.getZ().coord),
+                alignZero(
+                        this.head.getX().coord * vector.head.getY().coord -
+                                this.head.getY().coord * vector.head.getX().coord));
     }
 
     /**
@@ -137,10 +145,10 @@ public class Vector {
      * @return the vector himself after the normalization operation
      */
     public Vector normalize() {
-        if(length() == 0){
+        if (isZero(alignZero(length()))) {
             throw new ArithmeticException("cannot devide by zero!!");
         }
-        this.head = (scale(1/length()).head);
+        this.head = (scale(alignZero(1/length())).head);
         return this;
     }
 
