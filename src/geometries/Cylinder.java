@@ -63,7 +63,8 @@ public class Cylinder extends Tube  {
             o = o.add(v.scale(projection));
         }
         // sliding vector of the point given
-        double DGiven = alignZero(-1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble()));
+        double DGiven = alignZero(-1d*(v.getHead().getXDouble()*point3D.getXDouble() +
+                v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble()));
 
         // ============ Equivalence Partitions Tests ==============
         if (DGiven == d || DGiven == d + height){
