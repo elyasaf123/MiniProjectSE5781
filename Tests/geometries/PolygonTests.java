@@ -79,7 +79,9 @@ public class PolygonTests {
      */
     @Test
     public void testGetNormal() {
+
         // ============ Equivalence Partitions Tests ==============
+
         // TC01: There is a simple single test here
         Polygon pl = new Polygon(
                 new Point3D(0, 0, 1),

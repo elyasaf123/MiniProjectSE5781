@@ -45,6 +45,11 @@ public class Cylinder extends Tube  {
         Point3D o = axisRay.getP0();//at this point o = p0
         Vector v = axisRay.getDir();//v == dir
 
+        // if the given point equals the ray's head it produce a ZERO vector, so we return the normal (dir)
+        if (point3D.equals(o)) {
+            return v.normalized();
+        }
+
         //The vector from the point of the cylinder to the given point
         Vector vector1  = point3D.subtract(o);
 
@@ -52,7 +57,7 @@ public class Cylinder extends Tube  {
         //According to this sliding vector we will check
         // if the given point is on the planes that block the cylinder from its 2 ends
         // (d or d+height).
-        //then the normal vector will be a dir vector.
+        // then the normal vector will be a dir vector.
         // Additionally we decided that if the point received is exactly at the junction
         // between the round cylinder shell and one of the planes that block the shell (boundary case)
         // then we will calculate its normal from the plane.
@@ -72,7 +77,7 @@ public class Cylinder extends Tube  {
                 v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble()));
 
         // ============ Equivalence Partitions Tests ==============
-        if (DGiven == d || DGiven == d + height){
+        if (DGiven == d || DGiven == d - height){
             return v.normalized();
         }
         //this vector is orthogonal to the dir vector

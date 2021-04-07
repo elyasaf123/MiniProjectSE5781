@@ -18,14 +18,44 @@ class PlaneTests {
      */
     @Test
     void testGetNormal() {
-        Plane pl = new Plane(
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01: There is a simple single test here
+        Plane pl1 = new Plane(
                 new Point3D(0,0,1),
                 new Point3D(1,0,1),
                 new Point3D(0,1,1));
         assertTrue(
-                (new Vector(new Point3D(0,0,1))).equals(pl.getNormal(new Point3D(0,0,1))) ||
-                        (new Vector(new Point3D(0,0,-1))).equals(pl.getNormal(new Point3D(0,0,1))),
+                (new Vector(new Point3D(0,0,1))).equals(pl1.getNormal(new Point3D(0,0,1))) ||
+                        (new Vector(new Point3D(0,0,-1))).equals(pl1.getNormal(new Point3D(0,0,1))),
                 "Bad normal to plane");
+
+        // =============== Boundary Values Tests ==================
+
+        // **** Group: test constructor
+
+        // TC02: The second and first point coalesce
+        try {
+            Plane pl2 = new Plane(
+                    new Point3D(0,0,1),
+                    new Point3D(0,0,1),
+                    new Point3D(0,1,1));
+        }
+        catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        // TC03: The points are on the same line
+        try {
+            Plane pl3 = new Plane(
+                    new Point3D(0,0,3),
+                    new Point3D(0,0,1),
+                    new Point3D(0,0,2));
+        }
+        catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
     }
 
     /**

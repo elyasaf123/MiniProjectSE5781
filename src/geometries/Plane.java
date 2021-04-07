@@ -29,10 +29,17 @@ public class Plane implements Geometry {
      */
     public Plane(Point3D x,Point3D y,Point3D z) {
         q0 = x;
-        Vector a = x.subtract(y);
-        Vector b = y.subtract(z);
-        normal = a.crossProduct(b);
-        normal.normalize();
+        if (x != y && x != z && y != z) {
+            Vector a = x.subtract(y);
+            Vector b = y.subtract(z);
+            if (a.normalized() != b.normalized())
+                normal = a.crossProduct(b);
+            else
+                throw new IllegalArgumentException("All three points are on the same line");
+            normal.normalize();
+        }
+        else
+            throw new IllegalArgumentException("All points must be different");
     }
 
     /**

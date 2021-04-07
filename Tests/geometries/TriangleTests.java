@@ -18,6 +18,10 @@ class TriangleTests {
      */
     @Test
     void testGetNormal() {
+
+        // ============ Equivalence Partitions Tests ==============
+
+        // TC01: There is a simple single test here
         Triangle tr = new Triangle(
                 new Point3D(0,0,1),
                 new Point3D(1,0,1),
