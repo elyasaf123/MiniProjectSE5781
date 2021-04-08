@@ -7,7 +7,7 @@ import java.util.List;
 import static primitives.Util.*;
 
 /**
- * class that reperesents a plane in 3d
+ * class that represents a plane in 3d
  */
 public class Plane implements Geometry {
 
@@ -79,18 +79,6 @@ public class Plane implements Geometry {
     }
 
     /**
-     *to string for plane function
-     * @return a string that represents plane class
-     */
-    @Override
-    public String toString() {
-        return "Plane{" +
-                "q0=" + q0 +
-                ", normal=" + normal +
-                '}';
-    }
-
-    /**
      * A method that receives a ray and checks the points of intersection of the ray with the plane
      * @param ray the ray received
      * @return null / list that includes all the intersection points (Point3D)
@@ -137,5 +125,17 @@ public class Plane implements Geometry {
         //P = P0 + t*v
         Point3D p = ray.getTargetPoint(t);
         return List.of(p);
+    }
+
+    /**
+     *to string for plane function
+     * @return a string that represents plane class
+     */
+    @Override
+    public String toString() {
+        return "Plane{" +
+                "q0=" + q0 +
+                ", normal=" + normal +
+                '}';
     }
 }

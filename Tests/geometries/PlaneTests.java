@@ -14,8 +14,39 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlaneTests {
 
     /**
-     * Test method for {@link geometries.Plane#getNormal(Point3D)}.
+     * Test method for {@link geometries.Plane#Plane(Point3D, Point3D, Point3D)}.
      */
+    @Test
+    void testCTOR() {
+
+        // =============== Boundary Values Tests ==================
+
+        // TC01: The second and first point coalesce
+        try {
+            Plane pl1 = new Plane(
+                    new Point3D(0,0,1),
+                    new Point3D(0,0,1),
+                    new Point3D(0,1,1));
+        }
+        catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+
+        // TC02: The points are on the same line
+        try {
+            Plane pl2 = new Plane(
+                    new Point3D(0,0,3),
+                    new Point3D(0,0,1),
+                    new Point3D(0,0,2));
+        }
+        catch (IllegalArgumentException e) {
+            System.out.print(e.getMessage());
+        }
+    }
+
+        /**
+         * Test method for {@link geometries.Plane#getNormal(Point3D)}.
+         */
     @Test
     void testGetNormal() {
 
@@ -30,39 +61,13 @@ class PlaneTests {
                 (new Vector(new Point3D(0,0,1))).equals(pl1.getNormal(new Point3D(0,0,1))) ||
                         (new Vector(new Point3D(0,0,-1))).equals(pl1.getNormal(new Point3D(0,0,1))),
                 "Bad normal to plane");
-
-        // =============== Boundary Values Tests ==================
-
-        // **** Group: test constructor
-
-        // TC02: The second and first point coalesce
-        try {
-            Plane pl2 = new Plane(
-                    new Point3D(0,0,1),
-                    new Point3D(0,0,1),
-                    new Point3D(0,1,1));
-        }
-        catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
-
-        // TC03: The points are on the same line
-        try {
-            Plane pl3 = new Plane(
-                    new Point3D(0,0,3),
-                    new Point3D(0,0,1),
-                    new Point3D(0,0,2));
-        }
-        catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
-        }
     }
 
     /**
      * Test method for {@link geometries.Plane#findIntersections(Ray)}.
      */
     @Test
-    void findIntersection() {
+    void testFindIntersection() {
         Plane plane = new Plane(new Point3D(0,0,1),new Vector(0,0,1));
 
         // ============ Equivalence Partitions Tests ==============
@@ -91,23 +96,37 @@ class PlaneTests {
         Ray ray5 = new Ray(new Point3D(0,0,2),new Vector(0,0,-1).normalize());
         LinkedList<Point3D> list5 = new LinkedList<>();
         list5.add(new Point3D(0,0,1));
-        assertEquals(list5, plane.findIntersections(ray5),"ERROR - TC05: Ray is orthogonal to the plane and start before the plane");
+        assertEquals(
+                list5,
+                plane.findIntersections(ray5),
+                "ERROR - TC05: Ray is orthogonal to the plane and start before the plane");
 
         // TC06: Ray is orthogonal to the plane and start in the plane (0 point)
         Ray ray6 = new Ray(new Point3D(0,1,1),new Vector(0,0,1).normalize());
-        assertNull(plane.findIntersections(ray6),"ERROR - Ray is orthogonal to the plane and start in the plane");
+        assertNull(
+                plane.findIntersections(ray6),
+                "ERROR - Ray is orthogonal to the plane and start in the plane");
 
         // TC07: Ray is orthogonal to the plane and start after the plane (0 point)
         Ray ray7 = new Ray(new Point3D(0,0,-1),new Vector(0,0,-1).normalize());
-        assertNull(plane.findIntersections(ray7),"ERROR - TC07: Ray is orthogonal to the plane and start after the plane");
+        assertNull(
+                plane.findIntersections(ray7),
+                "ERROR - TC07: Ray is orthogonal to the plane and start after the plane");
 
-        // TC08: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane , but not the ray) (0 point)
+        // TC08: Ray is neither orthogonal nor parallel to and begins at the plane
+        // (p0 is in the plane , but not the ray) (0 point)
         Ray ray8 = new Ray(new Point3D(0,1,1),new Vector(0,1,1).normalize());
-        assertNull(plane.findIntersections(ray8),"ERROR - TC08: Ray is neither orthogonal nor parallel to and begins at the plane (p0 is in the plane , but not the ray)");
+        assertNull(
+                plane.findIntersections(ray8),
+                "ERROR - TC08: Ray is neither orthogonal nor parallel to and begins at the plane" +
+                        "(p0 is in the plane , but not the ray)");
 
         // TC09: Ray is neither orthogonal nor parallel to the plane and begins in
         //the same point which appears as reference point in the plane (q0) (0 point)
         Ray ray9 = new Ray(new Point3D(0,0,1),new Vector(0,1,1).normalize());
-        assertNull(plane.findIntersections(ray9),"ERROR - TC09: Ray is neither orthogonal nor parallel to the plane and begins in the same point which appears as reference point in the plane (q0)");
+        assertNull(
+                plane.findIntersections(ray9),
+                "ERROR - TC09: Ray is neither orthogonal nor parallel to the plane " +
+                        "and begins in the same point which appears as reference point in the plane (q0)");
     }
 }

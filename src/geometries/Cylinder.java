@@ -63,22 +63,32 @@ public class Cylinder extends Tube  {
         // then we will calculate its normal from the plane.
         //If the given point is not on planes then it will necessarily be across the round cylinder shell,
         //and the normal will be an orthogonal vector to dir
-        double d = alignZero(-1d*(v.getHead().getXDouble()*o.getXDouble() + v.getHead().getYDouble()*o.getYDouble() + v.getHead().getZDouble()*o.getZDouble()));
+        double d = alignZero(
+                -1d*(
+                        v.getHead().getXDouble()*o.getXDouble() +
+                        v.getHead().getYDouble()*o.getYDouble() +
+                        v.getHead().getZDouble()*o.getZDouble()));
 
         //we need the projection to multiply the direction until unit vector
         double projection = alignZero(vector1.dotProduct(v));
+
         // Check that the point is not outside the cylinder
         if(!(projection <= 0) && (projection <= height)){
             //projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
-        // sliding vector of the point given
-        double DGiven = alignZero(-1d*(v.getHead().getXDouble()*point3D.getXDouble() + v.getHead().getYDouble()*point3D.getYDouble() + v.getHead().getZDouble()*point3D.getZDouble()));
 
-        // ============ Equivalence Partitions Tests ==============
+        // sliding vector of the point given
+        double DGiven = alignZero(
+                -1d*(
+                        v.getHead().getXDouble()*point3D.getXDouble() +
+                        v.getHead().getYDouble()*point3D.getYDouble() +
+                        v.getHead().getZDouble()*point3D.getZDouble()));
+
         if (DGiven == d || DGiven == d - height){
             return v.normalized();
         }
+
         //this vector is orthogonal to the dir vector
         Vector check = point3D.subtract(o);
         return check.normalize();
@@ -97,7 +107,7 @@ public class Cylinder extends Tube  {
 
     /**
      * to-string for cylinder
-     * @return string that repersents a cylinder
+     * @return string that represents a cylinder
      */
     @Override
     public String toString() {

@@ -22,7 +22,10 @@ class TubeTests {
 
         // TC01: There is a simple single test here
         Tube tube = new Tube(new Ray(new Point3D(0,0,0), new Vector(0,0,1)), 1);
-        assertEquals(new Vector(new Point3D(1,0,0)),tube.getNormal(new Point3D(1,0,1)),"ERROR - TC01: Bad normal to tube");
+        assertEquals(
+                new Vector(new Point3D(1,0,0)),
+                tube.getNormal(new Point3D(1,0,1)),
+                "ERROR - TC01: Bad normal to tube");
 
         // =============== Boundary Values Tests ==================
 
@@ -31,7 +34,8 @@ class TubeTests {
         assertEquals(
                 new Vector(new Point3D(1,0,0)),
                 tube2.getNormal(new Point3D(1,0,0)),
-                "ERROR - TC02: Connection of the point to the ray's head of the cylinder axis produces a right angle");
+                "ERROR - TC02: Connection of the point to the ray's head of the cylinder axis" +
+                        "produces a right angle");
 
     }
 
@@ -40,7 +44,7 @@ class TubeTests {
      * Not implemented yet!
      */
     @Test
-    void findIntersections() {
+    void testFindIntersection() {
 
     }
 }

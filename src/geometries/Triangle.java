@@ -3,7 +3,7 @@ package geometries;
 import primitives.Point3D;
 
 /**
- *class that represents polygon in 3D
+ *class that represents triangle in 3D
  */
 public class Triangle extends Polygon{
 
@@ -16,46 +16,6 @@ public class Triangle extends Polygon{
     public Triangle(Point3D x,Point3D y,Point3D z) {
         super(x,y,z);
     }
-//
-//    /**
-//     * A method that receives a ray and checks the points of intersection of the ray with the Triangle
-//     * @param ray the ray received
-//     * @return null / list that includes all the intersection points (Point3D)
-//     */
-//    @Override
-//    public List<Point3D> findIntersections(Ray ray) {
-//        // First of all we check that there is a point of intersection
-//        // with the plane where the triangle is
-//        Plane plane = new Plane(super.vertices.get(0),super.vertices.get(1),super.vertices.get(2));
-//        if(plane.findIntersections(ray) != null){
-//            Point3D P0 = ray.getP0();
-//            Point3D P1 = super.vertices.get(0);
-//            Point3D P2 = super.vertices.get(1);
-//            Point3D P3 = super.vertices.get(2);
-//            Vector v1 = P1.subtract(P0);
-//            Vector v2 = P2.subtract(P0);
-//            Vector v3 = P3.subtract(P0);
-//            Vector v = plane.findIntersections(ray).get(0).subtract(P0);
-//            Vector n1 = v1.crossProduct(v2);
-//            Vector n2 = v2.crossProduct(v3);
-//            Vector n3 = v3.crossProduct(v1);
-//            if(     (alignZero(v.dotProduct(n1)) > 0
-//                    &&
-//                     alignZero(v.dotProduct(n2)) > 0
-//                    &&
-//                     alignZero(v.dotProduct(n3)) > 0)
-//                        ||
-//                    (alignZero(v.dotProduct(n1)) < 0
-//                    &&
-//                     alignZero(v.dotProduct(n2)) < 0
-//                    &&
-//                     alignZero(v.dotProduct(n3)) < 0)
-//            ) {
-//                return plane.findIntersections(ray);
-//            }
-//        }
-//        return null;
-//    }
 
     /**
      * to string for class polygon

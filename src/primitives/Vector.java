@@ -161,7 +161,6 @@ public class Vector {
         return new Vector (vector.normalize().head);
     }
 
-
     /**
      * override function to check if two objects are equal
      * @param o to compare
@@ -175,7 +174,6 @@ public class Vector {
         Vector vector = (Vector) o;
         return head.equals(vector.head);
     }
-
 
     /**
      * string that represents the class

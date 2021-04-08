@@ -47,18 +47,6 @@ public class Sphere extends RadialGeometry implements Geometry {
     }
 
     /**
-     * to string to represent sphere class
-     * @return toString
-     */
-    @Override
-    public String toString() {
-        return "Sphere{" +
-                "center=" + center +
-                ", radius=" + radius +
-                '}';
-    }
-
-    /**
      * A method that receives a ray and checks the points of intersection of the ray with the sphere
      * @param ray the ray received
      * @return null / list that includes all the intersection points (Point3D)
@@ -71,28 +59,32 @@ public class Sphere extends RadialGeometry implements Geometry {
             return List.of(ray.getTargetPoint(getRadius()));
         }
 
-        /**
-         * The procedure is as follows:
-         * We will find the projection of the vector (that connects the head of the ray and the center of the sphere) on the ray,
-         * then we will build the vertical between the center of the sphere and the continuation of the ray.
-         * Then, calculate with the help of Pythagoras:
-         * the length that exists between the point where the vertical meets the ray
-         * and the point where the ray meets the sphere.
-         * Now we will know to add this distance to reach the second point of intersection,
-         * or alternatively subtract this distance to reach the first point of intersection
-         */
+        //The procedure is as follows:
+        //We will find the projection of the vector (that connects the head of the ray and the center of the sphere) on the ray,
+        //then we will build the vertical between the center of the sphere and the continuation of the ray.
+        //Then, calculate with the help of Pythagoras:
+        //the length that exists between the point where the vertical meets the ray
+        //and the point where the ray meets the sphere.
+        //Now we will know to add this distance to reach the second point of intersection,
+        //or alternatively subtract this distance to reach the first point of intersection
+
         // Vector from the top of the ray to the center of the sphere
         Vector u = getCenter().subtract(ray.getP0());
+
         // ray's vector
         Vector v = ray.getDir();
+
         // the projection of the vector (that connects the head of the ray and the center of the sphere) on the ray
         double tm = alignZero(u.dotProduct(v));
+
         // The length of the vertical between the center of the sphere and the continuation of the ray
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm*tm));
+
         // The ray passes out of the sphere
         if (d > getRadius()) {
             return null;
         }
+
         // calculate with the help of Pythagoras:
         // the length that exists between the point where the vertical meets the ray
         // and the point where the ray meets the sphere.
@@ -125,5 +117,17 @@ public class Sphere extends RadialGeometry implements Geometry {
         }
 
         return null;
+    }
+
+    /**
+     * to string to represent sphere class
+     * @return toString
+     */
+    @Override
+    public String toString() {
+        return "Sphere{" +
+                "center=" + center +
+                ", radius=" + radius +
+                '}';
     }
 }
