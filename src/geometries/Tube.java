@@ -72,18 +72,20 @@ public class Tube extends RadialGeometry implements Geometry {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the tube
+     *
      * @param ray the ray received
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
 
         Point3D Pa = axisRay.getP0();
         Vector Va = axisRay.getDir();
 
-        //coefficient for the At^2 + Bt + C equation.
+        //At^2 + Bt + C equation.
         double A, B, C;
 
         //(v,u) = v dot product u
@@ -99,14 +101,17 @@ public class Tube extends RadialGeometry implements Geometry {
             //A = (V-(V,Va)Va)^2
             A = VecA.lengthSquared();
         }
+
         //if A = 0 return null (there are no intersections)
         catch (IllegalArgumentException ex) { // the ray is parallel to the axisRay
             return null;
         }
 
         try {
+
             //calculate deltaP (delP) vector, P-Pa
             Vector DeltaP = P0.subtract(Pa);
+
             //The vector: delP - (delP,Va)Va
             Vector DeltaPMinusDeltaPVaVa = DeltaP;
             double DeltaPVa = DeltaP.dotProduct(Va);
@@ -120,11 +125,13 @@ public class Tube extends RadialGeometry implements Geometry {
             //C = (delP - (delP,Va)Va)^2 - r^2
             C = DeltaPMinusDeltaPVaVa.lengthSquared() - radius * radius;
         }
+
         //in case delP = 0, or delP - (delP,Va)Va = (0, 0, 0)
         catch (IllegalArgumentException ex) {
             B = 0;
             C = -1 * radius * radius;
         }
+
         //solving At^2 + Bt + C = 0
 
         //the discrimation, B^2 - 4AC

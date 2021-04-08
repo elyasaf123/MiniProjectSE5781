@@ -1,7 +1,6 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.LinkedList;
 import java.util.List;
 import static primitives.Util.*;
@@ -101,6 +100,7 @@ public class Cylinder extends Tube  {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+
         //P1 and P2 in the cylinder, the center of the bottom and upper bases
         Point3D p1 = axisRay.getP0();
         Point3D p2 = axisRay.getTargetPoint(height);
@@ -111,7 +111,7 @@ public class Cylinder extends Tube  {
         //the intersections with the cylinder
         List<Point3D> result = new LinkedList<>();
 
-        //Step 1 - checking if the intersections with the tube are points on the finite cylinder
+        //Step 1 - checking if the intersections with the tube are points on the cylinder
         if (list != null) {
             for (Point3D p : list) {
                 if (Va.dotProduct(p.subtract(p1)) > 0 && Va.dotProduct(p.subtract(p2)) < 0)
@@ -153,8 +153,6 @@ public class Cylinder extends Tube  {
         }
         //return null if there are no intersections.
         return result.size() == 0 ? null : result;
-
-
     }
 
 
