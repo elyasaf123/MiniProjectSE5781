@@ -46,7 +46,10 @@ class CylinderTests {
 
         // TC03: the point is on the shell
         Point3D point3D3 = new Point3D(1,0,0.5);
-        assertEquals(new Vector(new Point3D(1,0,0)), cylinder.getNormal(point3D3), "ERROR - TC03: the point is on the shell. Bad normal to cylinder");
+        assertEquals(
+                new Vector(new Point3D(1,0,0)),
+                cylinder.getNormal(point3D3),
+                "ERROR - TC03: the point is on the shell. Bad normal to cylinder");
 
         // =============== Boundary Values Tests ==================
 
@@ -60,11 +63,17 @@ class CylinderTests {
 
         // TC04: the point is on the bottom center
         Point3D point3D4 = new Point3D(0,0,1);
-        assertEquals(new Vector(new Point3D(0,0,1)), cylinder4.getNormal(point3D4), "ERROR - TC04: the point is on the bottom center");
+        assertEquals(
+                new Vector(new Point3D(0,0,1)),
+                cylinder4.getNormal(point3D4),
+                "ERROR - TC04: the point is on the bottom center");
 
         // TC05: the point is on the top center
         Point3D point3D5 = new Point3D(0,0,1);
-        assertEquals(new Vector(new Point3D(0,0,1)), cylinder.getNormal(point3D5), "ERROR - TC05: the point is on the top center");
+        assertEquals(
+                new Vector(new Point3D(0,0,1)),
+                cylinder.getNormal(point3D5),
+                "ERROR - TC05: the point is on the top center");
     }
 
     /**
@@ -72,7 +81,7 @@ class CylinderTests {
      * Not implemented yet!
      */
     @Test
-    void findIntersections() {
+    void testFindIntersection() {
 
     }
 }

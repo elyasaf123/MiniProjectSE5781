@@ -71,9 +71,11 @@ public class Polygon implements Geometry {
         // polygon is convex ("kamur" in Hebrew).
         boolean positive = edge1.crossProduct(edge2).dotProduct(n) > 0;
         for (int i = 1; i < vertices.length; ++i) {
+
             // Test that the point is in the same plane as calculated originally
             if (!isZero(vertices[i].subtract(vertices[0]).dotProduct(n)))
                 throw new IllegalArgumentException("All vertices of a polygon must lay in the same plane");
+
             // Test the consequent edges have
             edge1 = edge2;
             edge2 = vertices[i].subtract(vertices[i - 1]);
@@ -82,19 +84,15 @@ public class Polygon implements Geometry {
         }
     }
 
+    /**
+     * A method that receives a Point3D on the polygon and checks the normal to this point
+     * @param point the Point3D received
+     * @return normal at this point to the plane which contains the polygon
+     */
     @Override
     public Vector getNormal(Point3D point) {
         return plane.getThisNormal();
     }
-
-    @Override
-    public String toString() {
-        return "Polygon{" +
-                "vertices=" + vertices +
-                ", plane=" + plane +
-                '}';
-    }
-
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the polygon
@@ -103,37 +101,42 @@ public class Polygon implements Geometry {
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
+
         // First of all we check that there is a point of intersection
         // with the plane where the polygon is
         Plane plane = new Plane(vertices.get(0), vertices.get(1), vertices.get(2));
+
+        // The procedure is as follows:
+        // We find all the vectors that are between the head of the Ray
+        // and the vertices of the polygon.
+        // Then we find, with the help of Cartesian multiplications,
+        // all the normals that come out of the sides between every 2 adjacent vectors,
+        // and if our Ray is cut with all the above normals at a sharp angle,
+        // or with all of them at an obtuse angle
+        // (depending on the normal direction, out of the body or towards the polygon)
+        // then the Ray intersects the polygon.
+        // We will check the angles using a scalar product between the Ray and the normal
+
         if (plane.findIntersections(ray) != null) {
 
-            /**
-             * The procedure is as follows:
-             * We find all the vectors that are between the head of the Ray
-             * and the vertices of the polygon.
-             * Then we find, with the help of Cartesian multiplications,
-             * all the normals that come out of the sides between every 2 adjacent vectors,
-             * and if our Ray is cut with all the above normals at a sharp angle,
-             * or with all of them at an obtuse angle
-             * (depending on the normal direction, out of the body or towards the polygon)
-             * then the Ray intersects the polygon.
-             * We will check the angles using a scalar product between the Ray and the normal
-             */
             // Ray's head
             Point3D P0 = ray.getP0();
+
             // Vector from the beginning of the Ray to the point of intersection with the plane
             Vector v = plane.findIntersections(ray).get(0).subtract(P0);
+
             // all the vectors that are between the head of the Ray and the vertices of the polygon.
             LinkedList<Vector> vectorList = new LinkedList<>();
             for (Point3D point3D : vertices) {
                 vectorList.add(point3D.subtract(P0));
             }
+
             // all the normals that come out of the sides between every 2 adjacent vectors
             LinkedList<Vector> normalList = new LinkedList<>();
             for (int i = 0; i < vectorList.size() - 1; i++) {
                 normalList.add(vectorList.get(i).crossProduct(vectorList.get(i + 1)));
             }
+
             // The last normal is calculated as a cross product
             // between the last vector in the list and the first in the list
             normalList.add(vectorList.get(vectorList.size() - 1).crossProduct(vectorList.get(0)));
@@ -151,6 +154,7 @@ public class Polygon implements Geometry {
                     break;
                 }
             }
+
             if (flag) {
                 return plane.findIntersections(ray);
             }
@@ -162,10 +166,19 @@ public class Polygon implements Geometry {
                     break;
                 }
             }
+
             if (flag) {
                 return plane.findIntersections(ray);
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "vertices=" + vertices +
+                ", plane=" + plane +
+                '}';
     }
 }
