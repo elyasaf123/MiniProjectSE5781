@@ -29,7 +29,7 @@ public class Camera {
 
     /**
      * borrowing from builder pattern
-     * @param width
+     * @param width blabla #todo
      * @param height
      * @return
      */
