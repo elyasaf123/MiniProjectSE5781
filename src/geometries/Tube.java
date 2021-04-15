@@ -160,7 +160,7 @@ public class Tube extends RadialGeometry implements Geometry {
     }
 
     /**
-     * tostring of tube
+     * toString of tube
      * @return a string that represents a tube
      */
     @Override

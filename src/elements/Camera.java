@@ -3,8 +3,6 @@ package elements;
 import primitives.*;
 import static primitives.Util.*;
 
-import java.awt.*;
-
 public class Camera {
     final Point3D p0;
     final Vector vTo;
@@ -29,8 +27,8 @@ public class Camera {
 
     /**
      * borrowing from builder pattern
-     * @param width blabla #todo
-     * @param height j
+     * @param width #todo
+     * @param height #todo
      * @return
      */
     public Camera setViewPlaneSize(double width, double height){
@@ -40,7 +38,7 @@ public class Camera {
     }
 
     /**
-     *
+     * #todo
      * @param distance
      * @return
      */
@@ -89,5 +87,4 @@ public class Camera {
     public Vector getVRight() {
         return vRight;
     }
-
 }
