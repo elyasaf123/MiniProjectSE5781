@@ -3,7 +3,6 @@ package elements;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import elements.Camera;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CameraRayIntersectionsIntegrationTests {
@@ -18,7 +17,6 @@ public class CameraRayIntersectionsIntegrationTests {
                 count += intersections == null ? 0 : intersections.size();
             }
         }
-
         assertEquals(expected,count, outputException);
     }
 

@@ -6,12 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testing Camera Class
- *
  * @author Dan
- *
  */
 public class CameraTests {
-
 
     /**
      * Test method for

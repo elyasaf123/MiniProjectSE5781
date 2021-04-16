@@ -103,7 +103,7 @@ class CylinderTests {
         //TC04 ray starts from outside and crosses the cylinder
         result = cylinder.findIntersections(new Ray(new Point3D(-2,0,0.5), new Vector(1,0,0)));
         assertEquals(2, result.size(), "Wrong number of points");
-        assertEquals(List.of(new Point3D(1,0,0.5), new Point3D(3,0,0.5)), result, "Bad intersection points");
+        assertEquals(List.of(new Point3D(3,0,0.5), new Point3D(1,0,0.5)), result, "Bad intersection points");
 
         //TC05 ray starts from inside and crosses the cylinder
         result = cylinder.findIntersections(new Ray(new Point3D(1.5,0,0.5), new Vector(1,0,0)));
@@ -143,7 +143,7 @@ class CylinderTests {
         //TC12 ray is perpendicular to cylinder's ray and starts from outside the tube
         result = cylinder.findIntersections(new Ray(new Point3D(-2,0,0.5), new Vector(1,0,0)));
         assertEquals(2, result.size(), "Wrong number of points");
-        assertEquals(List.of(new Point3D(1,0,0.5), new Point3D(3,0,0.5)), result, "Bad intersection points");
+        assertEquals(List.of(new Point3D(3,0,0.5), new Point3D(1,0,0.5)), result, "Bad intersection points");
 
         //TC13 ray is perpendicular to cylinder's ray and starts from inside cylinder (not center)
         result = cylinder.findIntersections(new Ray(new Point3D(1.5,0,0.5), new Vector(1,0,0)));

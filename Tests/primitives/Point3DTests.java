@@ -30,7 +30,7 @@ class Point3DTests {
         Point3D p3 = new Point3D(-1, -1.52, -3);
         double result = p1.distanceSquared(p3);
         assertEquals(52.39, result, 0.001);
-        System.out.println(result);
+        //System.out.println(result);
     }
 
     /**
@@ -41,7 +41,7 @@ class Point3DTests {
         Point3D p3 = new Point3D(-1, -1.52, -3);
         double result = p1.distance(p3);
         assertEquals(sqrt(52.39), result, 0.001);
-        System.out.println(result);
+        //System.out.println(result);
     }
 
     /**

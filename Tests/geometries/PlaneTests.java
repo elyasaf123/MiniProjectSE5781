@@ -27,7 +27,7 @@ class PlaneTests {
                     new Point3D(0,1,1));
         }
         catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
+            //System.out.print(e.getMessage());
         }
 
         // TC02: The points are on the same line
@@ -38,7 +38,7 @@ class PlaneTests {
                     new Point3D(0,0,2));
         }
         catch (IllegalArgumentException e) {
-            System.out.print(e.getMessage());
+            //System.out.print(e.getMessage());
         }
     }
 
