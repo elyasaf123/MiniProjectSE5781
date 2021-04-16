@@ -162,6 +162,41 @@ public class Vector {
     }
 
     /**
+     * Sliding and rotating method
+     * @param vec vector to rotate
+     * @param axis The axis on which the rotating is based
+     * @param theta the angle of the rotate
+     * @return new Vector
+     *//*
+    public Vector rotateVector( Vector axis, double theta) {
+
+        double x, y, z;
+        double u, v, w;
+
+        x=this.head.getXDouble();
+        y=vec.getHead().getYDouble();
+        z=vec.getHead().getZDouble();
+
+        u=axis.getHead().getXDouble();
+        v=axis.getHead().getXDouble();
+        w=axis.getHead().getXDouble();
+
+        double xPrime = u*(axis.dotProduct(vec))*(1d - Math.cos(theta))
+                + x*Math.cos(theta)
+                + (-w*y + v*z)*Math.sin(theta);
+
+        double yPrime = v*(axis.dotProduct(vec))*(1d - Math.cos(theta))
+                + y*Math.cos(theta)
+                + (w*x - u*z)*Math.sin(theta);
+
+        double zPrime = w*(axis.dotProduct(vec))*(1d - Math.cos(theta))
+                + z*Math.cos(theta)
+                + (-v*x + u*y)*Math.sin(theta);
+
+        return new Vector(xPrime, yPrime, zPrime);
+    }*/
+
+    /**
      * override function to check if two objects are equal
      * @param o to compare
      * @return true if equal and false if not

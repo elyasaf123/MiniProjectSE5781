@@ -3,9 +3,11 @@ package elements;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
+import elements.Camera;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CameraRayIntersectionsIntegrationTests {
+
     private void assertCountIntersections(Camera camera, Intersectable geo, int expected, String outputException) {
         int count = 0;
         camera.setViewPlaneSize(3,3).setDistance(1);

@@ -10,7 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Dan
  *
  */
-public class CameraTest {
+public class CameraTests {
+
 
     /**
      * Test method for
@@ -18,8 +19,8 @@ public class CameraTest {
      */
     @Test
     public void testConstructRayThroughPixel() {
-        Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0))
-                .setDistance(10);
+        Camera camera =
+                new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)).setDistance(10d);
 
         // ============ Equivalence Partitions Tests ==============
 
