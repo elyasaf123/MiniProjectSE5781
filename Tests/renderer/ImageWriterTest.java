@@ -1,10 +1,16 @@
 package renderer;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import primitives.Color;
 
+/**
+ * todo
+ */
 public class ImageWriterTest {
 
+    /**
+     * todo
+     */
     @Test
     public void writeToImage(){
         int nX = 800;
@@ -29,6 +35,9 @@ public class ImageWriterTest {
         }
     }
 
+    /**
+     * todo
+     */
     @Test
     public void writeToImage2(){
         int nX = 1100;

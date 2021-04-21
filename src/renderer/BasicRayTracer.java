@@ -6,12 +6,12 @@ import scene.*;
 import java.util.List;
 
 /**
- *
+ * todo
  */
 public class BasicRayTracer extends RayTraceBase {
 
     /**
-     *
+     * todo
      * @param scene
      */
     public BasicRayTracer(Scene scene) {

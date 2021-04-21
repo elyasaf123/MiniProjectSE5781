@@ -4,13 +4,13 @@ import primitives.*;
 import scene.*;
 
 /**
- * todo javadoc
+ * todo
  */
 public abstract class RayTraceBase {
     protected Scene scene;
 
     /**
-     * todo javadoc
+     * todo
      * @param scene
      */
     public RayTraceBase(Scene scene) {

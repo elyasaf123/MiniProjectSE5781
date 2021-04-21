@@ -22,7 +22,12 @@ public class Camera {
     // view - plane's height
     private double height;
 
-    // CTOR
+    /**
+     * todo
+     * @param p0
+     * @param vTo
+     * @param vUp
+     */
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
         this.p0 = p0;
         this.vTo = vTo.normalized();

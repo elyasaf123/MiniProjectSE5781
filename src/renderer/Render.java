@@ -5,33 +5,58 @@ import primitives.*;
 import scene.*;
 import java.util.*;
 
+/**
+ * todo
+ */
 public class Render {
     private ImageWriter imageWriter = null;
     private Scene scene = null;
     private Camera camera = null;
     private BasicRayTracer basicRayTracer = null;
 
+    /**
+     * todo
+     * @param imageWriter
+     * @return
+     */
     public Render setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
         return this;
     }
 
+    /**
+     * todo
+     * @param scene
+     * @return
+     */
     public Render setScene(Scene scene) {
         this.scene = scene;
         return this;
     }
 
+    /**
+     * todo
+     * @param camera
+     * @return
+     */
     public Render setCamera(Camera camera) {
         this.camera = camera;
         return this;
     }
 
+    /**
+     * todo
+     * @param basicRayTracer
+     * @return
+     */
     public Render setRayTracer(BasicRayTracer basicRayTracer) {
         this.basicRayTracer = basicRayTracer;
         return this;
     }
 
-    //#todo
+    /**
+     * todo
+     */
     public void renderImage() {
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Render","imageWriter");
@@ -53,6 +78,11 @@ public class Render {
         }
     }
 
+    /**
+     * todo
+     * @param interval
+     * @param color
+     */
     public void printGrid(int interval, Color color) {
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Render","imageWriter");
@@ -67,7 +97,9 @@ public class Render {
         }
     }
 
-    //#todo
+    /**
+     * todo
+     */
     public void writeToImage() {
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Render","imageWriter");
