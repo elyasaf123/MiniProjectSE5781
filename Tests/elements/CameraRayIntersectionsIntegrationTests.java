@@ -5,8 +5,21 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Class that tests the integration of rays coming out of a camera
+ * and their intersection with the view-plane and the geometric shapes
+ */
 public class CameraRayIntersectionsIntegrationTests {
 
+    /**
+     * Private help function in order not to repeat the same code many times
+     * (loop of creating rays and counting the amount of cuts).
+     * The function create the camera location, the view plan data, and location and geometric body size of each test
+     * @param camera The camera we will use for testing
+     * @param geo The interface that will contain the geometric shapes
+     * @param expected The value we expect to receive as a result
+     * @param outputException The string that is printed in case the test fails
+     */
     private void assertCountIntersections(Camera camera, Intersectable geo, int expected, String outputException) {
         int count = 0;
         camera.setViewPlaneSize(3,3).setDistance(1);
