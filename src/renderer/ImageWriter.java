@@ -1,13 +1,10 @@
 package renderer;
 
-import primitives.Color;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import primitives.*;
+import javax.imageio.*;
+import java.awt.image.*;
+import java.io.*;
+import java.util.logging.*;
 
 /**
  * Image writer class combines accumulation of pixel color matrix and finally
@@ -33,8 +30,6 @@ public class ImageWriter {
      * Image Writer constructor accepting image name and View Plane parameters,
      *
      * @param imageName the name of jpeg file
-     * @param width     View Plane width in size units
-     * @param height    View Plane height in size units
      * @param nX        amount of pixels by Width
      * @param nY        amount of pixels by height
      */
@@ -91,5 +86,4 @@ public class ImageWriter {
     public void writePixel(int xIndex, int yIndex, Color color) {
         image.setRGB(xIndex, yIndex, color.getColor().getRGB());
     }
-
 }

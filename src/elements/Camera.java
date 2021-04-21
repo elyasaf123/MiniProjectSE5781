@@ -17,9 +17,9 @@ public class Camera {
 
     // distance from camera to view plane
     private double distance;
-    // view - plan's width
+    // view - plane's width
     private double width;
-    // view - plan's height
+    // view - plane's height
     private double height;
 
     // CTOR
@@ -84,18 +84,15 @@ public class Camera {
         double Xj = (-(nX - 1)/2d + j)*Rx;
 
         Point3D Pij = Pc;
-        if(isZero(Yi) && isZero((Xj))){
-            //don't change Pij
-        }
-        else if(isZero(Xj)){
+        if(isZero(Xj) && !isZero(Yi)){
             //only move on Y axis
             Pij = Pc.add(vUp.scale(Yi));
         }
-        else if(isZero(Yi)) {
+        else if(isZero(Yi) && !isZero(Xj)) {
             //only move on X axis
             Pij = Pc.add(vRight.scale(Xj));
         }
-        else
+        else if(!(isZero(Xj) && isZero(Yi)))
             //move on both axes
             Pij = Pc.add(vRight.scale(Xj).add(vUp.scale(Yi)));
 

@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 import static primitives.Util.*;
 
 /**
@@ -56,6 +58,26 @@ public class Ray {
             return getP0().add(dir.scale(alignZero(t)));
         }
         return getP0();
+    }
+
+    /**
+     * calculate and return closest point from the list of points to the head of the ray
+     * @param points list of points in 3D
+     * @return closest point from the list of points to the head of the ray
+     */
+    public Point3D getClosestPoint(List<Point3D> points){
+        Point3D minPoint = null;
+        if(points != null) {
+            double distance = Double.POSITIVE_INFINITY;
+            for (Point3D p : points) {
+                double temp = p.distance(p0);
+                if (temp < distance) {
+                    distance = temp;
+                    minPoint = p;
+                }
+            }
+        }
+        return minPoint;
     }
 
     /**
