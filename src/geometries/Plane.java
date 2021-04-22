@@ -21,9 +21,14 @@ public class Plane implements Geometry {
 
     /**
      * ctor for plane that excepts 3 points
+     *
      * @param x first point
      * @param y second point
      * @param z third point
+     *
+     * @throws IllegalArgumentException in 2 cases:
+     *      1 - All three points are on the same line.
+     *      2 - not all points are different
      */
     public Plane(Point3D x,Point3D y,Point3D z) {
         q0 = x;
@@ -42,6 +47,7 @@ public class Plane implements Geometry {
 
     /**
      * Ctor for plane that excepts a point and a vector
+     *
      * @param q0 first point
      * @param normal normal of the plane
      */
@@ -52,6 +58,7 @@ public class Plane implements Geometry {
 
     /**
      * getter for point
+     *
      * @return init point of plane
      */
     public Point3D getQ0() {
@@ -60,6 +67,7 @@ public class Plane implements Geometry {
 
     /**
      * getter for the normal
+     *
      * @return normal of the point
      */
     public Vector getThisNormal() {
@@ -68,7 +76,9 @@ public class Plane implements Geometry {
 
     /**
      * getter for normal
+     *
      * @param point3D init point
+     *
      * @return normal of the point
      */
     @Override
@@ -78,7 +88,9 @@ public class Plane implements Geometry {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the plane
+     *
      * @param ray the ray received
+     *
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override
@@ -126,7 +138,8 @@ public class Plane implements Geometry {
     }
 
     /**
-     *to string for plane function
+     * to string for plane function
+     *
      * @return a string that represents plane class
      */
     @Override

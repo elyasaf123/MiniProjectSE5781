@@ -8,10 +8,11 @@ import static primitives.Util.*;
  * We treat the camera as having a single point of view
  */
 public class Camera {
-     // the camera location
+     // the camera location in 3D
     final Point3D p0;
-    // vector toward
+    // vector toward - the direction vector in which the camera is aimed
     final Vector vTo;
+    // Direction vector that defines what is the "top" of the camera
     final Vector vUp;
     final Vector vRight;
 
@@ -23,10 +24,13 @@ public class Camera {
     private double height;
 
     /**
-     * todo
-     * @param p0
-     * @param vTo
-     * @param vUp
+     * CTOR
+     *
+     * @param p0 Camera location in 3D
+     * @param vTo The direction vector in which the camera is aimed
+     * @param vUp Direction vector that defines what is the "top" of the camera
+     *
+     * @throws IllegalArgumentException In case the vectors are not perpendicular to each other
      */
     public Camera(Point3D p0, Vector vTo, Vector vUp) {
         this.p0 = p0;
@@ -44,8 +48,10 @@ public class Camera {
 
     /**
      * borrowing from builder pattern
+     *
      * @param width view - plan's width
      * @param height view - plan's height
+     *
      * @return new entity from type of camera
      */
     public Camera setViewPlaneSize(double width, double height){
@@ -56,7 +62,9 @@ public class Camera {
 
     /**
      * distance setter
+     *
      * @param distance distance between camera to view plane
+     *
      * @return camera
      */
     public Camera setDistance(double distance){
@@ -66,10 +74,12 @@ public class Camera {
 
     /**
      * method that calculate the exact location of the ray in the view plane
+     *
      * @param nX number of columns in the view plane
      * @param nY number of rows in the view plane
      * @param j The column in the matrix where the desired position is
      * @param i The row in the matrix where the desired position is
+     *
      * @return the ray from the camera to view plane
      */
     public Ray constructRayThroughPixel(int nX,  int nY, int j , int i){
@@ -106,6 +116,7 @@ public class Camera {
 
     /**
      * P0 getter
+     *
      * @return P0
      */
     public Point3D getP0() {
@@ -114,6 +125,7 @@ public class Camera {
 
     /**
      * VTo getter
+     *
      * @return VTo
      */
     public Vector getVTo() {
@@ -122,6 +134,7 @@ public class Camera {
 
     /**
      * VUp getter
+     *
      * @return VUp
      */
     public Vector getVUp() {
@@ -134,5 +147,4 @@ public class Camera {
     public Vector getVRight() {
         return vRight;
     }
-
 }

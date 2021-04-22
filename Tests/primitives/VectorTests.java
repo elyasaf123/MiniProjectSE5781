@@ -6,7 +6,6 @@ import static primitives.Util.*;
 
 /**
  * Unit tests for primitives.Vector class
- * @author Netanel & Elyasaf
  */
 class VectorTests {
 
@@ -40,7 +39,8 @@ class VectorTests {
 
     /**
      * Test method for {@link primitives.Vector#dotProduct(Vector)} Product(primitives.Vector)}.
-     */    @Test
+     */
+    @Test
     void testDotProduct() {
         assertEquals(0,v1.dotProduct(v3),"ERROR: dotProduct() for orthogonal vectors is not zero");
         assertEquals(0,v1.dotProduct(v2) + 28,"ERROR: dotProduct() wrong value");
@@ -77,7 +77,8 @@ class VectorTests {
 
     /**
      * Test method for {@link Vector#lengthSquared()} (primitives.Vector)}.
-     */    @Test
+     */
+    @Test
     void testLengthSquared() {
         assertEquals(0,v1.lengthSquared() - 14,"ERROR: lengthSquared() wrong value");
     }

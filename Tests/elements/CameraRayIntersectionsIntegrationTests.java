@@ -15,6 +15,7 @@ public class CameraRayIntersectionsIntegrationTests {
      * Private help function in order not to repeat the same code many times
      * (loop of creating rays and counting the amount of cuts).
      * The function create the camera location, the view plan data, and location and geometric body size of each test
+     *
      * @param camera The camera we will use for testing
      * @param geo The interface that will contain the geometric shapes
      * @param expected The value we expect to receive as a result

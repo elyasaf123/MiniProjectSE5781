@@ -1,6 +1,6 @@
 package primitives;
 
-import static primitives.Util.alignZero;
+import static primitives.Util.*;
 
 /**
  * basic geometric object for 3D point

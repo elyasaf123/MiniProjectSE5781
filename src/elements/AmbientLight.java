@@ -3,23 +3,25 @@ package elements;
 import primitives.*;
 
 /**
- *
+ * Class for the lighting setting that illuminates the scene
  */
 public class AmbientLight {
     private final Color intensity;
 
     /**
+     * CTOR
      *
-     * @param iA
-     * @param kA
+     * @param iA The color of the light
+     * @param kA The light intensity
      */
     public AmbientLight (Color iA, double kA){
         intensity = iA.scale(kA);
     }
 
     /**
+     * getter for intensity
      *
-     * @return
+     * @return intensity
      */
     public Color getIntensity(){
         return intensity;

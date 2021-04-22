@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for primitives.Ray class
- * @author Netanel & Elyasaf
  */
 class RayTests {
 
@@ -13,7 +12,7 @@ class RayTests {
      * Test method for {@link primitives.Ray#getTargetPoint(double)}.
      */
     @Test
-    void getTargetPoint() {
+    void testGetTargetPoint() {
 
         // ============ Equivalence Partitions Tests ==============
 

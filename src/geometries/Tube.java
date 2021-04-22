@@ -45,7 +45,9 @@ public class Tube extends RadialGeometry implements Geometry {
 
     /**
      * getter for tubes normal
+     *
      * @param point3D init point
+     *
      * @return normal of tube
      */
     @Override
@@ -71,13 +73,16 @@ public class Tube extends RadialGeometry implements Geometry {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the tube
+     *
      * @param ray the ray received
+     *
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
 
         /*
+        The procedure is as follows:
         The equation for a tube of radius r oriented along a line pa + vat:
         (q - pa - (va,q - pa)va)2 - r2 = 0
         get intersections using formula : (p - pa + vt - (va,p - pa + vt)va)^2 - r^2 = 0
@@ -182,6 +187,7 @@ public class Tube extends RadialGeometry implements Geometry {
 
     /**
      * toString of tube
+     *
      * @return a string that represents a tube
      */
     @Override

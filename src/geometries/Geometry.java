@@ -9,7 +9,9 @@ public interface Geometry extends Intersectable {
 
     /**
      * function to get the normal
-     * @param point3D a 3d poing
+     *
+     * @param point3D a 3d point
+     *
      * @return normal of the point
      */
     Vector getNormal(Point3D point3D);

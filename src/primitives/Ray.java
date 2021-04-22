@@ -1,7 +1,6 @@
 package primitives;
 
 import java.util.List;
-
 import static primitives.Util.*;
 
 /**
@@ -21,6 +20,7 @@ public class Ray {
 
     /**
      * CTOR
+     *
      * @param p0 Point 3D
      * @param dir the vector
      */
@@ -32,6 +32,7 @@ public class Ray {
 
     /**
      * getter for p0
+     *
      * @return p0
      */
     public Point3D getP0() {
@@ -40,6 +41,7 @@ public class Ray {
 
     /**
      * getter for vector 'dir'
+     *
      * @return dir
      */
     public Vector getDir() {
@@ -50,7 +52,9 @@ public class Ray {
      * Refactoring must be performed for the calculation code of a point on a ray:
      * P = p0 + t∙v.
      * Used wherever required in the implementations of findIntersections function.
+     *
      * @param t The distance to be calculated for the ray from its head
+     *
      * @return The 3D-point on the ray that is at a distance of t from the head of the ray
      */
     public Point3D getTargetPoint(double t) {
@@ -62,7 +66,9 @@ public class Ray {
 
     /**
      * calculate and return closest point from the list of points to the head of the ray
+     *
      * @param points list of points in 3D
+     *
      * @return closest point from the list of points to the head of the ray
      */
     public Point3D getClosestPoint(List<Point3D> points){
@@ -82,7 +88,9 @@ public class Ray {
 
     /**
      * override function to check if two objects are equal
+     *
      * @param o to compare
+     *
      * @return true if equal and false if not
      */
     @Override
@@ -95,6 +103,7 @@ public class Ray {
 
     /**
      * string that represents the class
+     *
      * @return string that represents the class
      */
     @Override

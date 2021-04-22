@@ -5,17 +5,20 @@ import geometries.*;
 import primitives.*;
 
 /**
- * todo
+ * A class that represents the scene, that is, the positions of the shapes in 3D, and the background lighting
  */
 public class Scene {
+    // The scene's name
     public final String name;
     public Color background;
     public AmbientLight ambientLight;
+    // List of the shapes in the scene
     public Geometries geometries;
 
     /**
-     * todo
-     * @param name
+     * CTOR
+     *
+     * @param name the scene's name
      */
     public Scene(String name){
         this.name = name;
@@ -25,10 +28,11 @@ public class Scene {
     }
 
     /**
-     * todo
-     * //chaining message
-     * @param background
-     * @return
+     * setter for background
+     *
+     * @param background the given background
+     *
+     * @return Scene (So that we can easily chain when we work on the class)
      */
     public Scene setBackground(Color background) {
         this.background = background;
@@ -36,9 +40,11 @@ public class Scene {
     }
 
     /**
-     * todo
-     * @param ambientLight
-     * @return
+     * setter for ambientLight
+     *
+     * @param ambientLight the given ambientLight
+     *
+     * @return Scene (So that we can easily chain when we work on the class)
      */
     public Scene setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
@@ -46,9 +52,11 @@ public class Scene {
     }
 
     /**
-     * todo
-     * @param geometries
-     * @return
+     * setter for geometries
+     *
+     * @param geometries the given geometries
+     *
+     * @return Scene (So that we can easily chain when we work on the class)
      */
     public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;

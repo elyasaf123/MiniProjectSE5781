@@ -1,12 +1,13 @@
 package geometries;
 
+import primitives.*;
 import java.util.LinkedList;
 import java.util.List;
-import primitives.*;
 import static primitives.Util.*;
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate system
+ *
  * @author Dan
  */
 public class Polygon implements Geometry {
@@ -26,6 +27,7 @@ public class Polygon implements Geometry {
      * path. The polygon must be convex.
      *
      * @param vertices list of vertices according to their order by edge path
+     *
      * @throws IllegalArgumentException in any case of illegal combination of
      *                                  vertices:
      *                                  <ul>
@@ -86,7 +88,9 @@ public class Polygon implements Geometry {
 
     /**
      * A method that receives a Point3D on the polygon and checks the normal to this point
+     *
      * @param point the Point3D received
+     *
      * @return normal at this point to the plane which contains the polygon
      */
     @Override
@@ -96,7 +100,9 @@ public class Polygon implements Geometry {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the polygon
+     *
      * @param ray the ray received
+     *
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override

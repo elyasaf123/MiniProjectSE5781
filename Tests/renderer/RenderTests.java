@@ -43,7 +43,7 @@ public class RenderTests {
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
-//
+
 //    /**
 //     * Test for XML based scene - for bonus
 //     */

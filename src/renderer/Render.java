@@ -6,7 +6,7 @@ import scene.*;
 import java.util.*;
 
 /**
- * todo
+ * Class which create the color matrix of the image from the scene
  */
 public class Render {
     private ImageWriter imageWriter = null;
@@ -15,9 +15,11 @@ public class Render {
     private BasicRayTracer basicRayTracer = null;
 
     /**
-     * todo
-     * @param imageWriter
-     * @return
+     * setter for imageWriter
+     *
+     * @param imageWriter the given imageWriter
+     *
+     * @return Render (So that we can easily chain when we work on the class)
      */
     public Render setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
@@ -25,9 +27,11 @@ public class Render {
     }
 
     /**
-     * todo
-     * @param scene
-     * @return
+     * setter for scene
+     *
+     * @param scene the given scene
+     *
+     * @return Render (So that we can easily chain when we work on the class)
      */
     public Render setScene(Scene scene) {
         this.scene = scene;
@@ -35,9 +39,11 @@ public class Render {
     }
 
     /**
-     * todo
-     * @param camera
-     * @return
+     * setter for camera
+     *
+     * @param camera the given camera
+     *
+     * @return Render (So that we can easily chain when we work on the class)
      */
     public Render setCamera(Camera camera) {
         this.camera = camera;
@@ -45,9 +51,11 @@ public class Render {
     }
 
     /**
-     * todo
-     * @param basicRayTracer
-     * @return
+     * setter for rayTracer
+     *
+     * @param basicRayTracer the given rayTracer
+     *
+     * @return Render (So that we can easily chain when we work on the class)
      */
     public Render setRayTracer(BasicRayTracer basicRayTracer) {
         this.basicRayTracer = basicRayTracer;
@@ -55,7 +63,11 @@ public class Render {
     }
 
     /**
-     * todo
+     * For all the pixels of the ViewPlane, a ray will be built,
+     * and for each ray we will get a color from the ray's tracer.
+     * We will put the color in the appropriate pixel of the image maker (using method writePixel)
+     *
+     * @throws MissingResourceException if not all fields a non-empty value was entered
      */
     public void renderImage() {
         if(imageWriter == null)
@@ -79,9 +91,13 @@ public class Render {
     }
 
     /**
-     * todo
-     * @param interval
-     * @param color
+     * A method to create a grid of lines
+     *
+     * @param interval Indicates for which quantity of pixels a grid line is passed,
+     *                 both horizontally and vertically
+     * @param color the grid's color
+     *
+     * @throws MissingResourceException if imageWriter is null
      */
     public void printGrid(int interval, Color color) {
         if(imageWriter == null)
@@ -93,12 +109,14 @@ public class Render {
                     imageWriter.writePixel(j, i, color);
                 }
             }
-            imageWriter.writeToImage();
+            this.writeToImage();
         }
     }
 
     /**
-     * todo
+     * Activates (delegate!) The appropriate image maker's method
+     *
+     * @throws MissingResourceException if imageWriter is null
      */
     public void writeToImage() {
         if(imageWriter == null)

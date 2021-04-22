@@ -14,7 +14,7 @@ class RayTest {
      * the closest point is the middle point in the list
      */
     @Test
-    void getClosestPointEP() {
+    void testGetClosestPointEP() {
         List<Point3D> point3DS = new  LinkedList<>();
         point3DS.add(new Point3D(-1000,90,100));
         point3DS.add(new Point3D(50,48,1000));
@@ -28,7 +28,7 @@ class RayTest {
      * empty/null list
      */
     @Test
-    void getClosestPointBVA1() {
+    void testGetClosestPointBVA1() {
         List<Point3D> point3DS = null;
         assertNull(ray.getClosestPoint(null),"supposed to be null");
     }
@@ -37,7 +37,7 @@ class RayTest {
      * the closest point is the first point in the list
      */
     @Test
-    void getClosestPointBVA2() {
+    void testGetClosestPointBVA2() {
         List<Point3D> point3DS = new  LinkedList<>();
         point3DS.add(new Point3D(0,.5,1));
         point3DS.add(new Point3D(-1000,90,100));
@@ -51,7 +51,7 @@ class RayTest {
      * the closest point is the last point in the list
      */
     @Test
-    void getClosestPointBVA3() {
+    void testGetClosestPointBVA3() {
         List<Point3D> point3DS = new  LinkedList<>();
         point3DS.add(new Point3D(-1000,90,100));
         point3DS.add(new Point3D(50,48,1000));
