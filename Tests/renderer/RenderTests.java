@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import primitives.*;
 import scene.*;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,7 +17,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static java.lang.Double.parseDouble;
 
 /**
@@ -27,9 +25,14 @@ import static java.lang.Double.parseDouble;
  * @author Dan
  */
 public class RenderTests {
-    private Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-            .setDistance(100) //
-            .setViewPlaneSize(500, 500);
+    Camera.CameraBuilder cameraBuilder =
+            new Camera.CameraBuilder(
+                    Point3D.ZERO,
+                    new Vector(0, 0, -1),
+                    new Vector(0, 1, 0))
+                    .setDistance(100)
+                    .setViewPlaneSize(500, 500);
+    Camera camera = cameraBuilder.build();
 
    /**
    * Produce a scene with basic 3D model and render it into a jpeg image with a grid
@@ -82,11 +85,6 @@ public class RenderTests {
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
-
-
-
-
-
 
     public class DalXml {
 
@@ -151,7 +149,6 @@ public class RenderTests {
                 Sphere mySphere = new Sphere(point, Double.valueOf(radius));
                 geos.add(mySphere);
 
-
                 for (int i = 3; i < geometries.getLength(); i += 2) {
 
                     var triangle = geometries.item(i);
@@ -184,7 +181,6 @@ public class RenderTests {
                 sceneBuilder.setGeometries(geos);
                 return sceneBuilder.build();
 
-
             } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -193,5 +189,4 @@ public class RenderTests {
             return null;
         }
     }
-
 }
