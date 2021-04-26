@@ -21,6 +21,7 @@ public final class Coordinate {
      * @param coord coordinate value
      */
     public Coordinate(double coord) {
+
         // if it too close to zero make it zero
         this.coord = alignZero(coord);
     }
