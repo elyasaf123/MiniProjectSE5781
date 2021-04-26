@@ -39,8 +39,10 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRaySphereIntegration(){
-        Camera cam1 = new Camera(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
-        Camera cam2 = new Camera(new Point3D(0,0,0.5), new Vector(0,0,-1),new Vector(0,-1,0));
+        Camera.CameraBuilder cameraBuilder1 = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
+        Camera cam1 = cameraBuilder1.build();
+        Camera.CameraBuilder cameraBuilder2 = new Camera.CameraBuilder(new Point3D(0,0,0.5), new Vector(0,0,-1),new Vector(0,-1,0));
+        Camera cam2 = cameraBuilder2.build();
 
         //TC01: Small sphere (2 points)
         assertCountIntersections(
@@ -83,7 +85,8 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRayPlaneIntegration(){
-        Camera cam = new Camera(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
+        Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
+        Camera cam = cameraBuilder.build();
 
         //TC01: Plane against camera (9 points)
         assertCountIntersections(
@@ -119,7 +122,8 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRayTriangleIntegration(){
-        Camera cam = new Camera(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
+        Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
+        Camera cam = cameraBuilder.build();
 
         //TC01: small triangle (1 point)
         assertCountIntersections(

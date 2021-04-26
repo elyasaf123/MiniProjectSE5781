@@ -20,7 +20,7 @@ public class Scene {
      *
      * @param name the scene's name
      */
-    public Scene(String name){
+    public Scene (String name) {
         this.name = name;
         background = Color.BLACK;
         ambientLight = new AmbientLight(Color.BLACK,0);
