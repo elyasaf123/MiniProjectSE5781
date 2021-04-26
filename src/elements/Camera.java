@@ -8,14 +8,28 @@ import static primitives.Util.*;
  * We treat the camera as having a single point of view
  */
 public class Camera {
-     // the camera location in 3D
-    final Point3D p0;
-    // vector toward - the direction vector in which the camera is aimed
-    final Vector vTo;
-    // Direction vector that defines what is the "top" of the camera
-    final Vector vUp;
-    final Vector vRight;
 
+    /**
+     * todo
+     * @param cameraBuilder
+     */
+    private Camera(CameraBuilder cameraBuilder) {
+        this.distance = cameraBuilder.distance;
+        this.width = cameraBuilder.width;
+        this.height = cameraBuilder.height;
+        this.p0 = cameraBuilder.p0;
+        this.vTo = cameraBuilder.vTo;
+        this.vUp = cameraBuilder.vUp;
+        this.vRight = cameraBuilder.vRight;
+    }
+
+     // the camera location in 3D
+    private final Point3D p0;
+    // vector toward - the direction vector in which the camera is aimed
+    private final Vector vTo;
+    // Direction vector that defines what is the "top" of the camera
+    private final Vector vUp;
+    private final Vector vRight;
     // distance from camera to view plane
     private double distance;
     // view - plane's width
@@ -24,52 +38,69 @@ public class Camera {
     private double height;
 
     /**
-     * CTOR
-     *
-     * @param p0 Camera location in 3D
-     * @param vTo The direction vector in which the camera is aimed
-     * @param vUp Direction vector that defines what is the "top" of the camera
-     *
-     * @throws IllegalArgumentException In case the vectors are not perpendicular to each other
+     * todo
      */
-    public Camera(Point3D p0, Vector vTo, Vector vUp) {
-        this.p0 = p0;
-        this.vTo = vTo.normalized();
-        this.vUp = vUp.normalized();
+    public static class CameraBuilder {
+        private Point3D p0;
+        private Vector vUp;
+        private Vector vTo;
+        private Vector vRight;
+        private double distance;
+        private double width;
+        private double height;
 
-        // check that vUp is orthogonal to vTo
-        if(!isZero(vTo.dotProduct(vUp))) {
-            throw new IllegalArgumentException("vUp is not orthogonal to vTo");
+        /**
+         * todo
+         * @param p0
+         * @param vTo
+         * @param vUp
+         */
+        public CameraBuilder(Point3D p0, Vector vTo, Vector vUp) {
+            this.p0 = p0;
+            this.vTo = vTo.normalized();
+            this.vUp = vUp.normalized();
+
+            // check that vUp is orthogonal to vTo
+            if(!isZero(vTo.dotProduct(vUp))) {
+                throw new IllegalArgumentException("vUp is not orthogonal to vTo");
+            }
+            // Right hand rule
+            vRight = vTo.crossProduct(vUp);
         }
 
-        // Right hand rule
-        vRight = vTo.crossProduct(vUp);
-    }
+        /**
+         * borrowing from builder pattern
+         *
+         * @param width view - plan's width
+         * @param height view - plan's height
+         *
+         * @return new entity from type of camera
+         */
+        public CameraBuilder setViewPlaneSize(double width, double height) {
+            this.width = width;
+            this.height = height;
+            return this;
+        }
 
-    /**
-     * borrowing from builder pattern
-     *
-     * @param width view - plan's width
-     * @param height view - plan's height
-     *
-     * @return new entity from type of camera
-     */
-    public Camera setViewPlaneSize(double width, double height){
-        this.width = width;
-        this.height = height;
-        return this;
-    }
+        /**
+         * distance setter
+         *
+         * @param distance distance between camera to view plane
+         *
+         * @return camera
+         */
+        public CameraBuilder setDistance(double distance){
+            this.distance = distance;
+            return this;
+        }
 
-    /**
-     * distance setter
-     *
-     * @param distance distance between camera to view plane
-     *
-     * @return camera
-     */
-    public Camera setDistance(double distance){
-        this.distance = distance;
-        return this;
+        /**
+         * todo
+         * @return
+         */
+        public Camera build() {
+            return new Camera(this);
+        }
     }
 
     /**
@@ -143,6 +174,8 @@ public class Camera {
 
     /**
      * VRight getter (using cross product)
+     *
+     * @return vRight
      */
     public Vector getVRight() {
         return vRight;
