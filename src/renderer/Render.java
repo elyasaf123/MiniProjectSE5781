@@ -9,58 +9,79 @@ import java.util.*;
  * Class which create the color matrix of the image from the scene
  */
 public class Render {
-    private ImageWriter imageWriter = null;
-    private Scene scene = null;
-    private Camera camera = null;
-    private BasicRayTracer basicRayTracer = null;
-
-    /**
-     * setter for imageWriter
-     *
-     * @param imageWriter the given imageWriter
-     *
-     * @return Render (So that we can easily chain when we work on the class)
-     */
-    public Render setImageWriter(ImageWriter imageWriter) {
-        this.imageWriter = imageWriter;
-        return this;
+    private Render(RenderBuilder renderBuilder) {
+        this.imageWriter = renderBuilder.imageWriter;
+        this.scene = renderBuilder.scene;
+        this.basicRayTracer = renderBuilder.basicRayTracer;
+        this.camera = renderBuilder.camera;
     }
 
-    /**
-     * setter for scene
-     *
-     * @param scene the given scene
-     *
-     * @return Render (So that we can easily chain when we work on the class)
-     */
-    public Render setScene(Scene scene) {
-        this.scene = scene;
-        return this;
+    private ImageWriter imageWriter;
+    private Scene scene;
+    private Camera camera;
+    private RayTraceBase basicRayTracer;
+
+    public static class RenderBuilder {
+
+        private ImageWriter imageWriter;
+        private Scene scene;
+        private Camera camera;
+        private RayTraceBase basicRayTracer;
+
+        /**
+         * setter for imageWriter
+         *
+         * @param imageWriter the given imageWriter
+         *
+         * @return Render (So that we can easily chain when we work on the class)
+         */
+        public RenderBuilder setImageWriter(ImageWriter imageWriter) {
+            this.imageWriter = imageWriter;
+            return this;
+        }
+
+        /**
+         * setter for scene
+         *
+         * @param scene the given scene
+         *
+         * @return Render (So that we can easily chain when we work on the class)
+         */
+        public RenderBuilder setScene(Scene scene) {
+            this.scene = scene;
+            return this;
+        }
+
+        /**
+         * setter for camera
+         *
+         * @param camera the given camera
+         *
+         * @return Render (So that we can easily chain when we work on the class)
+         */
+        public RenderBuilder setCamera(Camera camera) {
+            this.camera = camera;
+            return this;
+        }
+
+        /**
+         * setter for rayTracer
+         *
+         * @param basicRayTracer the given rayTracer
+         *
+         * @return Render (So that we can easily chain when we work on the class)
+         */
+        public RenderBuilder setRayTracer(BasicRayTracer basicRayTracer) {
+            this.basicRayTracer = basicRayTracer;
+            return this;
+        }
+
+        public Render build() {
+            return new Render(this);
+        }
     }
 
-    /**
-     * setter for camera
-     *
-     * @param camera the given camera
-     *
-     * @return Render (So that we can easily chain when we work on the class)
-     */
-    public Render setCamera(Camera camera) {
-        this.camera = camera;
-        return this;
-    }
 
-    /**
-     * setter for rayTracer
-     *
-     * @param basicRayTracer the given rayTracer
-     *
-     * @return Render (So that we can easily chain when we work on the class)
-     */
-    public Render setRayTracer(BasicRayTracer basicRayTracer) {
-        this.basicRayTracer = basicRayTracer;
-        return this;
-    }
 
     /**
      * For all the pixels of the ViewPlane, a ray will be built,

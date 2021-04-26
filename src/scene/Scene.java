@@ -9,16 +9,18 @@ import primitives.*;
  */
 public class Scene {
 
+
+
     private Scene(SceneBuilder sceneBuilder){
         this.name = sceneBuilder.name;
         this.background = sceneBuilder.background;
         this.ambientLight = sceneBuilder.ambientLight;
         this.geometries = sceneBuilder.geometries;
     }
-    private String name;
-    private Color background;
-    private AmbientLight ambientLight;
-    private Geometries geometries;
+    public String name;
+    public Color background;
+    public AmbientLight ambientLight;
+    public Geometries geometries;
 
 
 

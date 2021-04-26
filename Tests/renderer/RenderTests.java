@@ -50,11 +50,13 @@ public class RenderTests {
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setScene(scene) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
+        Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
+        renderBuilder.setImageWriter(imageWriter);
+        renderBuilder.setScene(scene);
+        renderBuilder.setCamera(camera);
+        renderBuilder.setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
+
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -66,17 +68,21 @@ public class RenderTests {
      */
     @Test
     public void basicRenderXml() throws ParserConfigurationException {
-        DalXml dalXml = new DalXml("basicRenderTestTwoColors.xml");
+        DalXml dalXml = new DalXml("basicRenderTestTwoColors");
         Scene scene = dalXml.getSceneFromXML();
         // enter XML file name and parse from XML file into scene object
         // ...
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setScene(scene) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
+
+
+
+        Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
+        renderBuilder.setImageWriter(imageWriter);
+        renderBuilder.setScene(scene);
+        renderBuilder.setCamera(camera);
+        renderBuilder.setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
