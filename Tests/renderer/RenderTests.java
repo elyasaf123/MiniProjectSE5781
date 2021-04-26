@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.*;
 
+import javax.sql.rowset.spi.XmlReader;
+import java.io.File;
+
 /**
  * Test rendering a basic image
  *
@@ -52,7 +55,7 @@ public class RenderTests {
         Scene scene = new Scene("XML Test scene");
         // enter XML file name and parse from XML file into scene object
         // ...
-
+        Geometries geometries = new Geometries();
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
