@@ -10,10 +10,12 @@ import static primitives.Util.*;
 public class Camera {
 
     /**
-     * todo
-     * @param cameraBuilder
+     * Private CTOR of the class built by Builder Pattern only
+     *
+     * @param cameraBuilder A virtual entity of the class we are currently implementing
      */
     private Camera(CameraBuilder cameraBuilder) {
+
         this.distance = cameraBuilder.distance;
         this.width = cameraBuilder.width;
         this.height = cameraBuilder.height;
@@ -29,6 +31,7 @@ public class Camera {
     private final Vector vTo;
     // Direction vector that defines what is the "top" of the camera
     private final Vector vUp;
+    // Direction vector that defines what is the "right" direction of the camera
     private final Vector vRight;
     // distance from camera to view plane
     private double distance;
@@ -38,22 +41,33 @@ public class Camera {
     private double height;
 
     /**
-     * todo
+     * Builder Pattern, by this class we are updating the parent class (Camera),
+     * instance that we are interested in creating even before we create it
      */
     public static class CameraBuilder {
+
+        // the camera location in 3D
         private Point3D p0;
+        // Direction vector that defines what is the "top" of the camera
         private Vector vUp;
+        // vector toward - the direction vector in which the camera is aimed
         private Vector vTo;
+        // Direction vector that defines what is the "right" direction of the camera
         private Vector vRight;
+        // distance from camera to view plane
         private double distance;
+        // view - plane's width
         private double width;
+        // view - plane's height
         private double height;
 
         /**
-         * todo
-         * @param p0
-         * @param vTo
-         * @param vUp
+         * CameraBuilder's CTOR,
+         * gets three components he needs to create a show
+         *
+         * @param p0 Location of the camera in 3D
+         * @param vTo vector toward - the direction vector in which the camera is aimed
+         * @param vUp Direction vector that defines what is the "top" of the camera
          */
         public CameraBuilder(Point3D p0, Vector vTo, Vector vUp) {
             this.p0 = p0;
@@ -74,7 +88,7 @@ public class Camera {
          * @param width view - plan's width
          * @param height view - plan's height
          *
-         * @return new entity from type of camera
+         * @return new entity from type of cameraBuilder
          */
         public CameraBuilder setViewPlaneSize(double width, double height) {
             this.width = width;
@@ -87,7 +101,7 @@ public class Camera {
          *
          * @param distance distance between camera to view plane
          *
-         * @return camera
+         * @return cameraBuilder
          */
         public CameraBuilder setDistance(double distance){
             this.distance = distance;
@@ -95,8 +109,10 @@ public class Camera {
         }
 
         /**
-         * todo
-         * @return
+         * We call this function when we have finished giving values to all the fields of the class,
+         * and we are interested in creating an entity
+         *
+         * @return Camera
          */
         public Camera build() {
             return new Camera(this);
@@ -114,6 +130,7 @@ public class Camera {
      * @return the ray from the camera to view plane
      */
     public Ray constructRayThroughPixel(int nX,  int nY, int j , int i){
+
         // the  image's center
         Point3D Pc = p0.add(vTo.scale(distance));
 

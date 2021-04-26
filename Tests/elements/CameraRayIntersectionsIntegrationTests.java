@@ -37,13 +37,25 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRaySphereIntegration(){
-        Camera.CameraBuilder cameraBuilder1 = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
-        cameraBuilder1.setViewPlaneSize(3,3);
-        cameraBuilder1.setDistance(1);
+
+        // for TC01 & TC05
+        Camera.CameraBuilder cameraBuilder1 =
+                new Camera.CameraBuilder(
+                    Point3D.ZERO,
+                    new Vector(0,0,-1),
+                    new Vector(0,-1,0))
+                    .setViewPlaneSize(3,3)
+                    .setDistance(1);
         Camera cam1 = cameraBuilder1.build();
-        Camera.CameraBuilder cameraBuilder2 = new Camera.CameraBuilder(new Point3D(0,0,0.5), new Vector(0,0,-1),new Vector(0,-1,0));
-        cameraBuilder2.setViewPlaneSize(3,3);
-        cameraBuilder2.setDistance(1);
+
+        // for TC02 & TC03 & TC04
+        Camera.CameraBuilder cameraBuilder2 =
+                new Camera.CameraBuilder(
+                    new Point3D(0,0,0.5),
+                    new Vector(0,0,-1),
+                    new Vector(0,-1,0))
+                    .setViewPlaneSize(3,3)
+                    .setDistance(1);
         Camera cam2 = cameraBuilder2.build();
 
         //TC01: Small sphere (2 points)
@@ -87,9 +99,14 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRayPlaneIntegration(){
-        Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
-        cameraBuilder.setViewPlaneSize(3,3);
-        cameraBuilder.setDistance(1);
+
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        Point3D.ZERO,
+                        new Vector(0,0,-1),
+                        new Vector(0,-1,0))
+                        .setViewPlaneSize(3,3)
+                        .setDistance(1);
         Camera cam = cameraBuilder.build();
 
         //TC01: Plane against camera (9 points)
@@ -126,9 +143,14 @@ public class CameraRayIntersectionsIntegrationTests {
      */
     @Test
     public void cameraRayTriangleIntegration(){
-        Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0,0,-1), new Vector(0,-1,0));
-        cameraBuilder.setViewPlaneSize(3,3);
-        cameraBuilder.setDistance(1);
+
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        Point3D.ZERO,
+                        new Vector(0,0,-1),
+                        new Vector(0,-1,0))
+                        .setViewPlaneSize(3,3)
+                        .setDistance(1);
         Camera cam = cameraBuilder.build();
 
         //TC01: small triangle (1 point)

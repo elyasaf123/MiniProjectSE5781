@@ -16,6 +16,11 @@ public class Cylinder extends Tube  {
     private double height;
 
     /**
+     * the radius
+     */
+    private double radius;
+
+    /**
      * CTOR of cylinder which has to call super (Tube)
      *
      * @param axisRay axis which the cylinder will be there
@@ -24,7 +29,8 @@ public class Cylinder extends Tube  {
      */
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
-        this.height = height;
+        this.height = alignZero(height);
+        this.radius = alignZero(radius);
     }
 
     /**
@@ -33,7 +39,16 @@ public class Cylinder extends Tube  {
      * @return height of cylinder
      */
     public double getHeight() {
-        return height;
+        return alignZero(height);
+    }
+
+    /**
+     * getter for radius
+     *
+     * @return radius of cylinder
+     */
+    public double getRadius() {
+        return alignZero(radius);
     }
 
     /**

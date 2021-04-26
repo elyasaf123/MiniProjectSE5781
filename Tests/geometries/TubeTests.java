@@ -34,7 +34,6 @@ class TubeTests {
                 tube2.getNormal(new Point3D(1,0,0)),
                 "ERROR - TC02: Connection of the point to the ray's head of the cylinder axis" +
                         "produces a right angle");
-
     }
 
     /**
@@ -176,8 +175,7 @@ class TubeTests {
         assertEquals( 1, result.size(), "must be 1 intersections");
         assertEquals(List.of(new Point3D(1, 2, 2)), result, "Bad intersections");
 
-        // TC33: Ray starts at the surface and goes outside and the line crosses the
-        // axis (0 points)
+        // TC33: Ray starts at the surface and goes outside and the line crosses the axis (0 points)
         ray = new Ray(new Point3D(1, 2, 2), new Vector(0, 1, 0));
         result = tube2.findIntersections(ray);
         assertNull(result,"Bad intersections");
@@ -254,8 +252,7 @@ class TubeTests {
             result = List.of(result.get(1), result.get(0));
         assertEquals(List.of(new Point3D(1, 0, 1), new Point3D(1, 2, 1)), result, "Bad intersections");
 
-        // TC51: Ray starts at the surface and goes inside and goes through the axis
-        // head
+        // TC51: Ray starts at the surface and goes inside and goes through the axis head
         ray = new Ray(new Point3D(1, 0, 1), new Vector(0, 1, 0));
         result = tube2.findIntersections(ray);
         assertNotNull( result, "must be intersections");
@@ -269,8 +266,7 @@ class TubeTests {
         assertEquals( 1, result.size(), "must be 1 intersections");
         assertEquals(List.of(new Point3D(1, 2, 1)), result, "Bad intersections");
 
-        // TC53: Ray starts at the surface and the line goes outside and goes through
-        // the axis head
+        // TC53: Ray starts at the surface and the line goes outside and goes through the axis head
         ray = new Ray(new Point3D(1, 2, 1), new Vector(0, 1, 0));
         result = tube2.findIntersections(ray);
         assertNull(result, "Bad intersections");
@@ -287,8 +283,7 @@ class TubeTests {
         assertEquals( 1, result.size(), "must be 1 intersections");
         assertEquals(List.of(new Point3D(1, 2, 1)), result, "Bad intersections");
 
-        // ** Group: Ray's line is neither parallel nor orthogonal to the axis and
-        // begins against axis head
+        // ** Group: Ray's line is neither parallel nor orthogonal to the axis and begins against axis head
         Point3D p0 = new Point3D(0, 2, 1);
 
         // TC61: Ray's line is outside the tube
@@ -346,8 +341,7 @@ class TubeTests {
         result = tube2.findIntersections(ray);
         assertNull(result, "Bad intersections");
 
-        // ** Group: Ray's line is neither parallel nor orthogonal to the axis and
-        // does not begin against axis head
+        // ** Group: Ray's line is neither parallel nor orthogonal to the axis and does not begin against axis head
         double sqrt2 = Math.sqrt(2);
         double denomSqrt2 = 1 / sqrt2;
         double value1 = 1 - denomSqrt2;
@@ -414,16 +408,14 @@ class TubeTests {
         result = tube2.findIntersections(ray);
         assertNull(result, "Bad intersections");
 
-        // TC80: Ray's begins at the surface and goes outside and the line crosses the
-        // axis
+        // TC80: Ray's begins at the surface and goes outside and the line crosses the axis
         ray = new Ray(new Point3D(value2, value2, 2 + value2), new Vector(1, 1, 1));
         result = tube2.findIntersections(ray);
         assertNull(result, "Bad intersections");
 
-        // TC81: Ray's begins at the surface and goes outside and the line crosses the
-        // axis head
+        // TC81: Ray's begins at the surface and goes outside and the line crosses the axis head
         ray = new Ray(new Point3D(value2, value2, value2), new Vector(1, 1, 1));
-        result =                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             tube2.findIntersections(ray);
+        result =tube2.findIntersections(ray);
         assertNull(result, "Bad intersections");
     }
 }

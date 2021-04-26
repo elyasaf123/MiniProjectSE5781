@@ -2,29 +2,24 @@ package renderer;
 
 import elements.*;
 import geometries.*;
-import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 import primitives.*;
+import org.junit.jupiter.api.Test;
+import org.w3c.dom.*;
+import org.xml.sax.*;
 import scene.*;
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
+import javax.xml.*;
+import javax.xml.parsers.*;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import static java.lang.Double.parseDouble;
+import java.util.stream.*;
+import static java.lang.Double.*;
 
 /**
  * Test rendering a basic image
- *
- * @author Dan
  */
 public class RenderTests {
+
     Camera.CameraBuilder cameraBuilder =
             new Camera.CameraBuilder(
                     Point3D.ZERO,
@@ -40,26 +35,29 @@ public class RenderTests {
     @Test
     public void basicRenderTwoColorTest() {
 
-        Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
-        sceneBuilder.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1));
-        sceneBuilder.setBackground(new Color(75, 127, 90));
         Geometries geometries = new Geometries();
         geometries.add(new Sphere(new Point3D(0, 0, -100), 50),
                 new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)), // up left
                 new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up right
                 new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)), // down left
                 new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100))); // down right
-        sceneBuilder.setGeometries(geometries);
+
+        Scene.SceneBuilder sceneBuilder =
+                new Scene.SceneBuilder("Test scene")
+                        .setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1))
+                        .setBackground(new Color(75, 127, 90))
+                        .setGeometries(geometries);
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
-        renderBuilder.setImageWriter(imageWriter);
-        renderBuilder.setScene(scene);
-        renderBuilder.setCamera(camera);
-        renderBuilder.setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
+        Render.RenderBuilder renderBuilder =
+                new Render.RenderBuilder()
+                        .setImageWriter(imageWriter)
+                        .setScene(scene)
+                        .setCamera(camera)
+                        .setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -71,6 +69,7 @@ public class RenderTests {
      */
     @Test
     public void basicRenderXml() throws ParserConfigurationException {
+
         DalXml dalXml = new DalXml("basicRenderTestTwoColors");
         Scene scene = dalXml.getSceneFromXML();
         // enter XML file name and parse from XML file into scene object
@@ -78,13 +77,12 @@ public class RenderTests {
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 
-
-
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
-        renderBuilder.setImageWriter(imageWriter);
-        renderBuilder.setScene(scene);
-        renderBuilder.setCamera(camera);
-        renderBuilder.setRayTracer(new BasicRayTracer(scene));
+        Render.RenderBuilder renderBuilder =
+                new Render.RenderBuilder()
+                        .setImageWriter(imageWriter)
+                        .setScene(scene)
+                        .setCamera(camera)
+                        .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
         render.renderImage();
@@ -96,11 +94,11 @@ public class RenderTests {
 
         // parse XML file
         private DocumentBuilder db;
-        private final String path = "C:\\Users\\USER\\IdeaProjects\\MiniProjectSE5781\\xml files\\";
-        private final String _fileName;
+        private final String path = "xml files\\";
+        private final String fileName;
 
         public DalXml(String fileName) throws ParserConfigurationException {
-            this._fileName = fileName;
+            this.fileName = fileName;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             db = dbf.newDocumentBuilder();
@@ -108,8 +106,8 @@ public class RenderTests {
 
         public Scene getSceneFromXML() {
             try {
-                Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder(_fileName);
-                Document doc = db.parse(new File(path + _fileName + ".xml"));
+                Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder(fileName);
+                Document doc = db.parse(new File(path + fileName + ".xml"));
                 // optional, but recommended
                 // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
                 doc.getDocumentElement().normalize();
@@ -151,6 +149,7 @@ public class RenderTests {
                         Double.valueOf(stringList.get(1)),
                         Double.valueOf(stringList.get(2))
                 );
+
                 String radius = sphere.getAttribute("radius");
                 Sphere mySphere = new Sphere(point, Double.valueOf(radius));
                 geos.add(mySphere);
@@ -183,10 +182,8 @@ public class RenderTests {
                     Triangle triangle1 = new Triangle(p0, p1, p2);
                     geos.add(triangle1);
                 }
-
                 sceneBuilder.setGeometries(geos);
                 return sceneBuilder.build();
-
             } catch (SAXException e) {
                 e.printStackTrace();
             } catch (IOException e) {
