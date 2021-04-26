@@ -1,16 +1,17 @@
 package geometries;
 
-import primitives.Point3D;
+import primitives.*;
 
 /**
- *class that represents triangle in 3D
+ * class that represents triangle in 3D
  */
 public class Triangle extends Polygon{
 
     /**
-     *CTOR that accepts 3 points
+     * CTOR that accepts 3 points
+     *
      * @param x first point
-     * @param y seconde point
+     * @param y second point
      * @param z third point
      */
     public Triangle(Point3D x,Point3D y,Point3D z) {
@@ -19,6 +20,7 @@ public class Triangle extends Polygon{
 
     /**
      * to string for class polygon
+     *
      * @return a string that represents polygon
      */
     @Override

@@ -16,9 +16,12 @@ public class Vector {
 
     /**
      * CTOR who gets 3 types of double types
+     *
      * @param x The X-axis component of the end point
      * @param y The Y-axis component of the end point
      * @param z The Z-axis component of the end point
+     *
+     * @throws IllegalArgumentException if the given point is (0, 0, 0)
      */
     public Vector(double x, double y, double z) {
         Point3D temp = new Point3D(alignZero(x), alignZero(y), alignZero(z));
@@ -30,7 +33,10 @@ public class Vector {
 
     /**
      * CTOR who gets 1 type of the Point3D (the end point of the vector)
+     *
      * @param head 1 type of the Point3D
+     *
+     * @throws IllegalArgumentException if the given point is (0, 0, 0)
      */
     public Vector(Point3D head) {
         if (head.equals(ZERO)){
@@ -41,9 +47,12 @@ public class Vector {
 
     /**
      * CTOR who gets 3 types of Coordinate types
+     *
      * @param x The X-axis component of the end point
      * @param y The Y-axis component of the end point
      * @param z The Z-axis component of the end point
+     *
+     * @throws IllegalArgumentException if the given point is (0, 0, 0)
      */
     public Vector(Coordinate x, Coordinate y , Coordinate z) {
         Point3D temp = new Point3D(x,y,z);
@@ -55,6 +64,7 @@ public class Vector {
 
     /**
      * getter for Point3D
+     *
      * @return head
      */
     public Point3D getHead() {
@@ -63,7 +73,9 @@ public class Vector {
 
     /**
      * A function that performs a vector subtraction between 2 vectors
+     *
      * @param vector A vector that represents the missing vector
+     *
      * @return New vector calculated according to vector subtraction
      */
     public Vector subtract(Vector vector) {
@@ -72,7 +84,9 @@ public class Vector {
 
     /**
      * A function that makes a vector connection between 2 vectors
+     *
      * @param vector Vector to be added
+     *
      * @return a new vector
      */
     public Vector add(Vector vector) {
@@ -81,8 +95,12 @@ public class Vector {
 
     /**
      * Vector Multiplier - Scalar
+     *
      * @param scalar The multiplier number
+     *
      * @return New vector after multiplication
+     *
+     * @throws IllegalArgumentException if the scalar = 0
      */
     public Vector scale(double scalar) {
         if (isZero(alignZero(scalar))) {
@@ -96,7 +114,9 @@ public class Vector {
 
     /**
      * Scalar product between vectors
+     *
      * @param vector Vector for multiplication
+     *
      * @return The result of the scalar product (double)
      */
     public double dotProduct(Vector vector) {
@@ -108,7 +128,9 @@ public class Vector {
 
     /**
      * Vector product
+     *
      * @param vector Vector for multiplication
+     *
      * @return a new vector perpendicular to the existing two vectors
      */
     public Vector crossProduct(Vector vector) {
@@ -126,6 +148,7 @@ public class Vector {
 
     /**
      * Calculate the square of the distance between 2 vectors
+     *
      * @return the square of the distance between 2 vectors
      */
     public double lengthSquared() {
@@ -134,6 +157,7 @@ public class Vector {
 
     /**
      * Calculate the distance between 2 vectors
+     *
      * @return the distance between 2 vectors
      */
     public double length() {
@@ -142,11 +166,14 @@ public class Vector {
 
     /**
      * The process of finding the unit vector
+     *
      * @return the vector himself after the normalization operation
+     *
+     * @throws ArithmeticException if the vector's length is 0
      */
     public Vector normalize() {
         if (isZero(alignZero(length()))) {
-            throw new ArithmeticException("cannot devide by zero!!");
+            throw new ArithmeticException("cannot divide by zero!!");
         }
         this.head = (scale(alignZero(1/length())).head);
         return this;
@@ -154,6 +181,7 @@ public class Vector {
 
     /**
      * A normalization operation
+     *
      * @return a new normalized vector in the same direction as the original vector
      */
     public Vector normalized() {
@@ -163,8 +191,10 @@ public class Vector {
 
     /**
      * Sliding and rotating method
+     *
      * @param axis The axis on which the rotating is based
      * @param theta the angle of the rotate
+     *
      * @return new Vector
      */
     public Vector rotateVector( Vector axis, double theta) {
@@ -197,7 +227,9 @@ public class Vector {
 
     /**
      * override function to check if two objects are equal
+     *
      * @param o to compare
+     *
      * @return true if equal and false if not
      */
     @Override
@@ -210,6 +242,7 @@ public class Vector {
 
     /**
      * string that represents the class
+     *
      * @return string that represents the class
      */
     @Override

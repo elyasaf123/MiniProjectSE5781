@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.*;
 
-import javax.sql.rowset.spi.XmlReader;
-import java.io.File;
-
 /**
  * Test rendering a basic image
  *
@@ -47,24 +44,24 @@ public class RenderTests {
         render.writeToImage();
     }
 
-    /**
-     * Test for XML based scene - for bonus
-     */
-    @Test
-    public void basicRenderXml() {
-        Scene scene = new Scene("XML Test scene");
-        // enter XML file name and parse from XML file into scene object
-        // ...
-        Geometries geometries = new Geometries();
-        ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
-        Render render = new Render() //
-                .setImageWriter(imageWriter) //
-                .setScene(scene) //
-                .setCamera(camera) //
-                .setRayTracer(new BasicRayTracer(scene));
-
-        render.renderImage();
-        render.printGrid(100, new Color(java.awt.Color.YELLOW));
-        render.writeToImage();
-    }
+//    /**
+//     * Test for XML based scene - for bonus
+//     */
+//    @Test
+//    public void basicRenderXml() {
+//        Scene scene = new Scene("XML Test scene");
+//        // enter XML file name and parse from XML file into scene object
+//        // ...
+//
+//        ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
+//        Render render = new Render() //
+//                .setImageWriter(imageWriter) //
+//                .setScene(scene) //
+//                .setCamera(camera) //
+//                .setRayTracer(new BasicRayTracer(scene));
+//
+//        render.renderImage();
+//        render.printGrid(100, new Color(java.awt.Color.YELLOW));
+//        render.writeToImage();
+//    }
 }

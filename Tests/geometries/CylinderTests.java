@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for geometries.Cylinder class
- * @author Netanel & Elyasaf
  */
 class CylinderTests {
 
@@ -79,7 +78,7 @@ class CylinderTests {
      * Test method for {@link Cylinder#findIntersections(Ray)}.
      */
     @Test
-    void findIntersectionsTest() {
+    void testFindIntersections() {
 
         Cylinder cylinder = new Cylinder(new Ray(new Point3D(2,0,0), new Vector(0,0,1)), 1d, 2d);
 

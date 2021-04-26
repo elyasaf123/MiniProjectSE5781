@@ -17,6 +17,7 @@ public class Cylinder extends Tube  {
 
     /**
      * CTOR of cylinder which has to call super (Tube)
+     *
      * @param axisRay axis which the cylinder will be there
      * @param radius radius of cylinder
      * @param height height of cylinder
@@ -28,6 +29,7 @@ public class Cylinder extends Tube  {
 
     /**
      * getter for height
+     *
      * @return height of cylinder
      */
     public double getHeight() {
@@ -35,8 +37,10 @@ public class Cylinder extends Tube  {
     }
 
     /**
-     *getter for cylinder normal
+     * getter for cylinder normal
+     *
      * @param point3D init point
+     *
      * @return normal of cylinder
      */
     @Override
@@ -95,12 +99,15 @@ public class Cylinder extends Tube  {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the cylinder
+     *
      * @param ray the ray received
+     *
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
 
+        // The procedure is as follows:
         //P1 and P2 in the cylinder, the center of the bottom and upper bases
         Point3D p1 = axisRay.getP0();
         Point3D p2 = axisRay.getTargetPoint(height);
@@ -155,9 +162,9 @@ public class Cylinder extends Tube  {
         return result.size() == 0 ? null : result;
     }
 
-
     /**
      * to-string for cylinder
+     *
      * @return string that represents a cylinder
      */
     @Override

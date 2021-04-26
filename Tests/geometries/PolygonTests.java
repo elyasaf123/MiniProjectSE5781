@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing Polygons
+ *
  * @author Dan
  */
 public class PolygonTests {

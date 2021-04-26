@@ -24,6 +24,7 @@ public class Geometries implements Intersectable {
 
     /**
      * CTOR which gets a shape (that implements the interface) and adds it to the class
+     *
      * @param intersectables1 a shape (that implements the interface)
      */
     public Geometries(Intersectable...intersectables1){
@@ -34,6 +35,7 @@ public class Geometries implements Intersectable {
     /**
      * add action to the collection
      * If we want to add to the object that already exists a few more entities
+     *
      * @param intersectables shape to add
      */
     public void add (Intersectable...intersectables) {
@@ -42,7 +44,9 @@ public class Geometries implements Intersectable {
 
     /**
      * A method that receives a Ray and checks the Ray's intersection points with all the bodies of the class
+     *
      * @param ray the ray received
+     *
      * @return  null / list that includes all the intersection points (Point3D)
      */
     @Override

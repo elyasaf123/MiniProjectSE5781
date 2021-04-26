@@ -10,12 +10,13 @@ import static primitives.Util.*;
 public abstract class RadialGeometry {
 
     /**
-     *radius in 3D
+     * radius in 3D
      */
     final protected double radius;
 
     /**
      * CTOR
+     *
      * @param radius radius
      */
     public RadialGeometry(double radius) {
@@ -23,7 +24,8 @@ public abstract class RadialGeometry {
     }
 
     /**
-     *getter for radius
+     * getter for radius
+     *
      * @return radius in 3D
      */
     public double getRadius() {

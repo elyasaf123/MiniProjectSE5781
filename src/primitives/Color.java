@@ -9,9 +9,9 @@ package primitives;
  * @author Dan Zilberstein
  */
 public class Color {
+
     /**
-     * The internal fields tx`o maintain RGB components as double numbers from 0 to
-     * whatever...
+     * The internal fields tx`o maintain RGB components as double numbers from 0 to whatever...
      */
     private double r = 0.0;
     private double g = 0.0;
@@ -32,6 +32,8 @@ public class Color {
      * @param r Red component
      * @param g Green component
      * @param b Blue component
+     *
+     * @throws IllegalArgumentException if (r OR g or b) < 0
      */
     public Color(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
@@ -82,7 +84,10 @@ public class Color {
      * @param r Red component
      * @param g Green component
      * @param b Blue component
+     *
      * @return the Color object itself for chaining calls
+     *
+     * @throws IllegalArgumentException if (r OR g or b) < 0
      */
     public Color setColor(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
@@ -97,6 +102,7 @@ public class Color {
      * Color setter to copy RGB components from another color
      *
      * @param other source Color object
+     *
      * @return the Color object itself for chaining calls
      */
     public Color setColor(Color other) {
@@ -110,6 +116,7 @@ public class Color {
      * Color setter to take components from an base of java.awt.Color object
      *
      * @param other java.awt.Color's source object
+     *
      * @return the Color object itself for chaining calls
      */
     public Color setColor(java.awt.Color other) {
@@ -136,6 +143,7 @@ public class Color {
      * Operation of adding this and one or more other colors (by component)
      *
      * @param colors one or more other colors to add
+     *
      * @return new Color object which is a result of the operation
      */
     public Color add(Color... colors) {
@@ -154,7 +162,10 @@ public class Color {
      * Scale the color by a scalar
      *
      * @param k scale factor
+     *
      * @return new Color object which is the result of the operation
+     *
+     * @throws IllegalArgumentException if k < 0
      */
     public Color scale(double k) {
         if (k < 0)
@@ -166,12 +177,14 @@ public class Color {
      * Scale the color by (1 / reduction factor)
      *
      * @param k reduction factor
+     *
      * @return new Color object which is the result of the operation
+     *
+     * @throws IllegalArgumentException if k < 1
      */
     public Color reduce(double k) {
         if (k < 1)
-            throw new IllegalArgumentException("Can't scale a color by a by a number lower than 1");
+            throw new IllegalArgumentException("Can't scale a color by a number lower than 1");
         return new Color(r / k, g / k, b / k);
     }
-
 }

@@ -1,13 +1,12 @@
 package primitives;
 
 import org.junit.jupiter.api.Test;
-import static java.lang.Math.sqrt;
+import static java.lang.Math.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Point3D.ZERO;
+import static primitives.Point3D.*;
 
 /**
  * Unit tests for primitives.Point3D class
- * @author Netanel & Elyasaf
  */
 class Point3DTests {
 
@@ -46,8 +45,9 @@ class Point3DTests {
 
     /**
      * Test method for {@link primitives.Point3D#add(Vector)} (Object)} (Vector)} (primitives.Vector)}.
+     *
+     * Test operations with points and vectors
      */
-    // Test operations with points and vectors
     @Test
     void testAdd() {
         assertEquals(ZERO,(new Point3D(1, 2, 3)).add(new Vector(-1, -2, -3)),"ERROR: Point + Vector does not work correctly");
@@ -55,8 +55,9 @@ class Point3DTests {
 
     /**
      * Test method for {@link primitives.Point3D#subtract(Point3D)} (Object)} (Vector)} (primitives.Vector)}.
+     *
+     * Test operations with points and vectors
      */
-    // Test operations with points and vectors
     @Test
     void testSubtract() {
         assertEquals(new Vector(1, 1, 1),new Point3D(2, 3, 4).subtract(new Point3D(1, 2, 3)),"ERROR: Point - Point does not work correctly");

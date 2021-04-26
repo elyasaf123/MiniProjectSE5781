@@ -2,7 +2,7 @@ package elements;
 
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Testing Camera Class
@@ -10,8 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CameraTests {
 
     /**
-     * Test method for
-     * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
+     * Test method for {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
      */
     @Test
     public void testConstructRayThroughPixel() {

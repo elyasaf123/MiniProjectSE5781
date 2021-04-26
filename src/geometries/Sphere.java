@@ -5,17 +5,18 @@ import java.util.List;
 import static primitives.Util.*;
 
 /**
- *class to represent a sphere in 3D
+ * class to represent a sphere in 3D
  */
 public class Sphere extends RadialGeometry implements Geometry {
 
     /**
-     *center of sphere in 3D
+     * center of sphere in 3D
      */
     private Point3D center;
 
     /**
-     *Ctor of sphere
+     * Ctor of sphere
+     *
      * @param center center of sphere in 3D
      * @param radius radius of sphere in 3D
      */
@@ -25,7 +26,8 @@ public class Sphere extends RadialGeometry implements Geometry {
     }
 
     /**
-     *getter for spheres center
+     * getter for spheres center
+     *
      * @return center of sphere in 3D
      */
     public Point3D getCenter() {
@@ -33,10 +35,12 @@ public class Sphere extends RadialGeometry implements Geometry {
     }
 
     /**
-     *getter for spheres normal
+     * getter for spheres normal
      * We will find the vector which is the radius of the given point
      * and on which we will perform a normalIze
+     *
      * @param point3D given point
+     *
      * @return normal to the sphere at the given point
      */
     @Override
@@ -46,7 +50,9 @@ public class Sphere extends RadialGeometry implements Geometry {
 
     /**
      * A method that receives a ray and checks the points of intersection of the ray with the sphere
+     *
      * @param ray the ray received
+     *
      * @return null / list that includes all the intersection points (Point3D)
      */
     @Override
@@ -119,6 +125,7 @@ public class Sphere extends RadialGeometry implements Geometry {
 
     /**
      * to string to represent sphere class
+     *
      * @return toString
      */
     @Override

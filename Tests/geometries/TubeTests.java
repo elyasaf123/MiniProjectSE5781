@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for geometries.Tube class
- * @author Netanel & Elyasaf
  */
 class TubeTests {
     
@@ -42,7 +41,7 @@ class TubeTests {
      * Test method for {@link Tube#findIntersections(Ray)}.
      */
     @Test
-    void findIntersectionsTest() {
+    void testFindIntersections() {
 
         Tube tube1 = new Tube(new Ray(new Point3D(1, 0, 0), new Vector(0, 1, 0)), 1d);
         Vector vAxis = new Vector(0, 0, 1);

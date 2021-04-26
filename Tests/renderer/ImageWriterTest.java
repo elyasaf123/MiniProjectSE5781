@@ -1,10 +1,16 @@
 package renderer;
 
-import org.junit.Test;
-import primitives.Color;
+import org.junit.jupiter.api.Test;
+import primitives.*;
 
+/**
+ * Unit tests for renderer.imageWrite class
+ */
 public class ImageWriterTest {
 
+    /**
+     * Test method for {@link renderer.imageWrite.writeToImage()}.
+     */
     @Test
     public void writeToImage(){
         int nX = 800;
@@ -29,6 +35,11 @@ public class ImageWriterTest {
         }
     }
 
+    /**
+     *  Optional test method for {@link renderer.imageWrite.writeToImage()}.
+     *
+     *  Creates smiley :-)
+     */
     @Test
     public void writeToImage2(){
         int nX = 1100;
