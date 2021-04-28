@@ -6,7 +6,7 @@ import primitives.*;
  * Class for the lighting setting that illuminates the scene
  */
 public class AmbientLight {
-    private final Color intensity;
+    protected final Color intensity;
 
     /**
      * CTOR
