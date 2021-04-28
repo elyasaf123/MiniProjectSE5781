@@ -36,6 +36,7 @@ public class Color {
     public Color(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
+
         this.r = r;
         this.g = g;
         this.b = b;
