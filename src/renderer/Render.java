@@ -9,6 +9,12 @@ import java.util.*;
  * Class which create the color matrix of the image from the scene
  */
 public class Render {
+
+    /**
+     * Private CTOR of the class built by Builder Pattern only
+     *
+     * @param renderBuilder A virtual entity of the class we are currently implementing
+     */
     private Render(RenderBuilder renderBuilder) {
         this.imageWriter = renderBuilder.imageWriter;
         this.scene = renderBuilder.scene;
@@ -16,24 +22,46 @@ public class Render {
         this.camera = renderBuilder.camera;
     }
 
+    // accumulation of pixel color matrix,
+    // and holding image related parameters of View Plane - pixel matrix size and resolution
     private ImageWriter imageWriter;
+
+    // the positions of the shapes in 3D,
+    // and the background lighting
     private Scene scene;
-    private Camera camera;
+
+    // the intersections of ray with the scene
     private RayTraceBase basicRayTracer;
 
+    // the information about camera & view - plane
+    private Camera camera;
+
+    /**
+     * Builder Pattern, by this class we are updating the parent class (Render),
+     * instance that we are interested in creating even before we create it
+     */
     public static class RenderBuilder {
 
+        // accumulation of pixel color matrix,
+        // and holding image related parameters of View Plane - pixel matrix size and resolution
         private ImageWriter imageWriter;
+
+        // the positions of the shapes in 3D,
+        // and the background lighting
         private Scene scene;
-        private Camera camera;
+
+        // the intersections of ray with the scene
         private RayTraceBase basicRayTracer;
+
+        // the information about camera & view - plane
+        private Camera camera;
 
         /**
          * setter for imageWriter
          *
          * @param imageWriter the given imageWriter
          *
-         * @return Render (So that we can easily chain when we work on the class)
+         * @return RenderBuilder (So that we can easily chain when we work on the class)
          */
         public RenderBuilder setImageWriter(ImageWriter imageWriter) {
             this.imageWriter = imageWriter;
@@ -45,7 +73,7 @@ public class Render {
          *
          * @param scene the given scene
          *
-         * @return Render (So that we can easily chain when we work on the class)
+         * @return RenderBuilder (So that we can easily chain when we work on the class)
          */
         public RenderBuilder setScene(Scene scene) {
             this.scene = scene;
@@ -57,7 +85,7 @@ public class Render {
          *
          * @param camera the given camera
          *
-         * @return Render (So that we can easily chain when we work on the class)
+         * @return RenderBuilder (So that we can easily chain when we work on the class)
          */
         public RenderBuilder setCamera(Camera camera) {
             this.camera = camera;
@@ -69,19 +97,23 @@ public class Render {
          *
          * @param basicRayTracer the given rayTracer
          *
-         * @return Render (So that we can easily chain when we work on the class)
+         * @return RenderBuilder (So that we can easily chain when we work on the class)
          */
         public RenderBuilder setRayTracer(BasicRayTracer basicRayTracer) {
             this.basicRayTracer = basicRayTracer;
             return this;
         }
 
+        /**
+         * We call this function when we have finished giving values to all the fields of the class,
+         * and we are interested in creating an entity
+         *
+         * @return Render
+         */
         public Render build() {
             return new Render(this);
         }
     }
-
-
 
     /**
      * For all the pixels of the ViewPlane, a ray will be built,

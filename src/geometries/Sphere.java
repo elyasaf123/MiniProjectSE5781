@@ -7,12 +7,17 @@ import static primitives.Util.*;
 /**
  * class to represent a sphere in 3D
  */
-public class Sphere extends RadialGeometry implements Geometry {
+public class Sphere implements Geometry {
 
     /**
      * center of sphere in 3D
      */
     private Point3D center;
+
+    /**
+     * radius of sphere
+     */
+    private double radius;
 
     /**
      * Ctor of sphere
@@ -21,17 +26,26 @@ public class Sphere extends RadialGeometry implements Geometry {
      * @param radius radius of sphere in 3D
      */
     public Sphere(Point3D center, double radius) {
-        super(radius);
         this.center = center;
+        this.radius = alignZero(radius);
     }
 
     /**
-     * getter for spheres center
+     * getter for sphere's center
      *
      * @return center of sphere in 3D
      */
     public Point3D getCenter() {
         return center;
+    }
+
+    /**
+     * getter for sphere's radius
+     *
+     * @return radius of sphere
+     */
+    public double getRadius() {
+        return alignZero(radius);
     }
 
     /**

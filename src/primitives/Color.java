@@ -5,8 +5,6 @@ package primitives;
  * non-negative RGB values. The colors are maintained without upper limit of
  * 255. Some additional operations are added that are useful for manipulating
  * light's colors
- *
- * @author Dan Zilberstein
  */
 public class Color {
 
@@ -38,6 +36,7 @@ public class Color {
     public Color(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
             throw new IllegalArgumentException("Negative color component is illegal");
+
         this.r = r;
         this.g = g;
         this.b = b;

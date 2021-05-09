@@ -7,12 +7,17 @@ import static primitives.Util.*;
 /**
  * class that represents a tube in 3D
  */
-public class Tube extends RadialGeometry implements Geometry {
+public class Tube implements Geometry {
 
     /**
      * Ray includes a point and a vector which represents an axis
      */
     protected Ray axisRay;
+
+    /**
+     * the tube's radius
+     */
+    protected double radius;
 
     /**
      * CTOR of tube
@@ -21,8 +26,8 @@ public class Tube extends RadialGeometry implements Geometry {
      * @param radius  radius of tube
      */
     public Tube(Ray axisRay, double radius) {
-        super(radius);
         this.axisRay = axisRay;
+        this.radius = alignZero(radius);
     }
 
     /**
@@ -35,9 +40,9 @@ public class Tube extends RadialGeometry implements Geometry {
     }
 
     /**
-     * getter for tubes radius
+     * getter for radius of Tube
      *
-     * @return radius of tube
+     * @return tube's radius
      */
     public double getRadius() {
         return alignZero(radius);

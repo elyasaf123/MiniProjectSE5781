@@ -29,6 +29,7 @@ public class Point3D {
 
     /**
      * x getter as the value of a coordinate
+     *
      * @return x
      */
     public Coordinate getX() {
@@ -37,6 +38,7 @@ public class Point3D {
 
     /**
      * y getter as the value of a coordinate
+     *
      * @return y
      */
     public Coordinate getY() {
@@ -45,6 +47,7 @@ public class Point3D {
 
     /**
      * z getter as the value of a coordinate
+     *
      * @return z
      */
     public Coordinate getZ() {
@@ -53,6 +56,7 @@ public class Point3D {
 
     /**
      * x getter as the value of a double
+     *
      * @return x
      */
     public double getXDouble() {
@@ -61,6 +65,7 @@ public class Point3D {
 
     /**
      * y getter as the value of a double
+     *
      * @return y
      */
     public double getYDouble() {
@@ -69,6 +74,7 @@ public class Point3D {
 
     /**
      * z getter as the value of a double
+     *
      * @return z
      */
     public double getZDouble() {
@@ -77,6 +83,7 @@ public class Point3D {
 
     /**
      * CTOR Which gets 3 types of Coordinate type
+     *
      * @param x coordinate for x axis
      * @param y coordinate for y axis
      * @param z coordinate for z axis
@@ -87,6 +94,7 @@ public class Point3D {
 
     /**
      * CTOR Which gets 3 types of Coordinate double
+     *
      * @param _x Position on the x-axis
      * @param _y Position on the y-axis
      * @param _z Position on the z-axis
@@ -99,7 +107,9 @@ public class Point3D {
 
     /**
      * Calculate the square of the distance between 2 three-dimensional points
+     *
      * @param point3D The point to which the distance should be calculated
+     *
      * @return the square of the distance between 2 three-dimensional points
      */
     public double distanceSquared(Point3D point3D) {
@@ -118,7 +128,9 @@ public class Point3D {
 
     /**
      * Calculate the distance between 2 three-dimensional points
+     *
      * @param point3D The point to which the distance should be calculated
+     *
      * @return the distance between 2 three-dimensional
      */
     public double distance(Point3D point3D) {
@@ -127,7 +139,9 @@ public class Point3D {
 
     /**
      * A function that makes a vector connection between 2 vectors
+     *
      * @param vector Vector to be added
+     *
      * @return A three-dimensional point that represents the point to which the new vector reaches,
      * assuming that the vector exits the beginning of the axes
      */
@@ -140,7 +154,9 @@ public class Point3D {
 
     /**
      * A function that performs a vector subtraction between 2 vectors
+     *
      * @param point3D A point that represents the missing vector
+     *
      * @return New vector calculated according to vector subtraction
      */
     public Vector subtract(Point3D point3D) {
@@ -152,7 +168,9 @@ public class Point3D {
 
     /**
      * override function to check if two objects are equal
+     *
      * @param o to compare
+     *
      * @return true if equal and false if not
      */
     @Override
@@ -165,6 +183,7 @@ public class Point3D {
 
     /**
      * string that represents the class
+     *
      * @return string that represents the class
      */
     @Override

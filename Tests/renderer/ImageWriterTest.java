@@ -49,18 +49,26 @@ public class ImageWriterTest {
         ImageWriter imageWriter = new ImageWriter("smiley face", nX, nY);
         for(int i = 0; i< nY; i++) {
             for(int j = 0; j< nX; j++){
+
+                // eyes = blue
                 if(i >=100 && i <= 200 && ((j >= 300  && j <= 400)|| (j >= 700  && j <= 800))) {
                     imageWriter.writePixel(j, i, new Color(0, 0, 255));
                 }
+
+                // nose = green
                 else if(i >=300 && i <= 400 && j >= 500  && j <= 600){
                     imageWriter.writePixel(j, i, new Color(0, 255, 0));
                 }
+
+                // mouth = red
                 else if((i >= 500 && i <= 600 && (j >= 200  && j <= 300 || j  >= 800 && j <= 900) )
                         ||(i >= 600 && i <= 700 && (j >= 300  && j <= 400 || j  >= 700 && j <= 800) )
                         || (i >= 700 && i <= 800 && j >= 400  && j <= 700  ))
                 {
                     imageWriter.writePixel(j, i, new Color(255, 0, 0));
                 }
+
+                // background = yellow
                 else{
                     imageWriter.writePixel(j,i,new Color(255,255,0));
                 }
