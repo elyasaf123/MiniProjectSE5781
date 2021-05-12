@@ -1,5 +1,7 @@
 package primitives;
 
+import geometries.Intersectable.*;
+
 import java.util.List;
 import static primitives.Util.*;
 
@@ -30,6 +32,27 @@ public class Ray {
         this.dir = vector;
     }
 
+    /**todo
+     * calculate and return closest point from the list of points to the head of the ray
+     *
+     * @param geoPoints list of points in 3D
+     *
+     * @return closest point from the list of points to the head of the ray
+     */
+    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPoints){
+        GeoPoint minPoint = null;
+        if(geoPoints != null) {
+            double distance = Double.POSITIVE_INFINITY;
+            for (GeoPoint p : geoPoints) {
+                double temp = p.point3D.distance(p0);
+                if (temp < distance) {
+                    distance = temp;
+                    minPoint = p;
+                }
+            }
+        }
+        return minPoint;
+    }
     /**
      * getter for p0
      *

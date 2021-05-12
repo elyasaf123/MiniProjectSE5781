@@ -7,7 +7,7 @@ import static primitives.Util.*;
 /**
  * class that represents a plane in 3d
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     /**
      * a point for the axis
@@ -86,15 +86,10 @@ public class Plane implements Geometry {
         return getThisNormal();
     }
 
-    /**
-     * A method that receives a ray and checks the points of intersection of the ray with the plane
-     *
-     * @param ray the ray received
-     *
-     * @return null / list that includes all the intersection points (Point3D)
-     */
+
+
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         // the ray's components
         Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
@@ -134,8 +129,7 @@ public class Plane implements Geometry {
 
         //P = P0 + t*v
         Point3D p = ray.getTargetPoint(t);
-        return List.of(p);
-    }
+        return List.of(new GeoPoint(this,p));    }
 
     /**
      * to string for plane function

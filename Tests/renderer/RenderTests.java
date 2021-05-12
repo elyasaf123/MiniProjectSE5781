@@ -20,8 +20,7 @@ import static java.lang.Double.*;
  */
 public class RenderTests {
 
-    Camera.CameraBuilder cameraBuilder =
-            new Camera.CameraBuilder(
+    Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(
                     Point3D.ZERO,
                     new Vector(0, 0, -1),
                     new Vector(0, 1, 0))
@@ -54,12 +53,11 @@ public class RenderTests {
         Render.RenderBuilder renderBuilder =
                 new Render.RenderBuilder()
                         .setImageWriter(imageWriter)
-                        .setScene(scene)
                         .setCamera(camera)
                         .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage();
+        render.renderImage(scene);
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
@@ -80,12 +78,11 @@ public class RenderTests {
         Render.RenderBuilder renderBuilder =
                 new Render.RenderBuilder()
                         .setImageWriter(imageWriter)
-                        .setScene(scene)
                         .setCamera(camera)
                         .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage();
+        render.renderImage(scene);
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
