@@ -5,7 +5,20 @@ import primitives.*;
 /**
  * interface for any geometric object
  */
-public interface Geometry extends Intersectable {
+public abstract class Geometry implements Intersectable {
+
+    protected Color emission =  Color.BLACK;
+
+    //Todo
+    public Color getEmission() {
+        return emission;
+    }
+
+    //Todo
+    public Geometry setEmission(Color emission) {
+        this.emission = emission;
+        return this;
+    }
 
     /**
      * function to get the normal
@@ -14,5 +27,5 @@ public interface Geometry extends Intersectable {
      *
      * @return normal of the point
      */
-    Vector getNormal(Point3D point3D);
+    abstract public Vector getNormal(Point3D point3D);
 }

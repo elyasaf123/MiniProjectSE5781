@@ -17,7 +17,6 @@ public class Render {
      */
     private Render(RenderBuilder renderBuilder) {
         this.imageWriter = renderBuilder.imageWriter;
-        this.scene = renderBuilder.scene;
         this.basicRayTracer = renderBuilder.basicRayTracer;
         this.camera = renderBuilder.camera;
     }
@@ -26,9 +25,7 @@ public class Render {
     // and holding image related parameters of View Plane - pixel matrix size and resolution
     private ImageWriter imageWriter;
 
-    // the positions of the shapes in 3D,
-    // and the background lighting
-    private Scene scene;
+
 
     // the intersections of ray with the scene
     private RayTraceBase basicRayTracer;
@@ -46,9 +43,6 @@ public class Render {
         // and holding image related parameters of View Plane - pixel matrix size and resolution
         private ImageWriter imageWriter;
 
-        // the positions of the shapes in 3D,
-        // and the background lighting
-        private Scene scene;
 
         // the intersections of ray with the scene
         private RayTraceBase basicRayTracer;
@@ -68,17 +62,6 @@ public class Render {
             return this;
         }
 
-        /**
-         * setter for scene
-         *
-         * @param scene the given scene
-         *
-         * @return RenderBuilder (So that we can easily chain when we work on the class)
-         */
-        public RenderBuilder setScene(Scene scene) {
-            this.scene = scene;
-            return this;
-        }
 
         /**
          * setter for camera
@@ -122,11 +105,9 @@ public class Render {
      *
      * @throws MissingResourceException if not all fields a non-empty value was entered
      */
-    public void renderImage() {
+    public void renderImage(Scene scene) {
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Render","imageWriter");
-        else if(scene == null)
-            throw new MissingResourceException("scene is null","Render","scene");
         else if(camera == null )
             throw new MissingResourceException("camera is null","Render","camera");
         else if(basicRayTracer == null)

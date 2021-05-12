@@ -7,7 +7,7 @@ import static primitives.Util.*;
 /**
  * class to represent a sphere in 3D
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     /**
      * center of sphere in 3D
@@ -62,19 +62,13 @@ public class Sphere implements Geometry {
         return point3D.subtract(getCenter()).normalize();
     }
 
-    /**
-     * A method that receives a ray and checks the points of intersection of the ray with the sphere
-     *
-     * @param ray the ray received
-     *
-     * @return null / list that includes all the intersection points (Point3D)
-     */
+
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         // In case the Ray exits the center of the ball then surely there is only one intersecting point
         // within a radius of the beginning of the Ray
         if (getCenter().equals(ray.getP0())) {
-            return List.of(ray.getTargetPoint(getRadius()));
+            return List.of(new GeoPoint(this,ray.getTargetPoint(getRadius())));
         }
 
         //The procedure is as follows:
@@ -121,21 +115,20 @@ public class Sphere implements Geometry {
 
         // Two points of intersection
         if (t1 > 0 && t2 > 0) {
-            return List.of(ray.getTargetPoint(t1), ray.getTargetPoint(t2));
+            return List.of(new GeoPoint(this,(ray.getTargetPoint(t1))),new GeoPoint(this,ray.getTargetPoint(t2)));
         }
 
         // one point of intersection
         if (t1> 0 ) {
-            return List.of(ray.getTargetPoint(t1));
+            return List.of(new GeoPoint(this,ray.getTargetPoint(t1)));
         }
 
         // one point of intersection
         if (t2 > 0) {
-            return List.of(ray.getTargetPoint(t2));
+            return List.of(new GeoPoint(this,ray.getTargetPoint(t2)));
         }
 
-        return null;
-    }
+        return null;    }
 
     /**
      * to string to represent sphere class

@@ -8,7 +8,7 @@ import static primitives.Util.*;
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate system
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 
     /**
      * List of polygon's vertices
@@ -96,16 +96,9 @@ public class Polygon implements Geometry {
         return plane.getThisNormal();
     }
 
-    /**
-     * A method that receives a ray and checks the points of intersection of the ray with the polygon
-     *
-     * @param ray the ray received
-     *
-     * @return null / list that includes all the intersection points (Point3D)
-     */
-    @Override
-    public List<Point3D> findIntersections(Ray ray) {
 
+    @Override
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
         // First of all we check that there is a point of intersection
         // with the plane where the polygon is
         Plane plane = new Plane(vertices.get(0), vertices.get(1), vertices.get(2));
@@ -160,7 +153,7 @@ public class Polygon implements Geometry {
             }
 
             if (flag) {
-                return plane.findIntersections(ray);
+                return plane.findGeoIntersections(ray);
             }
 
             flag = true;
@@ -172,11 +165,10 @@ public class Polygon implements Geometry {
             }
 
             if (flag) {
-                return plane.findIntersections(ray);
+                return plane.findGeoIntersections(ray);
             }
         }
-        return null;
-    }
+        return null;    }
 
     @Override
     public String toString() {

@@ -7,7 +7,7 @@ import static primitives.Util.*;
 /**
  * class that represents a tube in 3D
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 
     /**
      * Ray includes a point and a vector which represents an axis
@@ -76,15 +76,9 @@ public class Tube implements Geometry {
         return check.normalize();
     }
 
-    /**
-     * A method that receives a ray and checks the points of intersection of the ray with the tube
-     *
-     * @param ray the ray received
-     *
-     * @return null / list that includes all the intersection points (Point3D)
-     */
+
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray) {
 
         /*
         The procedure is as follows:
@@ -176,19 +170,18 @@ public class Tube implements Geometry {
             if (t1 > 0 && t2 > 0) {
                 Point3D p1 = ray.getTargetPoint(t1);
                 Point3D p2 = ray.getTargetPoint(t2);
-                return List.of(p1, p2);
+                return List.of(new GeoPoint(this,p1),new GeoPoint(this, p2));
             }
             else if (t1 > 0) {
                 Point3D p1 = ray.getTargetPoint(t1);
-                return List.of(p1);
+                return List.of(new GeoPoint(this,p1));
             }
             else if (t2 > 0) {
                 Point3D p2 = ray.getTargetPoint(t2);
-                return List.of(p2);
+                return List.of(new GeoPoint(this,p2));
             }
         }
-        return null;
-    }
+        return null;    }
 
     /**
      * toString of tube

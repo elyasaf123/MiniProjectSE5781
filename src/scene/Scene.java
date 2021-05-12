@@ -58,6 +58,8 @@ public class Scene {
          * @param name the scene's name
          */
         public SceneBuilder(String name){
+            this.ambientLight = new AmbientLight();
+            this.background = Color.BLACK;
             this.name = name;
         }
 
@@ -103,6 +105,8 @@ public class Scene {
          *
          * @return Scene
          */
-        public Scene build(){return new Scene(this);}
+        public Scene build(){
+            return new Scene(this);
+        }
     }
 }
