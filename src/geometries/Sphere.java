@@ -62,7 +62,11 @@ public class Sphere extends Geometry {
         return point3D.subtract(getCenter()).normalize();
     }
 
-
+    /**
+     *
+     * @param ray
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         // In case the Ray exits the center of the ball then surely there is only one intersecting point
@@ -128,13 +132,9 @@ public class Sphere extends Geometry {
             return List.of(new GeoPoint(this,ray.getTargetPoint(t2)));
         }
 
-        return null;    }
+        return null;
+    }
 
-    /**
-     * to string to represent sphere class
-     *
-     * @return toString
-     */
     @Override
     public String toString() {
         return "Sphere{" +

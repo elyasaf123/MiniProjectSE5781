@@ -103,13 +103,13 @@ public class Vector {
      * @throws IllegalArgumentException if the scalar = 0
      */
     public Vector scale(double scalar) {
-        if (isZero(alignZero(scalar))) {
+        if (isZero(scalar)) {
             throw new IllegalArgumentException("can't scale by Zero");
         }
         return new Vector(
-                this.head.getX().coord * scalar,
-                this.head.getY().coord * scalar,
-                this.head.getZ().coord * scalar);
+                alignZero(this.head.getX().coord * scalar),
+                alignZero(this.head.getY().coord * scalar),
+                alignZero(this.head.getZ().coord * scalar));
     }
 
     /**
@@ -172,7 +172,7 @@ public class Vector {
      * @throws ArithmeticException if the vector's length is 0
      */
     public Vector normalize() {
-        if (isZero(alignZero(length()))) {
+        if (isZero(length())) {
             throw new ArithmeticException("cannot divide by zero!!");
         }
         this.head = (scale(alignZero(1/length())).head);
@@ -202,36 +202,29 @@ public class Vector {
         double x, y, z;
         double u, v, w;
 
-        x=this.getHead().getXDouble();
-        y=this.getHead().getYDouble();
-        z=this.getHead().getZDouble();
+        x = alignZero(this.getHead().getXDouble());
+        y = alignZero(this.getHead().getYDouble());
+        z = alignZero(this.getHead().getZDouble());
 
-        u=axis.getHead().getXDouble();
-        v=axis.getHead().getXDouble();
-        w=axis.getHead().getXDouble();
+        u = alignZero(axis.getHead().getXDouble());
+        v = alignZero(axis.getHead().getXDouble());
+        w = alignZero(axis.getHead().getXDouble());
 
-        double xPrime = u*(axis.dotProduct(this))*(1d - Math.cos(theta))
+        double xPrime = alignZero(u*(axis.dotProduct(this))*(1d - Math.cos(theta))
                 + x*Math.cos(theta)
-                + (-w*y + v*z)*Math.sin(theta);
+                + (-w*y + v*z)*Math.sin(theta));
 
-        double yPrime = v*(axis.dotProduct(this))*(1d - Math.cos(theta))
+        double yPrime = alignZero(v*(axis.dotProduct(this))*(1d - Math.cos(theta))
                 + y*Math.cos(theta)
-                + (w*x - u*z)*Math.sin(theta);
+                + (w*x - u*z)*Math.sin(theta));
 
-        double zPrime = w*(axis.dotProduct(this))*(1d - Math.cos(theta))
+        double zPrime = alignZero(w*(axis.dotProduct(this))*(1d - Math.cos(theta))
                 + z*Math.cos(theta)
-                + (-v*x + u*y)*Math.sin(theta);
+                + (-v*x + u*y)*Math.sin(theta));
 
-        return new Vector(xPrime, yPrime, zPrime);
+        return new Vector(alignZero(xPrime), alignZero(yPrime), alignZero(zPrime));
     }
 
-    /**
-     * override function to check if two objects are equal
-     *
-     * @param o to compare
-     *
-     * @return true if equal and false if not
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -239,12 +232,7 @@ public class Vector {
         Vector vector = (Vector) o;
         return head.equals(vector.head);
     }
-
-    /**
-     * string that represents the class
-     *
-     * @return string that represents the class
-     */
+    
     @Override
     public String toString() {
         return "Vector{" +

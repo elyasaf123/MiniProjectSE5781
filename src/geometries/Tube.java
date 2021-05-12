@@ -76,7 +76,11 @@ public class Tube extends Geometry {
         return check.normalize();
     }
 
-
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
 
@@ -181,13 +185,9 @@ public class Tube extends Geometry {
                 return List.of(new GeoPoint(this,p2));
             }
         }
-        return null;    }
+        return null;
+    }
 
-    /**
-     * toString of tube
-     *
-     * @return a string that represents a tube
-     */
     @Override
     public String toString() {
         return "Tube{" +

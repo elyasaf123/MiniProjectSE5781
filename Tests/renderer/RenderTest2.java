@@ -1,20 +1,13 @@
 package renderer;
 
-import elements.AmbientLight;
-import elements.Camera;
-import geometries.Geometries;
-import geometries.Sphere;
-import geometries.Triangle;
-import org.junit.jupiter.api.Test;
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Vector;
-import scene.Scene;
+import elements.*;
+import geometries.*;
+import org.junit.jupiter.api.*;
+import primitives.*;
+import scene.*;
 
 /**
  * Test rendering a basic image
- *
- * @author Dan
  */
 public class RenderTest2{
     private Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -23,8 +16,7 @@ public class RenderTest2{
     private Camera camera = cameraBuilder.build();
 
     /**
-     * Produce a scene with basic 3D model and render it into a png image with a
-     * grid
+     * Produce a scene with basic 3D model and render it into a png image with a grid
      */
     @Test
     public void basicRenderTwoColorTest() {
@@ -34,14 +26,22 @@ public class RenderTest2{
         Scene scene = sceneBuilder.build();
 
         scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50),
-                new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)), // up
-                // left
-                new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up
-                // right
-                new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)), // down
-                // left
-                new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100))); // down
-        // right
+                new Triangle(
+                        new Point3D(-100, 0, -100),
+                        new Point3D(0, 100, -100),
+                        new Point3D(-100, 100, -100)), // up left
+                new Triangle(
+                        new Point3D(100, 0, -100),
+                        new Point3D(0, 100, -100),
+                        new Point3D(100, 100, -100)), // up right
+                new Triangle(
+                        new Point3D(-100, 0, -100),
+                        new Point3D(0, -100, -100),
+                        new Point3D(-100, -100, -100)), // down left
+                new Triangle(
+                        new Point3D(100, 0, -100),
+                        new Point3D(0, -100, -100),
+                        new Point3D(100, -100, -100))); // down right
 
         ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
         Render.RenderBuilder renderBuilder = new Render.RenderBuilder() //
@@ -62,7 +62,6 @@ public class RenderTest2{
     public void basicRenderXml() {
         Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("XML Test scene");
         // enter XML file name and parse from XML file into scene object
-        // ...
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);

@@ -2,7 +2,7 @@ package geometries;
 
 import primitives.*;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 /**
  * Since our model will be based on scanning rays,
@@ -14,11 +14,21 @@ public interface Intersectable {
         public Geometry geometry;
         public Point3D point3D;
 
+        /**
+         * todo
+         * @param geometry
+         * @param point3D
+         */
         public GeoPoint(Geometry geometry, Point3D point3D) {
             this.geometry = geometry;
             this.point3D = point3D;
         }
 
+        /**
+         * todo
+         * @param o
+         * @return
+         */
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -27,6 +37,12 @@ public interface Intersectable {
             return geometry.equals(geoPoint.geometry) && point3D.equals(geoPoint.point3D);
         }
     }
+
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
     default List<Point3D> findIntersections(Ray ray){
         var geoList = findGeoIntersections(ray);
         return geoList == null?null
@@ -35,8 +51,11 @@ public interface Intersectable {
                 .map(gp->gp.point3D)
                 .collect(Collectors.toList());
     }
+
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
     List<GeoPoint> findGeoIntersections(Ray ray);
-
-
-
 }

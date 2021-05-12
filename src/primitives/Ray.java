@@ -1,7 +1,6 @@
 package primitives;
 
 import geometries.Intersectable.*;
-
 import java.util.List;
 import static primitives.Util.*;
 
@@ -53,6 +52,7 @@ public class Ray {
         }
         return minPoint;
     }
+
     /**
      * getter for p0
      *
@@ -109,13 +109,6 @@ public class Ray {
         return minPoint;
     }
 
-    /**
-     * override function to check if two objects are equal
-     *
-     * @param o to compare
-     *
-     * @return true if equal and false if not
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,11 +117,6 @@ public class Ray {
         return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
-    /**
-     * string that represents the class
-     *
-     * @return string that represents the class
-     */
     @Override
     public String toString() {
         return "Ray{" +

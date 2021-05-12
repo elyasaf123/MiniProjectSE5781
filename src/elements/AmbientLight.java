@@ -18,6 +18,9 @@ public class AmbientLight {
         intensity = iA.scale(kA);
     }
 
+    /**
+     * todo
+     */
     public AmbientLight() {
         this.intensity = Color.BLACK;
     }

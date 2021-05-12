@@ -25,8 +25,6 @@ public class Render {
     // and holding image related parameters of View Plane - pixel matrix size and resolution
     private ImageWriter imageWriter;
 
-
-
     // the intersections of ray with the scene
     private RayTraceBase basicRayTracer;
 
@@ -42,7 +40,6 @@ public class Render {
         // accumulation of pixel color matrix,
         // and holding image related parameters of View Plane - pixel matrix size and resolution
         private ImageWriter imageWriter;
-
 
         // the intersections of ray with the scene
         private RayTraceBase basicRayTracer;
@@ -61,7 +58,6 @@ public class Render {
             this.imageWriter = imageWriter;
             return this;
         }
-
 
         /**
          * setter for camera

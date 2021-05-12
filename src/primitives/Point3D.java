@@ -166,13 +166,6 @@ public class Point3D {
                   alignZero(z.coord - point3D.z.coord));
     }
 
-    /**
-     * override function to check if two objects are equal
-     *
-     * @param o to compare
-     *
-     * @return true if equal and false if not
-     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -181,11 +174,6 @@ public class Point3D {
         return x.equals(point3D.x) && y.equals(point3D.y) && z.equals(point3D.z);
     }
 
-    /**
-     * string that represents the class
-     *
-     * @return string that represents the class
-     */
     @Override
     public String toString() {
         return "{" +

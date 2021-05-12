@@ -28,7 +28,7 @@ public class Cylinder extends Tube  {
      * @param height height of cylinder
      */
     public Cylinder(Ray axisRay, double radius, double height) {
-        super(axisRay, radius);
+        super(axisRay, alignZero(radius));
         this.height = alignZero(height);
         this.radius = alignZero(radius);
     }
@@ -177,11 +177,6 @@ public class Cylinder extends Tube  {
         return result.size() == 0 ? null : result;
     }
 
-    /**
-     * to-string for cylinder
-     *
-     * @return string that represents a cylinder
-     */
     @Override
     public String toString() {
         return "Cylinder{" +

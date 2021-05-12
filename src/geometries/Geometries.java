@@ -43,6 +43,7 @@ public class Geometries implements Intersectable {
     }
 
     /**
+     * todo
      * A method that receives a Ray and checks the Ray's intersection points with all the bodies of the class
      *
      * @param ray the ray received
@@ -63,5 +64,4 @@ public class Geometries implements Intersectable {
         }
         return result;
     }
-
 }

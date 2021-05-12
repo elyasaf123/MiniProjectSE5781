@@ -86,8 +86,11 @@ public class Plane extends Geometry {
         return getThisNormal();
     }
 
-
-
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         // the ray's components
@@ -131,11 +134,6 @@ public class Plane extends Geometry {
         Point3D p = ray.getTargetPoint(t);
         return List.of(new GeoPoint(this,p));    }
 
-    /**
-     * to string for plane function
-     *
-     * @return a string that represents plane class
-     */
     @Override
     public String toString() {
         return "Plane{" +

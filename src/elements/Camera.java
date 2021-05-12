@@ -135,16 +135,16 @@ public class Camera {
         Point3D Pc = p0.add(vTo.scale(distance));
 
         //height of single pixel
-        double Ry = height/nY;
+        double Ry = alignZero(height/nY);
 
         //width of single pixel
-        double Rx = width/nX;
+        double Rx = alignZero(width/nX);
 
         //amount of pixels to move in y axis from pc to i
-        double Yi = ((nY - 1)/2d - i)*Ry;
+        double Yi = alignZero(((nY - 1)/2d - i)*Ry);
 
         //amount of pixels  to move in x axis from pc to j
-        double Xj = (-(nX - 1)/2d + j)*Rx;
+        double Xj = alignZero((-(nX - 1)/2d + j)*Rx);
 
         Point3D Pij = Pc;
         if(isZero(Xj) && !isZero(Yi)){

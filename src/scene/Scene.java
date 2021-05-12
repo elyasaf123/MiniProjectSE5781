@@ -9,6 +9,7 @@ import primitives.*;
  * and the background lighting
  */
 public class Scene {
+
     /**
      * Private CTOR of the class built by Builder Pattern only
      *

@@ -96,7 +96,11 @@ public class Polygon extends Geometry {
         return plane.getThisNormal();
     }
 
-
+    /**
+     * todo
+     * @param ray
+     * @return
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         // First of all we check that there is a point of intersection
@@ -168,7 +172,8 @@ public class Polygon extends Geometry {
                 return plane.findGeoIntersections(ray);
             }
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public String toString() {
