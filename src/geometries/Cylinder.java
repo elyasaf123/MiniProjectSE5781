@@ -28,7 +28,7 @@ public class Cylinder extends Tube  {
      * @param height height of cylinder
      */
     public Cylinder(Ray axisRay, double radius, double height) {
-        super(axisRay, radius);
+        super(axisRay, alignZero(radius));
         this.height = alignZero(height);
         this.radius = alignZero(radius);
     }
@@ -113,11 +113,11 @@ public class Cylinder extends Tube  {
     }
 
     /**
-     * A method that receives a ray and checks the points of intersection of the ray with the cylinder
+     * A method that receives a ray and checks the points of GeoIntersection of the ray with the cylinder
      *
      * @param ray the ray received
      *
-     * @return null / list that includes all the intersection points (Point3D)
+     * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
@@ -128,16 +128,16 @@ public class Cylinder extends Tube  {
         Point3D p2 = axisRay.getTargetPoint(height);
         Vector Va = axisRay.getDir();
 
-        List<Point3D> list = super.findIntersections(ray);
+        List<GeoPoint> list = super.findGeoIntersections(ray);
 
         //the intersections with the cylinder
         List<GeoPoint> result = new LinkedList<>();
 
         //Step 1 - checking if the intersections with the tube are points on the cylinder
         if (list != null) {
-            for (Point3D p : list) {
-                if (Va.dotProduct(p.subtract(p1)) > 0 && Va.dotProduct(p.subtract(p2)) < 0)
-                    result.add(0, new GeoPoint(this,p));
+            for (GeoPoint p : list) {
+                if (Va.dotProduct(p.point3D.subtract(p1)) > 0 && Va.dotProduct(p.point3D.subtract(p2)) < 0)
+                    result.add(0, p);
             }
         }
 
@@ -148,40 +148,35 @@ public class Cylinder extends Tube  {
             //creating 2 planes for the 2 bases
             Plane bottomBase = new Plane(p1, Va);
             Plane upperBase = new Plane(p2, Va);
-            Point3D p;
+            GeoPoint p;
 
             // ======================================================
             // intersection with the bases:
 
             //intersections with the bottom bases
-            list = bottomBase.findIntersections(ray);
+            list = bottomBase.findGeoIntersections(ray);
 
             if (list != null) {
                 p = list.get(0);
                 //checking if the intersection is on the cylinder base
-                if (p.distanceSquared(p1) < radius * radius)
-                    result.add(new GeoPoint(this,p));
+                if (p.point3D.distanceSquared(p1) < radius * radius)
+                    result.add(p);
             }
 
             //intersections with the upper bases
-            list = upperBase.findIntersections(ray);
+            list = upperBase.findGeoIntersections(ray);
 
             if (list != null) {
                 p = list.get(0);
                 //checking if the intersection is on the cylinder base
-                if (p.distanceSquared(p2) < radius * radius)
-                    result.add(new GeoPoint(this,p));
+                if (p.point3D.distanceSquared(p2) < radius * radius)
+                    result.add(p);
             }
         }
         //return null if there are no intersections.
         return result.size() == 0 ? null : result;
     }
 
-    /**
-     * to-string for cylinder
-     *
-     * @return string that represents a cylinder
-     */
     @Override
     public String toString() {
         return "Cylinder{" +

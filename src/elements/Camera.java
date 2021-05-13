@@ -129,35 +129,32 @@ public class Camera {
      *
      * @return the ray from the camera to view plane
      */
-    public Ray constructRayThroughPixel(int nX,  int nY, int j , int i){
+    public Ray constructRayThroughPixel(int nX,  int nY, int j , int i) {
 
-        // the  image's center
+        // the image's center
         Point3D Pc = p0.add(vTo.scale(distance));
 
         //height of single pixel
-        double Ry = height/nY;
+        double Ry = alignZero(height/nY);
 
         //width of single pixel
-        double Rx = width/nX;
+        double Rx = alignZero(width/nX);
 
         //amount of pixels to move in y axis from pc to i
-        double Yi = ((nY - 1)/2d - i)*Ry;
+        double Yi = alignZero(-(i - ((nY - 1) / 2d)) * Ry);
 
         //amount of pixels  to move in x axis from pc to j
-        double Xj = (-(nX - 1)/2d + j)*Rx;
+        double Xj = alignZero((j - ((nX - 1) / 2d)) * Rx);
 
         Point3D Pij = Pc;
-        if(isZero(Xj) && !isZero(Yi)){
-            //only move on Y axis
-            Pij = Pc.add(vUp.scale(Yi));
-        }
-        else if(isZero(Yi) && !isZero(Xj)) {
+        if(!isZero(Xj)) {
             //only move on X axis
-            Pij = Pc.add(vRight.scale(Xj));
+            Pij = Pij.add(vRight.scale(Xj));
         }
-        else if(!(isZero(Xj) && isZero(Yi)))
-            //move on both axes
-            Pij = Pc.add(vRight.scale(Xj).add(vUp.scale(Yi)));
+        if(!isZero(Yi)) {
+            //only move on Y axis
+            Pij = Pij.add(vUp.scale(Yi));
+        }
 
         return new Ray(p0,Pij.subtract(p0));
     }

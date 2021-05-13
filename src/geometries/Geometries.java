@@ -11,7 +11,11 @@ import java.util.*;
  * The class will implement the Intersectable interface according to the Composite design template
  */
 public class Geometries implements Intersectable {
-    List<Intersectable> intersectables;
+
+    /**
+     * List of the shapes
+     */
+    private List<Intersectable> intersectables;
 
     /**
      * CTOR witch Will contain a list of bodies
@@ -43,11 +47,11 @@ public class Geometries implements Intersectable {
     }
 
     /**
-     * A method that receives a Ray and checks the Ray's intersection points with all the bodies of the class
+     * A method that receives a Ray and checks the Ray's GeoIntersection points with all the bodies of the class
      *
      * @param ray the ray received
      *
-     * @return  null / list that includes all the intersection points (Point3D)
+     * @return  null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
@@ -63,5 +67,4 @@ public class Geometries implements Intersectable {
         }
         return result;
     }
-
 }

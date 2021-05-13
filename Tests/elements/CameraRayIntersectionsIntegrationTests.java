@@ -1,7 +1,7 @@
 package elements;
 
 import geometries.*;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import primitives.*;
 import static org.junit.jupiter.api.Assertions.*;
 

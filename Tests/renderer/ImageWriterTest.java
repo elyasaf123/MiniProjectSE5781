@@ -1,6 +1,6 @@
 package renderer;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import primitives.*;
 
 /**
@@ -18,21 +18,18 @@ public class ImageWriterTest {
         int gapX = nX/16;
         int gapY = nY/10;
         ImageWriter imageWriter = new ImageWriter("blue screen", nX, nY);
-        for(int i = 0; i< nY; i++)
+        for(int i = 0; i < nY; i++)
         {
-            for(int j = 0; j< nX; j++){
-                if(i%gapY == 0 || j%gapX == 0) {
+            for(int j = 0; j < nX; j++){
+                if(i % gapY == 0 || j % gapX == 0) {
                     imageWriter.writePixel(j, i, Color.BLACK);
                 }
-                else if(i > (nY - gapY) && (j < gapX)) {
-                    imageWriter.writePixel(j, i, new Color(255, 0, 0));
-                }
                 else{
-                    imageWriter.writePixel(j,i,new Color(0,0,1000));
+                    imageWriter.writePixel(j,i,new Color(0,0,255));
                 }
             }
-            imageWriter.writeToImage();
         }
+        imageWriter.writeToImage();
     }
 
     /**
@@ -47,11 +44,11 @@ public class ImageWriterTest {
         int gapX = nX/11;
         int gapY = nY/10;
         ImageWriter imageWriter = new ImageWriter("smiley face", nX, nY);
-        for(int i = 0; i< nY; i++) {
-            for(int j = 0; j< nX; j++){
+        for(int i = 0; i < nY; i++) {
+            for(int j = 0; j < nX; j++){
 
                 // eyes = blue
-                if(i >=100 && i <= 200 && ((j >= 300  && j <= 400)|| (j >= 700  && j <= 800))) {
+                if(i >= 100 && i <= 200 && ((j >= 300  && j <= 400)|| (j >= 700  && j <= 800))) {
                     imageWriter.writePixel(j, i, new Color(0, 0, 255));
                 }
 
@@ -73,7 +70,6 @@ public class ImageWriterTest {
                     imageWriter.writePixel(j,i,new Color(255,255,0));
                 }
             }
-            imageWriter.writeToImage();
         }
     }
 }

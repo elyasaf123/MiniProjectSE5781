@@ -1,9 +1,11 @@
 package primitives;
 
-import geometries.Intersectable.*;
+import geometries.Intersectable;
 
 import java.util.List;
-import static primitives.Util.*;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * The set of points on a straight line that are on one side relative to a given point
@@ -32,27 +34,6 @@ public class Ray {
         this.dir = vector;
     }
 
-    /**todo
-     * calculate and return closest point from the list of points to the head of the ray
-     *
-     * @param geoPoints list of points in 3D
-     *
-     * @return closest point from the list of points to the head of the ray
-     */
-    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPoints){
-        GeoPoint minPoint = null;
-        if(geoPoints != null) {
-            double distance = Double.POSITIVE_INFINITY;
-            for (GeoPoint p : geoPoints) {
-                double temp = p.point3D.distance(p0);
-                if (temp < distance) {
-                    distance = temp;
-                    minPoint = p;
-                }
-            }
-        }
-        return minPoint;
-    }
     /**
      * getter for p0
      *
@@ -110,12 +91,27 @@ public class Ray {
     }
 
     /**
-     * override function to check if two objects are equal
+     * calculate and return closest GeoPoint from the list of GeoPoints to the head of the ray
      *
-     * @param o to compare
+     * @param geoPoints list of GeoPoints
      *
-     * @return true if equal and false if not
+     * @return closest GeoPoint from the list of GeoPoints to the head of the ray
      */
+    public Intersectable.GeoPoint getClosestGeoPoint(List<Intersectable.GeoPoint> geoPoints){
+        Intersectable.GeoPoint minPoint = null;
+        if(geoPoints != null) {
+            double distance = Double.POSITIVE_INFINITY;
+            for (Intersectable.GeoPoint p : geoPoints) {
+                double temp = p.point3D.distance(p0);
+                if (temp < distance) {
+                    distance = temp;
+                    minPoint = p;
+                }
+            }
+        }
+        return minPoint;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,11 +120,6 @@ public class Ray {
         return p0.equals(ray.p0) && dir.equals(ray.dir);
     }
 
-    /**
-     * string that represents the class
-     *
-     * @return string that represents the class
-     */
     @Override
     public String toString() {
         return "Ray{" +
