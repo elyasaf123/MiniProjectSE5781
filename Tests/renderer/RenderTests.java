@@ -3,7 +3,7 @@ package renderer;
 import elements.*;
 import geometries.*;
 import primitives.*;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 import scene.*;

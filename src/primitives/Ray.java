@@ -1,8 +1,11 @@
 package primitives;
 
-import geometries.Intersectable.*;
+import geometries.Intersectable;
+
 import java.util.List;
-import static primitives.Util.*;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * The set of points on a straight line that are on one side relative to a given point
@@ -29,28 +32,6 @@ public class Ray {
         Vector vector = dir.normalized();
         this.p0 = p0;
         this.dir = vector;
-    }
-
-    /**todo
-     * calculate and return closest point from the list of points to the head of the ray
-     *
-     * @param geoPoints list of points in 3D
-     *
-     * @return closest point from the list of points to the head of the ray
-     */
-    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPoints){
-        GeoPoint minPoint = null;
-        if(geoPoints != null) {
-            double distance = Double.POSITIVE_INFINITY;
-            for (GeoPoint p : geoPoints) {
-                double temp = p.point3D.distance(p0);
-                if (temp < distance) {
-                    distance = temp;
-                    minPoint = p;
-                }
-            }
-        }
-        return minPoint;
     }
 
     /**
@@ -100,6 +81,28 @@ public class Ray {
             double distance = Double.POSITIVE_INFINITY;
             for (Point3D p : points) {
                 double temp = p.distance(p0);
+                if (temp < distance) {
+                    distance = temp;
+                    minPoint = p;
+                }
+            }
+        }
+        return minPoint;
+    }
+
+    /**
+     * calculate and return closest GeoPoint from the list of GeoPoints to the head of the ray
+     *
+     * @param geoPoints list of GeoPoints
+     *
+     * @return closest GeoPoint from the list of GeoPoints to the head of the ray
+     */
+    public Intersectable.GeoPoint getClosestGeoPoint(List<Intersectable.GeoPoint> geoPoints){
+        Intersectable.GeoPoint minPoint = null;
+        if(geoPoints != null) {
+            double distance = Double.POSITIVE_INFINITY;
+            for (Intersectable.GeoPoint p : geoPoints) {
+                double temp = p.point3D.distance(p0);
                 if (temp < distance) {
                     distance = temp;
                     minPoint = p;

@@ -1,6 +1,6 @@
 package primitives;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static java.lang.Math.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Point3D.*;

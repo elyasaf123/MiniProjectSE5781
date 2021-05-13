@@ -9,12 +9,22 @@ public abstract class Geometry implements Intersectable {
 
     protected Color emission =  Color.BLACK;
 
-    //Todo
+    /**
+     * Getter for emission
+     *
+     * @return the emission
+     */
     public Color getEmission() {
         return emission;
     }
 
-    //Todo
+    /**
+     * Setter for the emission
+     *
+     * @param emission The emission we get
+     *
+     * @return this (for chaining)
+     */
     public Geometry setEmission(Color emission) {
         this.emission = emission;
         return this;

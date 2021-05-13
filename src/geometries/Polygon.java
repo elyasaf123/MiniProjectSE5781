@@ -97,9 +97,11 @@ public class Polygon extends Geometry {
     }
 
     /**
-     * todo
-     * @param ray
-     * @return
+     * A method that receives a ray and checks the points of GeoIntersection of the ray with the polygon
+     *
+     * @param ray the ray received
+     *
+     * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {

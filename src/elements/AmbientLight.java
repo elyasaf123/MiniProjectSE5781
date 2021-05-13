@@ -19,7 +19,7 @@ public class AmbientLight {
     }
 
     /**
-     * todo
+     * Default CTOR that initializes the intensity field to black
      */
     public AmbientLight() {
         this.intensity = Color.BLACK;
