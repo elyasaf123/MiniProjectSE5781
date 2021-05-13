@@ -189,4 +189,37 @@ public class RenderTests {
             return null;
         }
     }
+
+     /**
+     * Produce a scene with basic 3D model - including individual lights of the bodies
+     * and render it into a png image with a grid
+     */
+    @Test
+    public void basicRenderMultiColorTest() {
+        Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene")//
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2)); //
+        Geometries geometries = new Geometries();
+        geometries.add(new Sphere(new Point3D(0, 0, -100), 50) //
+                        .setEmission(new Color(java.awt.Color.CYAN)), //
+                new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)) // up left
+                        .setEmission(new Color(java.awt.Color.GREEN)),
+                new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up right
+                new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)) // down left
+                        .setEmission(new Color(java.awt.Color.RED)),
+                new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100)) // down right
+                        .setEmission(new Color(java.awt.Color.BLUE)));
+        sceneBuilder.setGeometries(geometries);
+        Scene scene = sceneBuilder.build();
+
+        ImageWriter imageWriter = new ImageWriter("color render test", 1000, 1000);
+        Render.RenderBuilder renderBuilder = new Render.RenderBuilder() //
+                .setImageWriter(imageWriter) //
+                .setCamera(camera) //
+                .setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
+
+        render.renderImage(scene);
+        render.printGrid(100, new Color(java.awt.Color.WHITE));
+        render.writeToImage();
+    }
 }

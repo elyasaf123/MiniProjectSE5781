@@ -11,7 +11,8 @@ import java.util.*;
  * The class will implement the Intersectable interface according to the Composite design template
  */
 public class Geometries implements Intersectable {
-    List<Intersectable> intersectables;
+    private List<Intersectable> intersectables;
+
 
     /**
      * CTOR witch Will contain a list of bodies

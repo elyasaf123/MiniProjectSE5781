@@ -132,7 +132,8 @@ public class Plane extends Geometry {
 
         //P = P0 + t*v
         Point3D p = ray.getTargetPoint(t);
-        return List.of(new GeoPoint(this,p));    }
+        return List.of(new GeoPoint(this,p));
+    }
 
     @Override
     public String toString() {

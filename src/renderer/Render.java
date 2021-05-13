@@ -113,10 +113,8 @@ public class Render {
         {
             for(int j = 0; j< imageWriter.getNx(); j++){
                 Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(),j,i);
-                BasicRayTracer basicRayTracer = new BasicRayTracer(scene);
                 imageWriter.writePixel(j,i,basicRayTracer.traceRay(ray));
             }
-            imageWriter.writeToImage();
         }
     }
 
@@ -139,7 +137,6 @@ public class Render {
                     imageWriter.writePixel(j, i, color);
                 }
             }
-            this.writeToImage();
         }
     }
 

@@ -10,6 +10,9 @@ import java.util.stream.*;
  * and return points of intersection with the geometry
  */
 public interface Intersectable {
+    /**
+     * todo
+     */
     public static class GeoPoint {
         public Geometry geometry;
         public Point3D point3D;

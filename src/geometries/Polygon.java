@@ -118,13 +118,15 @@ public class Polygon extends Geometry {
         // then the Ray intersects the polygon.
         // We will check the angles using a scalar product between the Ray and the normal
 
-        if (plane.findIntersections(ray) != null) {
+        if (plane.findGeoIntersections(ray) != null) {
 
             // Ray's head
             Point3D P0 = ray.getP0();
 
             // Vector from the beginning of the Ray to the point of intersection with the plane
-            Vector v = plane.findIntersections(ray).get(0).subtract(P0);
+            Vector v = plane.findGeoIntersections(ray).get(0).point3D.subtract(P0);
+
+            GeoPoint geoPoint = new GeoPoint(this, plane.findGeoIntersections(ray).get(0).point3D);
 
             // all the vectors that are between the head of the Ray and the vertices of the polygon.
             LinkedList<Vector> vectorList = new LinkedList<>();
@@ -150,26 +152,26 @@ public class Polygon extends Geometry {
             // in the side or vertex
             boolean flag = true;
             for (Vector normal : normalList) {
-                if (alignZero(v.dotProduct(normal)) <= 0) {
+                if (v.dotProduct(normal) <= 0) {
                     flag = false;
                     break;
                 }
             }
 
             if (flag) {
-                return plane.findGeoIntersections(ray);
+                return List.of(geoPoint);
             }
 
             flag = true;
             for (Vector normal : normalList) {
-                if (alignZero(v.dotProduct(normal)) >= 0) {
+                if (v.dotProduct(normal) >= 0) {
                     flag = false;
                     break;
                 }
             }
 
             if (flag) {
-                return plane.findGeoIntersections(ray);
+                return List.of(geoPoint);
             }
         }
         return null;
