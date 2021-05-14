@@ -4,6 +4,9 @@ import elements.*;
 import geometries.*;
 import primitives.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * A class that represents the scene, that is, the positions of the shapes in 3D,
  * and the background lighting
@@ -20,7 +23,10 @@ public class Scene {
         this.background = sceneBuilder.background;
         this.ambientLight = sceneBuilder.ambientLight;
         this.geometries = sceneBuilder.geometries;
+        this.lights = sceneBuilder.lights;
     }
+
+    public List<LightSource> lights;
 
     // The scene's name
     public String name;
@@ -39,6 +45,8 @@ public class Scene {
      * instance that we are interested in creating even before we create it
      */
     public static class SceneBuilder{
+
+        private List<LightSource> lights;
 
         // The scene's name
         private final String name;
@@ -62,6 +70,7 @@ public class Scene {
             this.ambientLight = new AmbientLight();
             this.background = Color.BLACK;
             this.name = name;
+            this.lights = new LinkedList<LightSource>();
         }
 
         /**
@@ -73,6 +82,15 @@ public class Scene {
          */
         public SceneBuilder setBackground(Color background) {
             this.background = background;
+            return this;
+        }
+
+        /**
+         * todo
+         * @param lights
+         */
+        public SceneBuilder setLights(List<LightSource> lights) {
+            this.lights = lights;
             return this;
         }
 
