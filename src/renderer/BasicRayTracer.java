@@ -70,6 +70,7 @@ public class BasicRayTracer extends RayTraceBase {
         return lightIntensity.scale(ks*vrn);
     }
 
+
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray) {
         Vector v = ray.getDir();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point3D);
