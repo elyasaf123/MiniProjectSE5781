@@ -109,11 +109,9 @@ public class Polygon extends Geometry {
         // with the plane where the polygon is
         Plane plane = new Plane(vertices.get(0), vertices.get(1), vertices.get(2));
 
-        // The procedure is as follows:
-        // We find all the vectors that are between the head of the Ray
-        // and the vertices of the polygon.
-        // Then we find, with the help of Cartesian multiplications,
-        // all the normals that come out of the sides between every 2 adjacent vectors,
+        // We find all the vectors from head of the Ray
+        // until each vertex of the polygon.
+        // Then we find all the normals from each side,
         // and if our Ray is cut with all the above normals at a sharp angle,
         // or with all of them at an obtuse angle
         // (depending on the normal direction, out of the body or towards the polygon)

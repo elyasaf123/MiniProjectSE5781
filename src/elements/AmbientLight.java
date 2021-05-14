@@ -5,9 +5,7 @@ import primitives.*;
 /**
  * Class for the lighting setting that illuminates the scene
  */
-public class AmbientLight {
-    protected final Color intensity;
-
+public class AmbientLight extends Light{
     /**
      * CTOR
      *
@@ -15,22 +13,13 @@ public class AmbientLight {
      * @param kA The light intensity
      */
     public AmbientLight (Color iA, double kA){
-        intensity = iA.scale(kA);
+        super(iA.scale(kA));
     }
 
     /**
      * Default CTOR that initializes the intensity field to black
      */
     public AmbientLight() {
-        this.intensity = Color.BLACK;
-    }
-
-    /**
-     * getter for intensity
-     *
-     * @return intensity
-     */
-    public Color getIntensity(){
-        return intensity;
+        super(Color.BLACK);
     }
 }
