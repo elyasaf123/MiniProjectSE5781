@@ -1,6 +1,6 @@
 package elements;
 
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 import geometries.*;
 import primitives.*;
 import renderer.*;
@@ -56,7 +56,7 @@ public class LightsTests {
     public void spherePoint() {
         sceneBuilder1.setGeometries(new Geometries(sphere));
         sceneBuilder1.setLights(List.of(new PointLight(new Color(500, 300, 0), new Point3D(-50, -50, 50))//
-                .setkL(0.00001).setkQ(0.000001)));
+                .setKl(0.00001).setKq(0.000001)));
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
         Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
@@ -75,7 +75,7 @@ public class LightsTests {
     public void sphereSpot() {
         sceneBuilder1.setGeometries(new Geometries(sphere));
         sceneBuilder1.setLights(List.of(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-                .setkL(0.00001).setkQ(0.00000001)));
+                .setKl(0.00001).setKq(0.00000001)));
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
         Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
@@ -114,7 +114,7 @@ public class LightsTests {
         sceneBuilder2.setGeometries(new Geometries(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)), //
                 triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300))));
         sceneBuilder2.setLights(List.of(new PointLight(new Color(500, 250, 250), new Point3D(10, -10, -130)) //
-                .setkL(0.0005).setkQ(0.0005)));
+                .setKl(0.0005).setKq(0.0005)));
         Scene scene2 = sceneBuilder2.build();
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
@@ -135,7 +135,7 @@ public class LightsTests {
         Geometries geometries = new Geometries(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)),triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
         sceneBuilder2.setGeometries(geometries);
         sceneBuilder2.setLights(List.of(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1)) //
-                .setkL(0.0001).setkQ(0.000005)));
+                .setKl(0.0001).setKq(0.000005)));
         Scene scene2 = sceneBuilder2.build();
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);

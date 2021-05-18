@@ -1,5 +1,8 @@
 package primitives;
 
+/**
+ * todo
+ */
 public class Material {
     //ks + ks <= 1
     //קבועים בשביל משוואה פיזיקלית

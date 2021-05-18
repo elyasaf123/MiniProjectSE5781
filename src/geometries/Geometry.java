@@ -7,9 +7,16 @@ import primitives.*;
  */
 public abstract class Geometry implements Intersectable {
 
+    // todo
     protected Color emission =  Color.BLACK;
+
+    // todo
     private Material material = new Material();
 
+    /**
+     * todo
+     * @return
+     */
     public Material getMaterial() {
         return material;
     }
@@ -44,6 +51,11 @@ public abstract class Geometry implements Intersectable {
      */
     abstract public Vector getNormal(Point3D point3D);
 
+    /**
+     * todo
+     * @param material
+     * @return
+     */
     public Geometry setMaterial(Material material) {
         this.material = material;
         return this;

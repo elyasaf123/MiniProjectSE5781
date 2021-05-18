@@ -1,11 +1,8 @@
 package primitives;
 
-import geometries.Intersectable;
-
+import geometries.*;
 import java.util.List;
-
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * The set of points on a straight line that are on one side relative to a given point
