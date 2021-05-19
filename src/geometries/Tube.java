@@ -84,7 +84,7 @@ public class Tube extends Geometry {
      * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
 
         /*
         The procedure is as follows:

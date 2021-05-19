@@ -104,7 +104,7 @@ public class Polygon extends Geometry {
      * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
         // First of all we check that there is a point of intersection
         // with the plane where the polygon is
         Plane plane = new Plane(vertices.get(0), vertices.get(1), vertices.get(2));
@@ -118,15 +118,15 @@ public class Polygon extends Geometry {
         // then the Ray intersects the polygon.
         // We will check the angles using a scalar product between the Ray and the normal
 
-        if (plane.findGeoIntersections(ray) != null) {
+        if (plane.findGeoIntersections(ray,maxDistance) != null) {
 
             // Ray's head
             Point3D P0 = ray.getP0();
 
             // Vector from the beginning of the Ray to the point of intersection with the plane
-            Vector v = plane.findGeoIntersections(ray).get(0).point3D.subtract(P0);
+            Vector v = plane.findGeoIntersections(ray,maxDistance).get(0).point3D.subtract(P0);
 
-            GeoPoint geoPoint = new GeoPoint(this, plane.findGeoIntersections(ray).get(0).point3D);
+            GeoPoint geoPoint = new GeoPoint(this, plane.findGeoIntersections(ray,maxDistance).get(0).point3D);
 
             // all the vectors that are between the head of the Ray and the vertices of the polygon.
             LinkedList<Vector> vectorList = new LinkedList<>();

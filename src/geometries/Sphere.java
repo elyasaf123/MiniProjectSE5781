@@ -70,7 +70,7 @@ public class Sphere extends Geometry {
      * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
         // In case the Ray exits the center of the ball then surely there is only one intersecting point
         // within a radius of the beginning of the Ray
         if (getCenter().equals(ray.getP0())) {
@@ -99,7 +99,7 @@ public class Sphere extends Geometry {
         double d = alignZero(Math.sqrt(u.lengthSquared() - tm*tm));
 
         // The ray passes out of the sphere
-        if (d > getRadius()) {
+        if (alignZero(d - getRadius())>=0) {
             return null;
         }
 
@@ -119,18 +119,25 @@ public class Sphere extends Geometry {
         // subtract th to reach the first point of intersection
         double t2 = alignZero(tm - th);
 
-        // Two points of intersection
+        if(alignZero(t1)<0 && alignZero(t2)<0){
+            return null;
+        }
         if (t1 > 0 && t2 > 0) {
-            return List.of(new GeoPoint(this,(ray.getTargetPoint(t1))),new GeoPoint(this,ray.getTargetPoint(t2)));
+            // Two points of intersection
+            if (alignZero(maxDistance - t1) > 0 && alignZero(maxDistance - t2) > 0) {
+                Point3D P1 = ray.getP0().add(v.scale(t2));
+                Point3D P2 = ray.getP0().add(v.scale(t1));
+                return List.of(new GeoPoint(this, P1), new GeoPoint(this, P2));
+            }
         }
 
         // one point of intersection
-        if (t1> 0 ) {
+        if (t1 >0 && alignZero(maxDistance-t1)> 0 ) {
             return List.of(new GeoPoint(this,ray.getTargetPoint(t1)));
         }
 
         // one point of intersection
-        if (t2 > 0) {
+        if (t2 >0 && alignZero(maxDistance-t2) > 0) {
             return List.of(new GeoPoint(this,ray.getTargetPoint(t2)));
         }
 

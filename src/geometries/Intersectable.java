@@ -59,5 +59,9 @@ public interface Intersectable {
      *
      * @return List of the points of the GeoIntersections (contains the geometry (shape) and the point in 3D)
      */
-    List<GeoPoint> findGeoIntersections(Ray ray);
+    default List<GeoPoint> findGeoIntersections(Ray ray){
+        return findGeoIntersections(ray,Double.POSITIVE_INFINITY);
+    }
+
+    List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 }

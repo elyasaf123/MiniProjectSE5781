@@ -54,10 +54,10 @@ public class Geometries implements Intersectable {
      * @return  null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;
         for (Intersectable item : this.intersectables) {
-            List<GeoPoint> itemPoints = item.findGeoIntersections(ray);
+            List<GeoPoint> itemPoints = item.findGeoIntersections(ray,maxDistance);
             if (itemPoints != null) {
                 if (result == null) {
                     result = new LinkedList<>();

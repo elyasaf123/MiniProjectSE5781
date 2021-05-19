@@ -52,7 +52,7 @@ public class LightsTests {
         sceneBuilder1.setLights(
                 List.of(new DirectionalLight(new Color(500, 300, 0), new Vector(1, 1, -1))));
         Scene scene1 = sceneBuilder1.build();
-        ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 500, 500);
+        ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 1000, 1000);
         Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //

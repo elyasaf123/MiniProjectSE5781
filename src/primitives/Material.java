@@ -15,8 +15,12 @@ public class Material {
     // (ranging from 0 to 1)
     public double kS;
 
+    public double kR = 0;
+
+    public double kT = 0;
+
     // How gloss the shape is
-    public int nShininess;
+    public int nShininess = 0;
 
     /**
      * setter for the Coefficient of attenuation of the degree to which the material emits the light it illuminates

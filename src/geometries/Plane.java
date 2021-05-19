@@ -94,7 +94,7 @@ public class Plane extends Geometry {
      * @return null / list that includes all the GeoIntersection points (contains the geometry (shape) and the point in 3D)
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
         // the ray's components
         Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
@@ -131,10 +131,12 @@ public class Plane extends Geometry {
         if (alignZero(t) <= 0) {
             return null;
         }
-
-        //P = P0 + t*v
-        Point3D p = ray.getTargetPoint(t);
-        return List.of(new GeoPoint(this,p));
+        if(alignZero(t - maxDistance)<=0)
+        {
+            Point3D p = ray.getTargetPoint(t);
+            return List.of(new GeoPoint(this,p));
+        }        //P = P0 + t*v
+        return null;
     }
 
     @Override
