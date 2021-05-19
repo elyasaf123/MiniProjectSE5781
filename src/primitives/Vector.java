@@ -1,6 +1,6 @@
 package primitives;
 
-import static primitives.Point3D.ZERO;
+import static primitives.Point3D.*;
 import static primitives.Util.*;
 
 /**

@@ -13,8 +13,10 @@ import java.util.logging.*;
  * size and resolution
  */
 public class ImageWriter {
+
     // amount of pixels by Width
     private int nX;
+
     // amount of pixels by Height
     private int nY;
 
@@ -42,6 +44,7 @@ public class ImageWriter {
     }
 
     // ***************** Getters/Setters ********************** //
+
     /**
      * View Plane Y axis resolution
      *

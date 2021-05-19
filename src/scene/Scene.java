@@ -3,7 +3,6 @@ package scene;
 import elements.*;
 import geometries.*;
 import primitives.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +25,7 @@ public class Scene {
         this.lights = sceneBuilder.lights;
     }
 
+    // list of light-sources we got in the scene
     public List<LightSource> lights;
 
     // The scene's name
@@ -46,6 +46,7 @@ public class Scene {
      */
     public static class SceneBuilder{
 
+        // list of light-sources we got in the scene
         private List<LightSource> lights;
 
         // The scene's name
@@ -70,7 +71,7 @@ public class Scene {
             this.ambientLight = new AmbientLight();
             this.background = Color.BLACK;
             this.name = name;
-            this.lights = new LinkedList<LightSource>();
+            this.lights = new LinkedList<>();
         }
 
         /**
@@ -86,8 +87,11 @@ public class Scene {
         }
 
         /**
-         * todo
-         * @param lights
+         * setter for the list of light-sources we got in the scene
+         *
+         * @param lights the list given
+         *
+         * @return this (for chaining)
          */
         public SceneBuilder setLights(List<LightSource> lights) {
             this.lights = lights;

@@ -53,25 +53,30 @@ class VectorTests {
     public void testCrossProduct() {
 
         // ============ Equivalence Partitions Tests ==============
+
         Vector vr = v1.crossProduct(v3);
 
-        // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
+        // TC01: Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
         assertEquals(
                 v1.length() * v3.length(),
                 vr.length(),
                 0.00001,
-                "crossProduct() wrong result length");
+                "ERROR - TC01: crossProduct() wrong result length");
 
-        // Test cross-product result orthogonality to its operands
-        assertTrue(isZero(vr.dotProduct(v1)), "crossProduct() result is not orthogonal to 1st operand");
-        assertTrue(isZero(vr.dotProduct(v3)), "crossProduct() result is not orthogonal to 2nd operand");
+        // TC02: Test cross-product result orthogonality to its operands
+        assertTrue(isZero(
+                vr.dotProduct(v1)),
+                "ERROR - TC02: crossProduct() result is not orthogonal to 1st operand");
+        assertTrue(isZero(
+                vr.dotProduct(v3)),
+                "ERROR - TC02: crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
 
-        // test zero vector from cross-product of co-lined vectors
+        // TC03: test zero vector from cross-product of co-lined vectors
         try {
             v1.crossProduct(v2);
-            fail("crossProduct() for parallel vectors does not throw an exception");
+            fail("ERROR - TC03: crossProduct() for parallel vectors does not throw an exception");
         } catch (Exception e) {
         }
     }
@@ -81,7 +86,10 @@ class VectorTests {
      */
     @Test
     void testLengthSquared() {
-        assertEquals(0,v1.lengthSquared() - 14,"ERROR: lengthSquared() wrong value");
+        assertEquals(
+                0,
+                v1.lengthSquared() - 14,
+                "ERROR: lengthSquared() wrong value");
     }
 
     /**
@@ -89,7 +97,10 @@ class VectorTests {
      */
     @Test
     void testLength() {
-        assertEquals(0,new Vector(0, 3, 4).length() - 5,"ERROR: length() wrong value");
+        assertEquals(
+                0,
+                new Vector(0, 3, 4).length() - 5,
+                "ERROR: length() wrong value");
     }
 
     /**
@@ -101,12 +112,14 @@ class VectorTests {
         v.normalize();
         assertEquals(1, v.length(), 1e-10);
 
+        // TC01:
         try {
             v = new Vector(0, 0, 0);
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
 
+        // TC02:
         try {
             v.normalize();
         } catch (ArithmeticException e) {

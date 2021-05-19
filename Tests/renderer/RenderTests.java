@@ -63,7 +63,7 @@ public class RenderTests {
     }
 
     /**
-     * Test for XML based scene - for bonus
+     * Test for XML based scene
      */
     @Test
     public void basicRenderXml() throws ParserConfigurationException {
@@ -71,7 +71,6 @@ public class RenderTests {
         DalXml dalXml = new DalXml("basicRenderTestTwoColors");
         Scene scene = dalXml.getSceneFromXML();
         // enter XML file name and parse from XML file into scene object
-        // ...
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 
@@ -89,7 +88,7 @@ public class RenderTests {
 
     public class DalXml {
 
-        // parse XML file
+        // parse a XML file
         private DocumentBuilder db;
         private final String path = "xml files\\";
         private final String fileName;
