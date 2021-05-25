@@ -109,9 +109,8 @@ public class Render {
         else if(basicRayTracer == null)
             throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-        for(int i = 0; i< imageWriter.getNy(); i++)
-        {
-            for(int j = 0; j< imageWriter.getNx(); j++){
+        for(int i = 0; i< imageWriter.getNy(); i++) {
+            for(int j = 0; j< imageWriter.getNx(); j++) {
                 Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(),j,i);
                 imageWriter.writePixel(j,i,basicRayTracer.traceRay(ray));
             }
