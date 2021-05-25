@@ -79,7 +79,7 @@ public class Camera {
                 throw new IllegalArgumentException("vUp is not orthogonal to vTo");
             }
             // Right hand rule
-            vRight = vTo.crossProduct(vUp);
+            vRight = vTo.crossProduct(vUp).normalized();
         }
 
         /**

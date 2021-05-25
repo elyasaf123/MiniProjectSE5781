@@ -15,9 +15,9 @@ public class Material {
     // (ranging from 0 to 1)
     public double kS;
 
-    public double kR = 0;
+    public double kR = 0.0;
 
-    public double kT = 0;
+    public double kT = 0.0;
 
     // How gloss the shape is
     public int nShininess = 0;

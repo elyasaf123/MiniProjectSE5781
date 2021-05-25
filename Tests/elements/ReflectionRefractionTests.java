@@ -5,7 +5,6 @@ import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.*;
-
 import java.util.LinkedList;
 
 /**

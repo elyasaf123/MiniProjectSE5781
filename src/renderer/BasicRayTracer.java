@@ -29,11 +29,6 @@ public class BasicRayTracer extends RayTraceBase {
     private static final double INITIAL_K = 1.0;
 
     /**
-     * todo
-     */
-    private static final double DELTA =0.1;
-
-    /**
      * CTOR
      *
      * @param scene The scene where we look for the intersections
@@ -54,13 +49,8 @@ public class BasicRayTracer extends RayTraceBase {
      */
     @Override
     public Color traceRay(Ray ray) {
-        List<GeoPoint> points = scene.geometries.findGeoIntersections(ray);
-        if(points == null)
-            return scene.background;
-        else {
-            GeoPoint point = ray.getClosestGeoPoint(points);
-            return calcColor(point,ray);
-        }
+        GeoPoint geoPoint = findClosestIntersection(ray);
+        return geoPoint == null ? scene.background : calcColor(geoPoint,ray);
     }
 
     /**
@@ -78,7 +68,7 @@ public class BasicRayTracer extends RayTraceBase {
      * @return The color at the given point
      */
     private Color calcColor (GeoPoint closestPoint, Ray ray){
-        return calcColor(closestPoint,ray,MAX_CALC_COLOR_LEVEL,INITIAL_K).add(scene.ambientLight.getIntensity());
+        return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
     }
 
     /**
@@ -93,8 +83,8 @@ public class BasicRayTracer extends RayTraceBase {
      */
     private  Color calcColor(GeoPoint intersection,Ray ray, int level, double k){
         Color color = intersection.geometry.getEmission();
-        color = color.add(calcLocalEffects(intersection,ray));
-        return 1 == level ? color : color.add(calcGlobalEffects(intersection,ray,level,k));
+        color = color.add(calcLocalEffects(intersection, ray));
+        return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray, level, k));
     }
 
     /**
@@ -111,7 +101,7 @@ public class BasicRayTracer extends RayTraceBase {
      */
     private Color calcDiffusive(double kd,Vector l, Vector n, Color lightIntensity) {
         double ln = Math.abs(l.dotProduct(n));
-        return lightIntensity.scale(kd*ln);
+        return lightIntensity.scale(kd * ln);
     }
 
     /**
@@ -131,8 +121,8 @@ public class BasicRayTracer extends RayTraceBase {
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.subtract(n.scale(l.dotProduct(n)*2));
         double vrMinus = v.scale(-1).dotProduct(r);
-        double vrn =Math.pow(vrMinus,nShininess);
-        return lightIntensity.scale(ks*vrn);
+        double vrn = Math.pow(vrMinus, nShininess);
+        return lightIntensity.scale(ks * vrn);
     }
 
     /**
@@ -165,8 +155,8 @@ public class BasicRayTracer extends RayTraceBase {
                 Vector l = lightSource.getL(geoPoint.point3D);
             double nl = alignZero(n.dotProduct(l));
             // check they got the same sign (the light and the camera are in the same side of the given point)
-            if(nl*nV >0 ) {
-                if (unshaded(lightSource,l, n, geoPoint)) {
+            if(nl * nV > 0) {
+                if (unshaded(lightSource, l, n, geoPoint)) {
                     Color lightIntensity = lightSource.getIntensity(geoPoint.point3D);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity), calcSpecular(ks, l, n, v, nShininess, lightIntensity));
                 }
@@ -237,7 +227,7 @@ public class BasicRayTracer extends RayTraceBase {
         Vector v = ray.getDir();
         Vector r = null;
         try {
-            r = v.subtract(n.scale(v.dotProduct(n)).scale(2).normalized());
+            r = v.subtract(n.scale(v.dotProduct(n)).scale(2)).normalized();
         }
         catch (Exception e) {
             return null;
@@ -264,11 +254,11 @@ public class BasicRayTracer extends RayTraceBase {
         // ray from point toward light direction offset by delta
         Ray lightRay = new Ray(geoPoint.point3D,lightDirection,n);
         double distance = light.getDistance(geoPoint.point3D);
-        List<GeoPoint>intersection = scene.geometries.findGeoIntersections(lightRay, light.getDistance(lightRay.getP0()));
+        List<GeoPoint> intersection = scene.geometries.findGeoIntersections(lightRay, light.getDistance(lightRay.getP0()));
         boolean flag = true;
         if (intersection != null) {
             for (int i = 0; i < intersection.size(); i++) {
-                if (intersection.get(i).geometry.getMaterial().kR == 0)
+                if (isZero(intersection.get(i).geometry.getMaterial().kT))
                     flag = false;
             }
         }
