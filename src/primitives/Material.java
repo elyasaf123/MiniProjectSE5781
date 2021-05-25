@@ -57,4 +57,29 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
+
+    /**
+     * todo
+     * setter for the Coefficient of attenuation of the degree to which the material glossy
+     *
+     * @param kR the kS given
+     *
+     * @return this (for chaining)
+     */
+    public Material setKr(double kR) {
+        this.kR = kR;
+        return this;
+    }
+
+    /**
+     * setter for the Coefficient of attenuation of the degree to which the material glossy
+     *
+     * @param kT the kS given
+     *
+     * @return this (for chaining)
+     */
+    public Material setKt(double kT) {
+        this.kT = kT;
+        return this;
+    }
 }

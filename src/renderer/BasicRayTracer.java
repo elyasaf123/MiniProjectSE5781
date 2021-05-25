@@ -102,7 +102,7 @@ public class BasicRayTracer extends RayTraceBase {
 //        Color color = scene.ambientLight.getIntensity().add(intersection.geometry.getEmission());
         Color color = intersection.geometry.getEmission();
         color = color.add(calcLocalEffects(intersection,ray));
-        return 1== level? color:color.add(calcGlobalEffects(intersection,ray,level,k));
+        return 1 == level ? color : color.add(calcGlobalEffects(intersection,ray,level,k));
     }
 
     /**
@@ -213,8 +213,9 @@ public class BasicRayTracer extends RayTraceBase {
             Ray refractedRay = constructRefractedRay(n, geoPoint.point3D, ray);
             GeoPoint refractedPoint = findClosestIntersection(refractedRay);
             // .getClosestGeoPoint(scene.geometries.findGeoIntersections(ray));
-
-            color = color.add(calcColor(refractedPoint, refractedRay, level -1, kkt).scale(kt));
+            if (refractedPoint != null) {
+                color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+            }
         }
         return color;
     }
