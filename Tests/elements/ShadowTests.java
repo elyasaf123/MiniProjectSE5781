@@ -1,6 +1,6 @@
 package elements;
 
-import org.junit.*;
+import org.junit.jupiter.api.*;
 import geometries.*;
 import primitives.*;
 import renderer.*;

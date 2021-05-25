@@ -12,12 +12,17 @@ public class Ray {
     /**
      * The point from which the ray start
       */
-    private Point3D p0;
+    final Point3D p0;
 
     /**
      * The unit vector that emerges from the point
      */
-    private Vector dir;
+    final Vector dir;
+
+    /**
+     * todo
+     */
+    private static final double DELTA =0.1;
 
     /**
      * CTOR
@@ -26,21 +31,20 @@ public class Ray {
      * @param dir the vector
      */
     public Ray(Point3D p0, Vector dir) {
-        Vector vector = dir.normalized();
         this.p0 = p0;
-        this.dir = vector;
+        this.dir = dir.normalized();
     }
 
     /**
-     * TODO
+     * todo
+     *
      * @param point3D
      * @param lightDirection
      * @param n
-     * @param DELTA
      */
-    public Ray(Point3D point3D, Vector lightDirection, Vector n, double DELTA) {
-        Vector delta = n.scale(n.dotProduct(lightDirection)>0?DELTA: -DELTA);
-        p0 = point3D.add(delta);
+    public Ray(Point3D point3D, Vector lightDirection, Vector n) {
+        double delta = lightDirection.dotProduct(n) >= 0 ? DELTA : -DELTA;
+        p0 = point3D.add(n.scale(delta));
         dir = lightDirection.normalized();
     }
 
