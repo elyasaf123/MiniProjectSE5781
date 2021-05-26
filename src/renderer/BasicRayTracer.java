@@ -245,7 +245,7 @@ public class BasicRayTracer extends RayTraceBase {
     /**
      * Builds a ray that comes out of the shape with the material that has reflection
      *
-     * @param n the normal vector at this point (using for offset the ray's head by DELTA in this direction)
+     * @param n the normal vector from the shape's surface at this point (using for offset the ray's head by DELTA in this direction)
      * @param point The point from which the ray emerges
      * @param ray the original ray
      *
@@ -277,14 +277,14 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
+     * A function which calculates the effect of material transparency on how much can be seen through it
      *
+     * @param ls The light source for which we want to calculate the transparency
+     * @param l the direction vector from the light source to the geoPoint
+     * @param n the normal vector from the shape's surface at this point (using for offset the ray's head by DELTA in this direction)
+     * @param geoPoint the point we want to calculate its transparency
      *
-     * @param ls
-     * @param l
-     * @param n
-     * @param geoPoint
-     *
-     * @return
+     * @return Transparency's intensity (measured in doubles)
      */
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
         Point3D point = geoPoint.point3D;

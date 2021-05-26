@@ -176,4 +176,59 @@ public class ReflectionRefractionTests {
         render.renderImage();
         render.writeToImage();
     }
+
+
+    /**todo
+     * Produce a picture of a two triangles lighted by a spot light with a partially
+     * transparent Sphere producing partial shadow
+     */
+    @Test
+    public void ex_7_our_picture() {
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        new Point3D(0, 0, 1000),
+                        new Vector(0, 0, -1),
+                        new Vector(0, 1, 0))
+                        .setViewPlaneSize(200, 200)
+                        .setDistance(1000);
+        Camera camera = cameraBuilder.build();
+
+        Geometries geometries = new Geometries();
+        geometries.add( //
+                new Triangle(
+                        new Point3D(-150, -150, -115),
+                        new Point3D(150, -150, -135),
+                        new Point3D(75, 75, -150))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(60)),
+                new Triangle(
+                        new Point3D(-150, -150, -115),
+                        new Point3D(-70, 70, -140),
+                        new Point3D(75, 75, -150))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(60)),
+                new Sphere(
+                        new Point3D(60, 50, -50), 30)
+                        .setEmission(new Color(java.awt.Color.BLUE))
+                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(30).setKt(0.6)));
+
+        LinkedList<LightSource> lightSources = new LinkedList<>();
+        lightSources.add(
+                new SpotLight(
+                        new Color(700, 400, 400),
+                        new Point3D(60, 50, 0),
+                        new Vector(0, 0, -1))
+                        .setKl(4E-5)
+                        .setKq(2E-7));
+
+        sceneBuilder.setGeometries(geometries)
+                .setLights(lightSources)
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+        Scene scene = sceneBuilder.build();
+
+        ImageWriter imageWriter = new ImageWriter("ex_7_our_picture", 600, 600);
+        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
+
+        render.renderImage();
+        render.writeToImage();
+    }
 }
