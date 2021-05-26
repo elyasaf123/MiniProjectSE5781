@@ -58,6 +58,14 @@ public class Material {
         return this;
     }
 
+    public double getKr() {
+        return kR;
+    }
+
+    public double getKt() {
+        return kT;
+    }
+
     /**
      * todo
      * setter for the Coefficient of attenuation of the degree to which the material glossy

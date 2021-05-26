@@ -8,6 +8,7 @@ import primitives.*;
  * and in addition we need a function to calculate the direction vector for the point.
  */
 public interface LightSource {
+
     /**
      * calculates the intensity of light according to a point
      *
@@ -26,5 +27,12 @@ public interface LightSource {
      */
     public Vector getL(Point3D p);
 
+    /**
+     * todo
+     *
+     * @param point3D
+     *
+     * @return
+     */
     public double getDistance(Point3D point3D);
 }

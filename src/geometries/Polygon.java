@@ -46,10 +46,12 @@ public class Polygon extends Geometry {
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         this.vertices = List.of(vertices);
+
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
         plane = new Plane(vertices[0], vertices[1], vertices[2]);
+
         if (vertices.length == 3)
             return; // no need for more tests for a Triangle
 
@@ -105,6 +107,7 @@ public class Polygon extends Geometry {
      */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray,double maxDistance) {
+
         // First of all we check that there is a point of intersection
         // with the plane where the polygon is
         Plane plane = new Plane(vertices.get(0), vertices.get(1), vertices.get(2));

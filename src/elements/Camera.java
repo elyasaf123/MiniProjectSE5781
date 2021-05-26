@@ -27,16 +27,22 @@ public class Camera {
 
      // the camera location in 3D
     private final Point3D p0;
+
     // vector toward - the direction vector in which the camera is aimed
     private final Vector vTo;
+
     // Direction vector that defines what is the "top" of the camera
     private final Vector vUp;
+
     // Direction vector that defines what is the "right" direction of the camera
     private final Vector vRight;
+
     // distance from camera to view plane
     private double distance;
+
     // view - plane's width
     private double width;
+
     // view - plane's height
     private double height;
 
@@ -48,16 +54,22 @@ public class Camera {
 
         // the camera location in 3D
         private Point3D p0;
+
         // Direction vector that defines what is the "top" of the camera
         private Vector vUp;
+
         // vector toward - the direction vector in which the camera is aimed
         private Vector vTo;
+
         // Direction vector that defines what is the "right" direction of the camera
         private Vector vRight;
+
         // distance from camera to view plane
         private double distance;
+
         // view - plane's width
         private double width;
+
         // view - plane's height
         private double height;
 
