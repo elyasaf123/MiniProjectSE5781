@@ -50,7 +50,7 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -94,7 +94,7 @@ public class ShadowTests {
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -128,7 +128,7 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -162,7 +162,7 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -196,7 +196,7 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 
@@ -230,7 +230,7 @@ public class ShadowTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.writeToImage();
     }
 }

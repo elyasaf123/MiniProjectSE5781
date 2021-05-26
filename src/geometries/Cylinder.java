@@ -123,17 +123,17 @@ public class Cylinder extends Tube  {
     public List<GeoPoint> findGeoIntersections(Ray ray) {
 
         // The procedure is as follows:
-        //P1 and P2 in the cylinder, the center of the bottom and upper bases
+        // P1 and P2 in the cylinder, the center of the bottom and upper bases
         Point3D p1 = axisRay.getP0();
         Point3D p2 = axisRay.getTargetPoint(height);
         Vector Va = axisRay.getDir();
 
         List<GeoPoint> list = super.findGeoIntersections(ray);
 
-        //the intersections with the cylinder
+        // the intersections with the cylinder
         List<GeoPoint> result = new LinkedList<>();
 
-        //Step 1 - checking if the intersections with the tube are points on the cylinder
+        // Step 1 - checking if the intersections with the tube are points on the cylinder
         if (list != null) {
             for (GeoPoint p : list) {
                 if (Va.dotProduct(p.point3D.subtract(p1)) > 0 && Va.dotProduct(p.point3D.subtract(p2)) < 0)
@@ -141,9 +141,9 @@ public class Cylinder extends Tube  {
             }
         }
 
-        //Step 2 - checking the intersections with the bases
+        // Step 2 - checking the intersections with the bases
 
-        //cannot be more than 2 intersections
+        // cannot be more than 2 intersections
         if(result.size() < 2) {
             //creating 2 planes for the 2 bases
             Plane bottomBase = new Plane(p1, Va);
@@ -153,17 +153,17 @@ public class Cylinder extends Tube  {
             // ======================================================
             // intersection with the bases:
 
-            //intersections with the bottom bases
+            // intersections with the bottom bases
             list = bottomBase.findGeoIntersections(ray);
 
             if (list != null) {
                 p = list.get(0);
-                //checking if the intersection is on the cylinder base
+                // checking if the intersection is on the cylinder base
                 if (p.point3D.distanceSquared(p1) < radius * radius)
                     result.add(p);
             }
 
-            //intersections with the upper bases
+            // intersections with the upper bases
             list = upperBase.findGeoIntersections(ray);
 
             if (list != null) {
@@ -173,7 +173,7 @@ public class Cylinder extends Tube  {
                     result.add(p);
             }
         }
-        //return null if there are no intersections.
+        // return null if there are no intersections.
         return result.size() == 0 ? null : result;
     }
 

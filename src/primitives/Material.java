@@ -15,8 +15,10 @@ public class Material {
     // (ranging from 0 to 1)
     public double kS;
 
+    // Coefficient of attenuation of the degree to which the material reflected (ranging from 0 to 1)
     public double kR = 0.0;
 
+    // Coefficient of attenuation of the degree to which the material causes light to refract (ranging from 0 to 1)
     public double kT = 0.0;
 
     // How gloss the shape is
@@ -58,19 +60,10 @@ public class Material {
         return this;
     }
 
-    public double getKr() {
-        return kR;
-    }
-
-    public double getKt() {
-        return kT;
-    }
-
     /**
-     * todo
-     * setter for the Coefficient of attenuation of the degree to which the material glossy
+     * setter for the Coefficient of attenuation of the degree to which the material reflected
      *
-     * @param kR the kS given
+     * @param kR the kR given
      *
      * @return this (for chaining)
      */
@@ -80,14 +73,32 @@ public class Material {
     }
 
     /**
-     * setter for the Coefficient of attenuation of the degree to which the material glossy
+     * setter for the Coefficient of attenuation of the degree to which the material causes light to refract
      *
-     * @param kT the kS given
+     * @param kT the kT given
      *
      * @return this (for chaining)
      */
     public Material setKt(double kT) {
         this.kT = kT;
         return this;
+    }
+
+    /**
+     * getter for kR
+     *
+     * @return kR
+     */
+    public double getKr() {
+        return kR;
+    }
+
+    /**
+     * getter for kT
+     *
+     * @return kT
+     */
+    public double getKt() {
+        return kT;
     }
 }

@@ -1,9 +1,10 @@
 package renderer;
 
-import elements.*;
-import primitives.*;
-import scene.*;
-import java.util.*;
+import elements.Camera;
+import primitives.Color;
+import primitives.Ray;
+
+import java.util.MissingResourceException;
 
 /**
  * Class which create the color matrix of the image from the scene
@@ -101,7 +102,7 @@ public class Render {
      *
      * @throws MissingResourceException if not all fields a non-empty value was entered
      */
-    public void renderImage(Scene scene) {
+    public void renderImage() {
         if(imageWriter == null)
             throw new MissingResourceException("imageWriter is null","Render","imageWriter");
         else if(camera == null )

@@ -57,7 +57,7 @@ public class RenderTests {
                         .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
@@ -81,7 +81,7 @@ public class RenderTests {
                         .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
@@ -217,7 +217,7 @@ public class RenderTests {
                 .setRayTracer(new BasicRayTracer(scene));
         Render render = renderBuilder.build();
 
-        render.renderImage(scene);
+        render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.WHITE));
         render.writeToImage();
     }

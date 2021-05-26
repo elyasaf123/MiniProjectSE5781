@@ -40,11 +40,6 @@ public class Scene {
     // The positions of the shapes in 3D
     public Geometries geometries;
 
-    public void setAmbientLight(AmbientLight ambientLight) {
-        this.ambientLight = ambientLight;
-    }
-
-
     /**
      * Builder Pattern, by this class we are updating the parent class (Scene),
      * instance that we are interested in creating even before we create it

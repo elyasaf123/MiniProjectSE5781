@@ -99,32 +99,32 @@ public class Plane extends Geometry {
         Point3D p0 = ray.getP0();
         Vector v = ray.getDir();
 
-        //the ray is intersecting with starting point p0 which is not called intersecting!
+        // the ray is intersecting with starting point p0 which is not called intersecting!
         if (q0.equals(p0)) {
             return null;
         }
 
-        //P is the point which the vector intersects with the plane
-        //Ray points: P = P0 + t*v
-        //Plane points: normal*(q0-p) = 0
-        //...
-        //t = normal*(Q - p0)/n*v
+        // P is the point which the vector intersects with the plane
+        // Ray points: P = P0 + t*v
+        // Plane points: normal*(q0-p) = 0
+        // ...
+        // t = normal*(Q - p0)/n*v
         double nv = alignZero(normal.dotProduct(v));
 
-        //the ray is parallel to the plane doesn't matter if contained or not
+        // the ray is parallel to the plane doesn't matter if contained or not
         if(isZero(nv)) {
             return null;
         }
 
-        //t = normal*(Q - p0)/n*v
+        // t = normal*(Q - p0)/n*v
         double t = alignZero(normal.dotProduct(q0.subtract(p0)));
 
-        //check if exiting point is on plane
+        // check if exiting point is on plane
         if(isZero(t)) {
             return null;
         }
 
-        //we checked already that nv isn't zero! so we can divide it
+        // we checked already that nv isn't zero! so we can divide it
         t = alignZero(t / nv);
 
         // if t is negative there are no intersections

@@ -14,17 +14,21 @@ import static primitives.Util.*;
 public class BasicRayTracer extends RayTraceBase {
 
     /**
-     * todo
+     * Stop condition in the recursion of transparencies / reflections
+     * (If the effect on the pixel's color is lower than the above constant (Coefficient of attenuation)
+     * then it is really marginal and we will not consider it)
      */
     private static final double MIN_CALC_COLOR_K = 0.001;
 
     /**
-     * todo
+     * Stop condition in the recursion of transparencies / reflections
+     * (If the number of recursive calls we made is higher than the above constant
+     * then we will no longer make any more readings)
      */
     private static final int MAX_CALC_COLOR_LEVEL = 10;
 
     /**
-     * todo
+     * initialize the effect on the pixel's color (Coefficient of attenuation), at first its value is 1
      */
     private static final double INITIAL_K = 1.0;
 
@@ -38,14 +42,13 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * A method to find the intersections between the ray and the 3D model of the scene.
-     * First we find the point of intersection which is closest to the camera
-     * (because what is not closest is "behind" and in fact is hidden and not of interest to us),
-     * in which we calculate the color by an helper functions
+     * A method to find the closest geoIntersection between the ray and the 3D model of the scene
+     * (containing the shape and the point in 3D) in which we calculate the color by an helper functions
      *
      * @param ray 3D ray
      *
-     * @return the color at this point using method  - calcColor(GeoPoint, Ray) : Color
+     * @return the backGround's color at default (no intersections found)
+     *         else: the color at this point using method  - calcColor(GeoPoint, Ray) : Color
      */
     @Override
     public Color traceRay(Ray ray) {
@@ -56,14 +59,13 @@ public class BasicRayTracer extends RayTraceBase {
     /**
      * calculates the Color at the given point using pong's model
      *
-//     * @param geoPoint the point where we are interested in knowing what her color is in the scene,
-//     *                 and in addition we send to the function the type of shape that is at this point,
-//     *                 because we also need to know the color of the shape
-//     *                 in order to know what final color this point gets
-//     *
+     * @param closestPoint the point where we are interested in knowing what her color is in the scene,
+     *                     and in addition we send to the function the type of shape that is at this point,
+     *                     because we also need to know the type of material from which the shape is made
+     *                     in order to know what final color this point gets
      * @param ray The ray that comes out of the camera and intersects the scene at this point,
-     *            we will use it to calculate local effects on the color
-     *            in the function calcLocalEffects(GeoPoint, Ray) : Color we call it
+     *            we will use it to calculate local effects & global effects on the color
+     *            in the appropriate function we call it
      *
      * @return The color at the given point
      */
@@ -72,16 +74,25 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * todo
+     * calculates the color at the given point considering all the local and general effects that have on that point
+     * using the appropriate functions
      *
-     * @param intersection
-     * @param ray
-     * @param level
-     * @param k
+     * @param intersection the point where we are interested in knowing what her color is in the scene,
+     *                     and in addition we send to the function the type of shape that is at this point,
+     *                     because we also need to know the type of material from which the shape is made
+     *                     in order to know what final color this point gets
+     * @param ray The ray that comes out of the camera and intersects the scene at this point,
+     *            we will use it to calculate local effects & global effects on the color
+     * @param level Stop condition in the recursion of transparencies / reflections
+     *              (If the number of recursive calls we made is higher than the above constant
+     *              then we will no longer make any more readings)
+     * @param k Stop condition in the recursion of transparencies / reflections
+     *          (If the effect on the pixel's color is lower than k (Coefficient of attenuation)
+     *          then it is really marginal and we will not consider it)
      *
-     * @return
+     * @return The color at the given point considering all the local and general effects
      */
-    private  Color calcColor(GeoPoint intersection,Ray ray, int level, double k){
+    private  Color calcColor(GeoPoint intersection,Ray ray, int level, double k) {
         Color color = intersection.geometry.getEmission();
         color = color.add(calcLocalEffects(intersection, ray, k));
         return 1 == level ? color : color.add(calcGlobalEffects(intersection, ray, level, k));
@@ -126,24 +137,27 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * Function for calculating the effects of the type of material from which the shape is made
+     * Function for calculating the local effects of the type of material from which the shape is made
      * on the color that the dot acquires in the scene
-     * (depending on the degree of scattering of the material and its degree of glossy)
+     * (depending on the degree of scattering of the material, degree of glossy
+     * and its degree of transparency (The level at which it is transparent, through which can be seen))
      *
      * @param geoPoint the point where we are interested in knowing what her color is in the scene,
      *                 and in addition we send to the function the type of shape that is at this point,
      *                 because we need information about the material from which the shape is made
      *                 in order to know what final color this point gets
-     * @param ray The ray that comes out of the camera and intersects the scene at this point
+     * @param ray The ray that intersects geoPoint
+     *            (comes from the camera or
+     *            from some shape that is in the scene that has an element of reflection or transparency)
      *
      * @return The color at the given point =
-     * sigma on i [all light-sources] ([𝒌𝑫 ∙ |𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎,−𝒗∙𝒓])^𝒏𝒔𝒉] ∙ 𝑰𝑳𝒊)
+     * sigma on i [all light-sources] ([𝒌𝑫 ∙ |𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎, −𝒗∙𝒓])^𝒏𝒔𝒉] ∙ 𝑰𝑳𝒊 ∙ 𝑺𝒊)
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, double k) {
         Vector v = ray.getDir();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point3D);
-        double nV = alignZero(n.dotProduct(v));
-        if(isZero(nV)) {
+        double nv = alignZero(n.dotProduct(v));
+        if(isZero(nv)) {
             return Color.BLACK;
         }
         Material material = geoPoint.geometry.getMaterial();
@@ -155,8 +169,7 @@ public class BasicRayTracer extends RayTraceBase {
             Vector l = lightSource.getL(geoPoint.point3D);
             double nl = alignZero(n.dotProduct(l));
             // check they got the same sign (the light and the camera are in the same side of the given point)
-            if(nl * nV > 0) {
-//                if (unshaded(lightSource, l, n, geoPoint)) {
+            if (checkSign(nl, nv)) {
                 double ktr = transparency(lightSource, l, n, geoPoint);
                 if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(geoPoint.point3D).scale(ktr);
@@ -168,19 +181,33 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * todo
+     * Function for calculating the global effects of the type of material from which the shape is made
+     * on the color that the dot acquires in the scene,
+     * depending on the degree of reflection of the material and degree of refraction
+     * (To what extent does the material cause light to refract)
      *
-     * @param geoPoint
-     * @param ray
-     * @param level
-     * @param k
+     * @param geoPoint the point where we are interested in knowing what her color is in the scene,
+     *                 and in addition we send to the function the type of shape that is at this point,
+     *                 because we need information about the material from which the shape is made
+     *                 in order to know what final color this point gets
+     * @param ray The ray that intersects geoPoint
+     *            (comes from the camera or
+     *            from some shape that is in the scene that has an element of reflection or transparency)
      *
-     * @return
+     * @param level Stop condition in the recursion of transparencies / reflections
+     *        (If the number of recursive calls we made is higher than the above constant
+     *        then we will no longer make any more readings)
+     * @param k Stop condition in the recursion of transparencies / reflections
+     *          (If the effect on the pixel's color is lower than k (Coefficient of attenuation)
+     *          then it is really marginal and we will not consider it)
+     *
+     * @return The color at the given point =
+     * sigma on i [all light-sources] ([𝒌𝑫 ∙ |𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎, −𝒗∙𝒓])^𝒏𝒔𝒉] ∙ 𝑰𝑳𝒊 ∙ 𝑺𝒊 + 𝒌𝑹 ∙ 𝑰𝑹 + 𝒌𝑻 ∙ 𝑰𝑻)
      */
     private Color calcGlobalEffects(GeoPoint geoPoint, Ray ray, int level , double k){
         Color color = Color.BLACK;
         Material material = geoPoint.geometry.getMaterial();
-        double kr = material.kR;
+        double kr = material.getKr();
         double kkr= k*kr;
         Vector n = geoPoint.geometry.getNormal(geoPoint.point3D);
         if(kkr > MIN_CALC_COLOR_K) {
@@ -203,26 +230,26 @@ public class BasicRayTracer extends RayTraceBase {
     }
 
     /**
-     * todo
+     * Builds a ray that comes out of the shape with the material that refracts the light
      *
-     * @param n
-     * @param point
-     * @param ray
+     * @param n the normal vector at this point (using for offset the ray's head by DELTA in this direction)
+     * @param point The point from which the ray emerges
+     * @param ray the original ray
      *
-     * @return
+     * @return new ray after offset the ray's head by DELTA in the normal vector's direction
      */
     private Ray constructRefractedRay(Vector n, Point3D point, Ray ray) {
         return new Ray(point, ray.getDir(), n);
     }
 
     /**
-     * todo
+     * Builds a ray that comes out of the shape with the material that has reflection
      *
-     * @param n
-     * @param point
-     * @param ray
+     * @param n the normal vector at this point (using for offset the ray's head by DELTA in this direction)
+     * @param point The point from which the ray emerges
+     * @param ray the original ray
      *
-     * @return
+     * @return new ray after offset the ray's head by DELTA in the normal vector's direction
      */
     private Ray constructReflectedRay(Vector n, Point3D point, Ray ray) {
         // r = v - 2 * (v * n) * n
@@ -237,36 +264,28 @@ public class BasicRayTracer extends RayTraceBase {
         return new Ray(point, r, n);
     }
 
+    /**
+     * finds the closest intersection of this ray with some shape
+     *
+     * @param ray the ray we want to find its closest intersection
+     *
+     * @return GeoPoint (includes the point of intersection and the shape we have at this point)
+     */
     private GeoPoint findClosestIntersection(Ray ray) {
         List<GeoPoint> geoPoints = scene.geometries.findGeoIntersections(ray);
         return ray.getClosestGeoPoint(geoPoints);
     }
 
     /**
-     * todo
-     * @param light
+     *
+     *
+     * @param ls
      * @param l
      * @param n
      * @param geoPoint
      *
      * @return
      */
-    private boolean unshaded(LightSource light, Vector l, Vector n , GeoPoint geoPoint) {
-        Vector lightDirection = l.scale(-1);
-        // ray from point toward light direction offset by delta
-        Ray lightRay = new Ray(geoPoint.point3D,lightDirection,n);
-        double distance = light.getDistance(geoPoint.point3D);
-        var intersection = scene.geometries.findGeoIntersections(lightRay, light.getDistance(lightRay.getP0()));
-        boolean flag = true;
-        if (intersection != null) {
-            for (int i = 0; i < intersection.size(); i++) {
-                if (isZero(intersection.get(i).geometry.getMaterial().getKt()))
-                    flag = false;
-            }
-        }
-        return flag;
-    }
-
     private double transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
         Point3D point = geoPoint.point3D;
         Vector lightDirection = l.scale(-1); // from point to light source

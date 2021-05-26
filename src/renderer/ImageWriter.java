@@ -28,6 +28,7 @@ public class ImageWriter {
     private Logger logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
+
     /**
      * Image Writer constructor accepting image name and View Plane parameters,
      *

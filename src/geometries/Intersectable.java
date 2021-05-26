@@ -55,6 +55,9 @@ public interface Intersectable {
     }
 
     /**
+     * A method that receives a ray and checks the points of GeoIntersection of the ray with the geometry
+     * (with Unlimited distance)
+     *
      * @param ray The ray for which we calculates the GeoIntersections
      *
      * @return List of the points of the GeoIntersections (contains the geometry (shape) and the point in 3D)
@@ -64,12 +67,13 @@ public interface Intersectable {
     }
 
     /**
-     * todo
+     * A method that receives a ray and distance and checks the points of GeoIntersection of the ray with the geometry
+     * within the given distance
      *
-     * @param ray
-     * @param maxDistance
+     * @param ray The ray for which we calculates the GeoIntersections
+     * @param maxDistance The distance within which we look for the intersections
      *
-     * @return
+     * @return List of the points of the GeoIntersections (contains the geometry (shape) and the point in 3D)
      */
     List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 }

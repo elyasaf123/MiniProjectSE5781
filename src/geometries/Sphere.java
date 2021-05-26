@@ -77,14 +77,14 @@ public class Sphere extends Geometry {
             return List.of(new GeoPoint(this,ray.getTargetPoint(getRadius())));
         }
 
-        //The procedure is as follows:
-        //We will find the projection of the vector (that connects the head of the ray and the center of the sphere) on the ray,
-        //then we will build the vertical between the center of the sphere and the continuation of the ray.
-        //Then, calculate with the help of Pythagoras:
-        //the length that exists between the point where the vertical meets the ray
-        //and the point where the ray meets the sphere.
-        //Now we will know to add this distance to reach the second point of intersection,
-        //or alternatively subtract this distance to reach the first point of intersection
+        // The procedure is as follows:
+        // We will find the projection of the vector (that connects the head of the ray and the center of the sphere) on the ray,
+        // then we will build the vertical between the center of the sphere and the continuation of the ray.
+        // Then, calculate with the help of Pythagoras:
+        // the length that exists between the point where the vertical meets the ray
+        // and the point where the ray meets the sphere.
+        // Now we will know to add this distance to reach the second point of intersection,
+        // or alternatively subtract this distance to reach the first point of intersection
 
         // Vector from the top of the ray to the center of the sphere
         Vector u = getCenter().subtract(ray.getP0());

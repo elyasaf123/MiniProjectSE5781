@@ -58,20 +58,20 @@ public class Tube extends Geometry {
     @Override
     public Vector getNormal(Point3D point3D) {
 
-        Point3D o = axisRay.getP0();//at this point o = p0
+        Point3D o = axisRay.getP0();// at this point o = p0
         Vector v = axisRay.getDir();
 
-        //The vector from the point of the cylinder to the given point
+        // The vector from the point of the cylinder to the given point
         Vector vector1 = point3D.subtract(o);
 
-        //we need the projection to multiply the direction until unit vector
+        // we need the projection to multiply the direction until unit vector
         double projection = alignZero(vector1.dotProduct(v));
         if (!isZero(projection)) {
-            //projection of p0 on the ray:
+            // projection of p0 on the ray:
             o = o.add(v.scale(projection));
         }
 
-        //this vector is orthogonal to the dir vector
+        // this vector is orthogonal to the dir vector
         Vector check = point3D.subtract(o);
         return check.normalize();
     }
@@ -101,18 +101,18 @@ public class Tube extends Geometry {
         Vector v = ray.getDir();
         Vector va = this.getAxisRay().getDir();
 
-        //if vectors are parallel then there is no intersections possible
+        // if vectors are parallel then there is no intersections possible
         if (v.normalize().equals(va.normalize()))
             return null;
 
-        //use of calculated variables to avoid vector ZERO
+        // use of calculated variables to avoid vector ZERO
         double vva;
         double pva;
         double a;
         double b;
         double c;
 
-        //check every variables to avoid ZERO vector
+        // check every variables to avoid ZERO vector
         if (ray.getP0().equals(this.getAxisRay().getP0())){
             vva = v.dotProduct(va);
             if (vva == 0){
@@ -163,14 +163,14 @@ public class Tube extends Geometry {
             }
         }
 
-        //calculate delta for result of equation
+        // calculate delta for result of equation
         double delta = b * b - 4 * a * c;
 
         if (delta <= 0) {
             return null; // no intersections
         }
         else {
-            //calculate points taking only those with t > 0
+            // calculate points taking only those with t > 0
             double t1 = alignZero((- b - Math.sqrt(delta)) / (2 * a));
             double t2 = alignZero((- b + Math.sqrt(delta)) / (2 * a));
             if (t1 > 0 && t2 > 0) {

@@ -20,7 +20,9 @@ public class Ray {
     final Vector dir;
 
     /**
-     * todo
+     * constant value for size of movement of ray's head (using for shading rays).
+     * We use this constant since the calculations that the computer performs have limitations in how accurate they are
+     * and so we cover these gaps by calculating the deviation in the normal direction
      */
     private static final double DELTA =0.1;
 
@@ -36,11 +38,12 @@ public class Ray {
     }
 
     /**
-     * todo
+     * CTOR that includes moving the ray's head
      *
-     * @param point3D
-     * @param lightDirection
-     * @param n
+     * @param point3D original position of ray's head
+     * @param lightDirection ray's direction
+     * @param n The normal vector
+     *          (located on the line which defines in which direction the ray's head should be moved)
      */
     public Ray(Point3D point3D, Vector lightDirection, Vector n) {
         double delta = lightDirection.dotProduct(n) >= 0 ? DELTA : -DELTA;
