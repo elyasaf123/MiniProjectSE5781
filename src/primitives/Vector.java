@@ -197,7 +197,7 @@ public class Vector {
      *
      * @return new Vector
      */
-    public Vector rotateVector( Vector axis, double theta) {
+    public Vector rotateVector(Vector axis, double theta) {
 
         double x, y, z;
         double u, v, w;
