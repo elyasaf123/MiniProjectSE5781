@@ -4,12 +4,21 @@ import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
 
+import java.util.LinkedList;
 import java.util.MissingResourceException;
 
 /**
  * Class which create the color matrix of the image from the scene
  */
 public class Render {
+
+    // accumulation of pixel color matrix,
+    // and holding image related parameters of View Plane - pixel matrix size and resolution
+    private ImageWriter imageWriter;
+    // the intersections of ray with the scene
+    private RayTraceBase basicRayTracer;
+    // the information about camera & view - plane
+    private Camera camera;
 
     /**
      * Private CTOR of the class built by Builder Pattern only
@@ -22,15 +31,85 @@ public class Render {
         this.camera = renderBuilder.camera;
     }
 
-    // accumulation of pixel color matrix,
-    // and holding image related parameters of View Plane - pixel matrix size and resolution
-    private ImageWriter imageWriter;
+    /**
+     * For all the pixels of the ViewPlane, a ray will be built,
+     * and for each ray we will get a color from the ray's tracer.
+     * We will put the color in the appropriate pixel of the image maker (using method writePixel)
+     *
+     * @throws MissingResourceException if not all fields a non-empty value was entered
+     */
+    public void renderImage() {
+        if(imageWriter == null)
+            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
+        else if(camera == null )
+            throw new MissingResourceException("camera is null","Render","camera");
+        else if(basicRayTracer == null)
+            throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-    // the intersections of ray with the scene
-    private RayTraceBase basicRayTracer;
+        boolean flag = true;
+        double divide = 8;
+        double rColor = 0;
+        double gColor = 0;
+        double bColor = 0;
 
-    // the information about camera & view - plane
-    private Camera camera;
+        for(int i = 0; i < imageWriter.getNy(); i++) {
+            for(int j = 0; j < imageWriter.getNx(); j++) {
+                if(flag) {
+                    LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
+                    rColor = 0;
+                    gColor = 0;
+                    bColor = 0;
+                    for (Ray ray : beam) {
+                        rColor += basicRayTracer.traceRay(ray).getColor().getRed();
+                        gColor += basicRayTracer.traceRay(ray).getColor().getGreen();
+                        bColor += basicRayTracer.traceRay(ray).getColor().getBlue();
+                    }
+                    imageWriter.writePixel(
+                            j, i, new Color(
+                                    rColor / (divide*divide + 1),
+                                    gColor / (divide*divide + 1),
+                                    bColor / (divide*divide + 1)));
+                }
+                else {
+                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
+                    imageWriter.writePixel(j, i, basicRayTracer.traceRay(ray));
+                }
+            }
+        }
+    }
+
+    /**
+     * A method to create a grid of lines
+     *
+     * @param interval Indicates for which quantity of pixels a grid line is passed,
+     *                 both horizontally and vertically
+     * @param color the grid's color
+     *
+     * @throws MissingResourceException if imageWriter is null
+     */
+    public void printGrid(int interval, Color color) {
+        if(imageWriter == null)
+            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
+        for(int i = 0; i< imageWriter.getNy(); i++)
+        {
+            for(int j = 0; j< imageWriter.getNx(); j++){
+                if(i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
+            }
+        }
+    }
+
+    /**
+     * Activates (delegate!) The appropriate image maker's method
+     *
+     * @throws MissingResourceException if imageWriter is null
+     */
+    public void writeToImage() {
+        if(imageWriter == null)
+            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
+        imageWriter.writeToImage();
+    }
 
     /**
      * Builder Pattern, by this class we are updating the parent class (Render),
@@ -93,61 +172,5 @@ public class Render {
         public Render build() {
             return new Render(this);
         }
-    }
-
-    /**
-     * For all the pixels of the ViewPlane, a ray will be built,
-     * and for each ray we will get a color from the ray's tracer.
-     * We will put the color in the appropriate pixel of the image maker (using method writePixel)
-     *
-     * @throws MissingResourceException if not all fields a non-empty value was entered
-     */
-    public void renderImage() {
-        if(imageWriter == null)
-            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
-        else if(camera == null )
-            throw new MissingResourceException("camera is null","Render","camera");
-        else if(basicRayTracer == null)
-            throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
-
-        for(int i = 0; i< imageWriter.getNy(); i++) {
-            for(int j = 0; j< imageWriter.getNx(); j++) {
-                Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(),j,i);
-                imageWriter.writePixel(j,i,basicRayTracer.traceRay(ray));
-            }
-        }
-    }
-
-    /**
-     * A method to create a grid of lines
-     *
-     * @param interval Indicates for which quantity of pixels a grid line is passed,
-     *                 both horizontally and vertically
-     * @param color the grid's color
-     *
-     * @throws MissingResourceException if imageWriter is null
-     */
-    public void printGrid(int interval, Color color) {
-        if(imageWriter == null)
-            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
-        for(int i = 0; i< imageWriter.getNy(); i++)
-        {
-            for(int j = 0; j< imageWriter.getNx(); j++){
-                if(i%interval == 0 || j%interval == 0) {
-                    imageWriter.writePixel(j, i, color);
-                }
-            }
-        }
-    }
-
-    /**
-     * Activates (delegate!) The appropriate image maker's method
-     *
-     * @throws MissingResourceException if imageWriter is null
-     */
-    public void writeToImage() {
-        if(imageWriter == null)
-            throw new MissingResourceException("imageWriter is null","Render","imageWriter");
-        imageWriter.writeToImage();
     }
 }

@@ -1,6 +1,7 @@
 package elements;
 
 import primitives.*;
+import java.util.LinkedList;
 import static primitives.Util.*;
 
 /**
@@ -144,7 +145,7 @@ public class Camera {
     public Ray constructRayThroughPixel(int nX,  int nY, int j , int i) {
 
         // the image's center
-        Point3D Pc = p0.add(vTo.scale(distance));
+        Point3D Pc = getP0().add(vTo.scale(distance));
 
         //height of single pixel
         double Ry = alignZero(height/nY);
@@ -168,7 +169,76 @@ public class Camera {
             Pij = Pij.add(vUp.scale(Yi));
         }
 
-        return new Ray(p0,Pij.subtract(p0));
+        return new Ray(getP0(),Pij.subtract(getP0()));
+    }
+
+    /**
+     * todo
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
+    public LinkedList<Ray> constructBeam(int nX,  int nY, int j , int i, double divide) {
+
+        // the image's center
+        Point3D Pc = getP0().add(vTo.scale(distance));
+
+        //height of single pixel
+        double Ry = alignZero(height/nY);
+
+        //width of single pixel
+        double Rx = alignZero(width/nX);
+
+        //amount of pixels to move in y axis from pc to i
+        double Yi = alignZero(-(i - ((nY - 1) / 2d)) * Ry);
+
+        //amount of pixels  to move in x axis from pc to j
+        double Xj = alignZero((j - ((nX - 1) / 2d)) * Rx);
+
+        Point3D Pij = Pc;
+
+        if(!isZero(Xj)) {
+            //only move on X axis
+            Pij = Pij.add(vRight.scale(Xj));
+        }
+
+        if(!isZero(Yi)) {
+            //only move on Y axis
+            Pij = Pij.add(vUp.scale(Yi));
+        }
+
+        var rayList = new LinkedList<Ray>();
+        rayList.add(constructRayThroughPixel(nX, nY, j, i));
+        Point3D pixStart = Pij.add(vRight.scale(-Rx / 2)).add(vUp.scale(Ry / 2));
+
+        for (double row = 0; row < divide; row++) {
+            for (double col = 0; col < divide; col++) {
+                rayList.add(randomPointRay(pixStart, col/divide, -row/divide));
+            }
+        }
+        return rayList;
+    }
+
+    /**
+     * todo
+     * @param pixStart
+     * @param col
+     * @param row
+     * @return
+     */
+    private Ray randomPointRay(Point3D pixStart, double col, double row) {
+        Point3D point = pixStart;
+        if(!isZero(col)) {
+            //only move on X axis
+            point = point.add(vRight.scale(random(0, col)));
+        }
+        if(!isZero(row)) {
+            //only move on Y axis
+            point = point.add(vUp.scale(random(row, 0)));
+        }
+        return new Ray(getP0(), point.subtract(getP0()));
     }
 
     /**
