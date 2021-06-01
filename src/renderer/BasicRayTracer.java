@@ -64,7 +64,7 @@ public class BasicRayTracer extends RayTraceBase {
      *                     because we also need to know the type of material from which the shape is made
      *                     in order to know what final color this point gets
      * @param ray The ray that comes out of the camera and intersects the scene at this point,
-     *            we will use it to calculate local effects & global effects on the color
+     *            we will use it to calculate local effects and global effects on the color
      *            in the appropriate function we call it
      *
      * @return The color at the given point
@@ -127,7 +127,7 @@ public class BasicRayTracer extends RayTraceBase {
      * @param lightIntensity The intensity of the light source
      *
      * @return The color that the point receive according to the calculation of the glossy
-     * 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎, −𝒗 ∙ 𝒓]) ^ 𝒏𝒔𝒉 ∙ 𝑰𝑳
+     * ks * (max[0, -v * r]) ^ nSh * Il
      */
     private Color calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.subtract(n.scale(l.dotProduct(n)*2));
@@ -151,7 +151,7 @@ public class BasicRayTracer extends RayTraceBase {
      *            from some shape that is in the scene that has an element of reflection or transparency)
      *
      * @return The color at the given point =
-     * sigma on i [all light-sources] ([𝒌𝑫 ∙ |𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎, −𝒗∙𝒓])^𝒏𝒔𝒉] ∙ 𝑰𝑳𝒊 ∙ 𝑺𝒊)
+     * sigma on i [all light-sources] ([kd * |li * n| + ks * (max[0, -v * r]) ^ nSh] * Ili * Si)
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, double k) {
         Vector v = ray.getDir();
@@ -202,7 +202,7 @@ public class BasicRayTracer extends RayTraceBase {
      *          then it is really marginal and we will not consider it)
      *
      * @return The color at the given point =
-     * sigma on i [all light-sources] ([𝒌𝑫 ∙ |𝒍𝒊 ∙ 𝒏| + 𝒌𝑺 ∙ (𝒎𝒂𝒙[𝟎, −𝒗∙𝒓])^𝒏𝒔𝒉] ∙ 𝑰𝑳𝒊 ∙ 𝑺𝒊 + 𝒌𝑹 ∙ 𝑰𝑹 + 𝒌𝑻 ∙ 𝑰𝑻)
+     * sigma on i [all light-sources] ([kd * |li * n| + ks * (max[0, -v * r]) ^ nSh] * Ili * Si) + kr * IR + kt * It)
      */
     private Color calcGlobalEffects(GeoPoint geoPoint, Ray ray, int level , double k){
         Color color = Color.BLACK;

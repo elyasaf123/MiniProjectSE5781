@@ -186,8 +186,8 @@ public class ReflectionRefractionTests {
         Camera.CameraBuilder cameraBuilder =
                 new Camera.CameraBuilder(
                         new Point3D(0, 0, 900),
-                        new Vector(0, 0, -1).rotateVector(new Vector(0,1,1), 75),
-                        new Vector(0, 1, 0).rotateVector(new Vector(0,1,1), 75))
+                        new Vector(0, 0, -1),
+                        new Vector(0, 1, 0))
                         .setViewPlaneSize(200, 200)
                         .setDistance(1000);
         Camera camera = cameraBuilder.build();

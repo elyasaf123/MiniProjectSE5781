@@ -30,7 +30,7 @@ public class SpotLight extends PointLight implements LightSource{
      * @param p the given point
      *
      * @return the color at this point by this function:
-     * intensity = [original-intensity ∙ 𝒎𝒂𝒙(𝟎, direction ∙ 𝒍)] / (𝒌𝒄 + 𝒌𝒍 ∙ 𝒅 + 𝒌𝒒 ∙ 𝒅 ^ 𝟐)
+     * intensity = [original-intensity * max(0, direction * l)] / (kc + kl * d + kq * d ^ 2)
      */
     @Override
     public Color getIntensity(Point3D p) {

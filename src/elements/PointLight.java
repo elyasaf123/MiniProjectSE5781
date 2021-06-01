@@ -97,7 +97,7 @@ public class PointLight extends Light implements LightSource{
      * @param p the given point
      *
      * @return the color at this point by this function:
-     * intensity = original-intensity / (𝒌𝒄 + 𝒌𝒍 ∙ 𝒅 + 𝒌𝒒 ∙ 𝒅 ^ 𝟐)
+     * intensity = original-intensity / (kc + kl * d + kq * d ^ 2)
      */
     public Color getIntensity(Point3D p) {
         double d = position.distance(p);
