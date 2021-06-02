@@ -69,7 +69,7 @@ public class BasicRayTracer extends RayTraceBase {
      *
      * @return The color at the given point
      */
-    private Color calcColor (GeoPoint closestPoint, Ray ray){
+    private Color calcColor (GeoPoint closestPoint, Ray ray) {
         return calcColor(closestPoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K).add(scene.ambientLight.getIntensity());
     }
 

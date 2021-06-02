@@ -377,4 +377,136 @@ public class ReflectionRefractionTests {
         render.renderImage();
         render.writeToImage();
     }
+
+    /**
+     * Produce a picture of some shapes lighted by some lights
+     */
+    @Test
+    public void ex_9_our_picture() {
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        new Point3D(450, 400, 80),
+                        new Vector(-1, -1, -0.1),
+                        new Vector(-1, -1, 20))
+                        .setViewPlaneSize(200, 200)
+                        .setDistance(700);
+        Camera camera = cameraBuilder.build();
+
+        Geometries geometries = new Geometries();
+        geometries.add(
+                new Sphere(
+                        new Point3D(10,10,0),
+                        2)
+                        .setEmission(new Color(java.awt.Color.BLUE)),
+                new Sphere(
+                        new Point3D(10,-10,0),
+                        2)
+                        .setEmission(new Color(java.awt.Color.WHITE)),
+                new Sphere(
+                        new Point3D(-10,-10,0),
+                        2)
+                        .setEmission(new Color(java.awt.Color.cyan)),
+                new Sphere(
+                        new Point3D(-10,10,0),
+                        2)
+                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
+                        new Point3D(10,10,-4),
+                        2)
+                        .setEmission(new Color(java.awt.Color.BLUE)),
+                new Sphere(
+                        new Point3D(10,-10,-4),
+                        2)
+                        .setEmission(new Color(java.awt.Color.WHITE)),
+                new Sphere(
+                        new Point3D(-10,-10,-4),
+                        2)
+                        .setEmission(new Color(java.awt.Color.cyan)),
+                new Sphere(
+                        new Point3D(-10,10,-4),
+                        2)
+                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
+                        new Point3D(10,10,-8),
+                        2)
+                        .setEmission(new Color(java.awt.Color.BLUE)),
+                new Sphere(
+                        new Point3D(10,-10,-8),
+                        2)
+                        .setEmission(new Color(java.awt.Color.WHITE)),
+                new Sphere(
+                        new Point3D(-10,-10,-8),
+                        2)
+                        .setEmission(new Color(java.awt.Color.cyan)),
+                new Sphere(
+                        new Point3D(-10,10,-8),
+                        2)
+                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
+                        new Point3D(10,10,-12),
+                        2)
+                        .setEmission(new Color(java.awt.Color.BLUE)),
+                new Sphere(
+                        new Point3D(10,-10,-12),
+                        2)
+                        .setEmission(new Color(java.awt.Color.WHITE)),
+                new Sphere(
+                        new Point3D(-10,-10,-12),
+                        2)
+                        .setEmission(new Color(java.awt.Color.cyan)),
+                new Sphere(
+                        new Point3D(-10,10,-12),
+                        2)
+                        .setEmission(new Color(java.awt.Color.GRAY)),
+                new Sphere(
+                        new Point3D(40,0,30),
+                        2)
+                        .setEmission(new Color(java.awt.Color.yellow)).setMaterial(new Material().setKt(1).setNShininess(30).setKd(0.3)),
+                new Polygon(
+                        new Point3D(20,20,2),
+                        new Point3D(20,-20,2),
+                        new Point3D(-20,-20,2),
+                        new Point3D(-20,20,2))
+                        .setEmission(new Color(java.awt.Color.RED)).setMaterial(new Material().setKt(0.6).setNShininess(30).setKd(0.3)),
+                new Polygon(
+                        new Point3D(10,10,2.5),
+                        new Point3D(10,-10,2.5),
+                        new Point3D(-10,-10,2.5),
+                        new Point3D(-10,10,2.5))
+                        .setEmission(new Color(java.awt.Color.black)),
+                new Polygon(
+                        new Point3D(10,8,2.5),
+                        new Point3D(10,6,2.5),
+                        new Point3D(50,6,2.5),
+                        new Point3D(50,8,2.5))
+                        .setEmission(new Color(java.awt.Color.black)),
+                new Polygon(
+                        new Point3D(10,10,2.5),
+                        new Point3D(10,-2,15.5),
+                        new Point3D(-10,-2,15.5),
+                        new Point3D(-10,10,2.5))
+                        .setEmission(new Color(java.awt.Color.blue)).setMaterial(new Material().setKt(0.6)));
+        LinkedList<LightSource> lightSources = new LinkedList<>();
+
+        lightSources.add(
+                new DirectionalLight(
+                        new Color(java.awt.Color.WHITE),
+                        new Vector(0,-1,-1)));
+        lightSources.add(
+                new DirectionalLight(
+                        new Color(java.awt.Color.WHITE),
+                        new Vector(0,-1,-1)));
+        lightSources.add(
+                new PointLight(new Color(java.awt.Color.WHITE),  new Point3D(40,0,30))
+        );
+
+        sceneBuilder.setGeometries(geometries)
+                .setLights(lightSources)
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.1));
+        Scene scene = sceneBuilder.build();
+
+        ImageWriter imageWriter = new ImageWriter("ex_9_our_picture", 600, 600);
+        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
+        Render render = renderBuilder.build();
+
+        render.renderImage();
+        render.writeToImage();
+    }
 }

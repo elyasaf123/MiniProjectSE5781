@@ -46,7 +46,7 @@ public class Render {
         else if(basicRayTracer == null)
             throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-        boolean flag = true;
+        boolean flag = false;
         double divide = 8;
         double rColor = 0;
         double gColor = 0;
