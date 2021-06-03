@@ -391,111 +391,184 @@ public class ReflectionRefractionTests {
                         .setViewPlaneSize(200, 200)
                         .setDistance(700);
         Camera camera = cameraBuilder.build();
+        int legRadius = 3;
 
+        Color brown = new Color(23,13,2);
         Geometries geometries = new Geometries();
         geometries.add(
                 new Sphere(
-                        new Point3D(10,10,0),
-                        2)
-                        .setEmission(new Color(java.awt.Color.BLUE)),
+                        new Point3D(20,10,0),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(10,-10,0),
-                        2)
-                        .setEmission(new Color(java.awt.Color.WHITE)),
+                        new Point3D(20,-10,0),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,-10,0),
-                        2)
-                        .setEmission(new Color(java.awt.Color.cyan)),
+                        new Point3D(-20,-10,0),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,10,0),
-                        2)
-                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
-                        new Point3D(10,10,-4),
-                        2)
-                        .setEmission(new Color(java.awt.Color.BLUE)),
+                        new Point3D(-20,10,0),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(10,-10,-4),
-                        2)
-                        .setEmission(new Color(java.awt.Color.WHITE)),
+                        new Point3D(20,10,-4),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,-10,-4),
-                        2)
-                        .setEmission(new Color(java.awt.Color.cyan)),
+                        new Point3D(20,-10,-4),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,10,-4),
-                        2)
-                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
-                        new Point3D(10,10,-8),
-                        2)
-                        .setEmission(new Color(java.awt.Color.BLUE)),
+                        new Point3D(-20,-10,-4),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(10,-10,-8),
-                        2)
-                        .setEmission(new Color(java.awt.Color.WHITE)),
+                        new Point3D(-20,10,-4),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,-10,-8),
-                        2)
-                        .setEmission(new Color(java.awt.Color.cyan)),
+                        new Point3D(20,10,-8),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,10,-8),
-                        2)
-                        .setEmission(new Color(java.awt.Color.GRAY)), new Sphere(
-                        new Point3D(10,10,-12),
-                        2)
-                        .setEmission(new Color(java.awt.Color.BLUE)),
+                        new Point3D(20,-10,-8),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(10,-10,-12),
-                        2)
-                        .setEmission(new Color(java.awt.Color.WHITE)),
+                        new Point3D(-20,-10,-8),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,-10,-12),
-                        2)
-                        .setEmission(new Color(java.awt.Color.cyan)),
+                        new Point3D(-20,10,-8),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(-10,10,-12),
-                        2)
-                        .setEmission(new Color(java.awt.Color.GRAY)),
+                        new Point3D(20,10,-12),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
-                        new Point3D(40,0,30),
-                        2)
-                        .setEmission(new Color(java.awt.Color.yellow)).setMaterial(new Material().setKt(1).setNShininess(30).setKd(0.3)),
+                        new Point3D(20,-10,-12),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
+                new Sphere(
+                        new Point3D(-20,-10,-12),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
+                new Sphere(
+                        new Point3D(-20,10,-12),
+                        legRadius)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
+
+
+               new Sphere(
+                       new Point3D(80,20,30),5
+
+               ).setEmission(new Color(255,240,90)).setMaterial(new Material().setKr(1)),
+
+//               new Cylinder(
+//                       new Ray(
+//                               new Point3D(80,20,0),
+//                               new Vector(0,0,1)),2,10)
+//                       .setEmission(Color.BLACK).setMaterial(new Material().setKs(1)),
+
+               new Polygon(
+                       new Point3D(100,-40,-14),
+                       new Point3D(-100,-40,-14),
+                       new Point3D(-100,100,-14),
+                       new Point3D(100,100,-14))
+                       .setEmission(new Color(java.awt.Color.gray))
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30).setKr(0.2)),
                 new Polygon(
-                        new Point3D(20,20,2),
-                        new Point3D(20,-20,2),
-                        new Point3D(-20,-20,2),
-                        new Point3D(-20,20,2))
-                        .setEmission(new Color(java.awt.Color.RED)).setMaterial(new Material().setKt(0.6).setNShininess(30).setKd(0.3)),
+                        new Point3D(40,20,3),
+                        new Point3D(40,-20,3),
+                        new Point3D(-40,-20,3),
+                        new Point3D(-40,20,3))
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(50)),
+
+
                 new Polygon(
-                        new Point3D(10,10,2.5),
-                        new Point3D(10,-10,2.5),
-                        new Point3D(-10,-10,2.5),
-                        new Point3D(-10,10,2.5))
-                        .setEmission(new Color(java.awt.Color.black)),
+                        new Point3D(5,5,3.5),
+                        new Point3D(5,-5,3.5),
+                        new Point3D(-5,-5,3.5),
+                        new Point3D(-5,5,3.5))
+                        .setEmission(new Color(2,72,104))
+                        ,
                 new Polygon(
-                        new Point3D(10,8,2.5),
-                        new Point3D(10,6,2.5),
-                        new Point3D(50,6,2.5),
-                        new Point3D(50,8,2.5))
-                        .setEmission(new Color(java.awt.Color.black)),
+                        new Point3D(5,5,4),
+                        new Point3D(5,-5,4),
+                        new Point3D(-5,-5,4),
+                        new Point3D(-5,5,4))
+                        .setEmission(new Color(2,72,104))
+                        ,
                 new Polygon(
-                        new Point3D(10,10,2.5),
-                        new Point3D(10,-2,15.5),
-                        new Point3D(-10,-2,15.5),
-                        new Point3D(-10,10,2.5))
-                        .setEmission(new Color(java.awt.Color.blue)).setMaterial(new Material().setKt(0.6)));
+                        new Point3D(5,5,3.5),
+                        new Point3D(5,5,4),
+                        new Point3D(-5,5,4),
+                        new Point3D(-5,5,3.5))
+                        .setEmission(new Color(2,72,104))
+                        ,
+                new Polygon(
+                        new Point3D(5,-5,3.5),
+                        new Point3D(5,-5,4),
+                        new Point3D(-5,-5,4),
+                        new Point3D(-5,-5,3.5))
+                        .setEmission(new Color(2,72,104))
+                        ,
+
+                new Polygon(
+                        new Point3D(5,5,4),
+                        new Point3D(5,-2,10),
+                        new Point3D(-5,-2,10),
+                        new Point3D(-5,5,4))
+                        .setEmission(new Color(2,72,104)),
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,-40,60),
+                        new Point3D(100, -40, 60)).
+                        setEmission(new Color(3,67,74))
+                        .setMaterial(new Material()),
+                new Polygon(
+                        new Point3D(60,-39,0),
+                        new Point3D(0,-39,0),
+                        new Point3D(0,-39,50),
+                        new Point3D(60, -39, 50)).
+                        setEmission(new Color(80, 80, 80))
+                        .setMaterial(new Material().setKr(1)));
         LinkedList<LightSource> lightSources = new LinkedList<>();
 
+
+
         lightSources.add(
-                new DirectionalLight(
-                        new Color(java.awt.Color.WHITE),
-                        new Vector(0,-1,-1)));
-        lightSources.add(
-                new DirectionalLight(
-                        new Color(java.awt.Color.WHITE),
-                        new Vector(0,-1,-1)));
-        lightSources.add(
-                new PointLight(new Color(java.awt.Color.WHITE),  new Point3D(40,0,30))
-        );
+                new SpotLight(
+                        new Color(100,60, 0),
+                        new Point3D(80, 20, 20),
+                        new Vector(-1, -1, -1))
+                        .setKl(1E-5).setKq(1.5E-7));
+//        lightSources.add(
+//                new PointLight(
+//                        new Color(255,240,90),
+//                        new Point3D(80,20,20)));
+
 
         sceneBuilder.setGeometries(geometries)
                 .setLights(lightSources)
