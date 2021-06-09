@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class ReflectionRefractionTests {
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
-    private Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
+    private RenderThread.RenderBuilder renderBuilder = new RenderThread.RenderBuilder().setMultithreading(3).setPrintPercent(true);
 
     /**
      * Produce a picture of a sphere lighted by a spot light
@@ -56,7 +56,7 @@ public class ReflectionRefractionTests {
                 new ImageWriter("refractionTwoSpheres", 500, 500))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -117,7 +117,7 @@ public class ReflectionRefractionTests {
         renderBuilder.setImageWriter(imageWriter)
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -171,7 +171,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -298,7 +298,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("ex_7_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -372,7 +372,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("ex_8_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -577,7 +577,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("ex_9_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
+        RenderThread render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
