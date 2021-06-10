@@ -265,7 +265,7 @@ public class RenderThread {
         }
 
 
-        /**
+        /**todo - antialysing
          * Casts a ray through a given pixel and writes the color to the image.
          * @param nX the number of columns in the picture
          * @param nY the number of rows in the picture
