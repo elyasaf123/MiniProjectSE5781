@@ -1,9 +1,7 @@
 package renderer;
 
-import elements.Camera;
-import primitives.Color;
-import primitives.Ray;
-
+import elements.*;
+import primitives.*;
 import java.util.LinkedList;
 import java.util.MissingResourceException;
 
@@ -46,7 +44,7 @@ public class Render {
         else if(basicRayTracer == null)
             throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-        boolean flag = false;
+        boolean flag = true;
         double divide = 8;
         double rColor = 0;
         double gColor = 0;
