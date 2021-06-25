@@ -34,7 +34,7 @@ public class ReflectionRefractionTests {
                         new Sphere(
                                 new Point3D(0, 0, -50), 50)
                                 .setEmission(new Color(java.awt.Color.BLUE))
-                                .setMaterial(new Material().setKd(0.4).setKs(0.3).setNShininess(100).setKt(0.3)),
+                                .setMaterial(new Material().setKd(0.4).setKs(0.3).setNShininess(101).setKt(0.3)),
                         new Sphere(
                                 new Point3D(0, 0, -50), 25)
                                 .setEmission(new Color(java.awt.Color.RED))
