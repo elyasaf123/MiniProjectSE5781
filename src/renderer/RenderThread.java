@@ -1,11 +1,8 @@
 package renderer;
 
 import elements.Camera;
-import primitives.Color;
-import primitives.Ray;
-
-import java.util.LinkedList;
-import java.util.MissingResourceException;
+import primitives.*;
+import java.util.*;
 
 /**
  * Class which create the color matrix of the image from the scene

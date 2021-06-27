@@ -299,8 +299,6 @@ public class Camera {
         return ray.getTargetPoint(t);
     }
 
-
-
     /**
      * todo
      * @param pixStart

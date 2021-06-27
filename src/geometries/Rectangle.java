@@ -1,10 +1,8 @@
 package geometries;
 
 import primitives.*;
-
 import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  * class that represents triangle in 3D
@@ -23,7 +21,11 @@ public class Rectangle extends Polygon{
         super(x,y,z,w);
     }
 
-    //aaa
+    /**
+     *
+     * @param width
+     * @return
+     */
     public List<Geometry> getCube(double width){
         Point3D x = this.vertices.get(0);
         Point3D y = this.vertices.get(1);
@@ -41,7 +43,10 @@ public class Rectangle extends Polygon{
         ret.add(new Rectangle(x, x.add(normal.scale(width)), w.add(normal.scale(width)), w));
         ret.add(new Rectangle(y, y.add(normal.scale(width)), z.add(normal.scale(width)), z));
         return ret;
+    }
 
+    public double getXMove(double oldX, double oldZ, double zMove) {
+        return oldX + Math.sqrt(oldX * oldX - zMove * zMove -2 * zMove * oldZ);
     }
 
     @Override
