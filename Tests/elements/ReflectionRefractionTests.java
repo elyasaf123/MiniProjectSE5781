@@ -6,6 +6,7 @@ import primitives.*;
 import renderer.*;
 import scene.*;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Tests for reflection and transparency functionality, test for partial shadows
@@ -385,9 +386,9 @@ public class ReflectionRefractionTests {
     public void ex_9_our_picture() {
         Camera.CameraBuilder cameraBuilder =
                 new Camera.CameraBuilder(
-                        new Point3D(450, 400, 80),
-                        new Vector(-1, -1, -0.1),
-                        new Vector(-1, -1, 20))
+                        new Point3D(30, 1000, 50),
+                        new Vector(0, -1, 0),
+                        new Vector(0, 0, 1))
                         .setViewPlaneSize(200, 200)
                         .setDistance(700);
         Camera camera = cameraBuilder.build();
@@ -396,25 +397,29 @@ public class ReflectionRefractionTests {
         Color brown = new Color(23,13,2);
         Geometries geometries = new Geometries();
         geometries.add(
+
+//////////////////         TABLE                ////////////////////////
+
+//################         LEGS                 ############################
                 new Sphere(
                         new Point3D(20,10,0),
                         legRadius)
-                        .setEmission(brown)
+                        .setEmission(new Color(0,0,500))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
                         new Point3D(20,-10,0),
                         legRadius)
-                        .setEmission(brown)
+                        .setEmission(new Color(0,0,500))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
                         new Point3D(-20,-10,0),
                         legRadius)
-                        .setEmission(brown)
+                        .setEmission(new Color(0,0,500))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
                         new Point3D(-20,10,0),
                         legRadius)
-                        .setEmission(brown)
+                        .setEmission(new Color(0,0,500))
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
                 new Sphere(
                         new Point3D(20,10,-4),
@@ -478,31 +483,48 @@ public class ReflectionRefractionTests {
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)),
 
 
-               new Sphere(
-                       new Point3D(80,20,30),5
+//##################    BOARD   ######################################
+//                ((Rectangle)new Rectangle
+//                        (new Point3D(40,20,3),
+//                        new Point3D(40,-20,3),
+//                        new Point3D(-40,-20,3),
+//                        new Point3D(-40,20,3))
+//                        .setEmission(brown)
+//                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))).getCube(1),
 
-               ).setEmission(new Color(255,240,90)).setMaterial(new Material().setKr(1)),
 
-//               new Cylinder(
-//                       new Ray(
-//                               new Point3D(80,20,0),
-//                               new Vector(0,0,1)),2,10)
-//                       .setEmission(Color.BLACK).setMaterial(new Material().setKs(1)),
 
+
+                /////////           WALLS                 ///////////
+
+
+
+                //      FLOOR
                new Polygon(
                        new Point3D(100,-40,-14),
                        new Point3D(-100,-40,-14),
                        new Point3D(-100,100,-14),
                        new Point3D(100,100,-14))
                        .setEmission(new Color(java.awt.Color.gray))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30).setKr(0.2)),
+                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30).setKr(1)),
+
+
                 new Polygon(
-                        new Point3D(40,20,3),
-                        new Point3D(40,-20,3),
-                        new Point3D(-40,-20,3),
-                        new Point3D(-40,20,3))
-                        .setEmission(brown)
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(50)),
+                        new Point3D(100,-40,-14),
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,-40,100),
+                        new Point3D(100, -40, 100)).
+                        setEmission(new Color(3,67,74))
+                        .setMaterial(new Material()),
+
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(100,40,-14),
+                        new Point3D(100,40,100),
+                        new Point3D(100, -40, 100)).
+                        setEmission(new Color(3,67,74))
+                        .setMaterial(new Material()),
+
 
 
                 new Polygon(
@@ -540,20 +562,15 @@ public class ReflectionRefractionTests {
                         new Point3D(-5,-2,10),
                         new Point3D(-5,5,4))
                         .setEmission(new Color(2,72,104)),
-                new Polygon(
-                        new Point3D(100,-40,-14),
-                        new Point3D(-100,-40,-14),
-                        new Point3D(-100,-40,60),
-                        new Point3D(100, -40, 60)).
-                        setEmission(new Color(3,67,74))
-                        .setMaterial(new Material()),
+
+                //MIRROR
                 new Polygon(
                         new Point3D(60,-39,0),
-                        new Point3D(0,-39,0),
-                        new Point3D(0,-39,50),
+                        new Point3D(-60,-39,0),
+                        new Point3D(-60,-39,50),
                         new Point3D(60, -39, 50)).
-                        setEmission(new Color(80, 80, 80))
-                        .setMaterial(new Material().setKr(1)));
+                        setEmission(new Color(192, 192, 192))
+                        .setMaterial(new Material().setKr(1).setKs(0.8).setNShininess(180)));
         LinkedList<LightSource> lightSources = new LinkedList<>();
 
 
@@ -564,10 +581,6 @@ public class ReflectionRefractionTests {
                         new Point3D(80, 20, 20),
                         new Vector(-1, -1, -1))
                         .setKl(1E-5).setKq(1.5E-7));
-//        lightSources.add(
-//                new PointLight(
-//                        new Color(255,240,90),
-//                        new Point3D(80,20,20)));
 
 
         sceneBuilder.setGeometries(geometries)
@@ -576,6 +589,716 @@ public class ReflectionRefractionTests {
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("ex_9_our_picture", 600, 600);
+        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
+        RenderThread render = renderBuilder.build();
+
+        render.renderImage();
+        render.writeToImage();
+    }
+
+
+
+
+    /**
+     * Produce a picture of some shapes lighted by some lights
+     */
+    @Test
+    public void ex_10_our_picture() {
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        new Point3D(0, 1000, 20),
+                        new Vector(0, -1, 0),
+                        new Vector(0, 0, 1))
+                        .setViewPlaneSize(200, 200)
+                        .setDistance(700);
+        Camera camera = cameraBuilder.build();
+
+        int legRadius = 3;
+        List<Geometry> firstLeg = new Rectangle
+                (new Point3D(20,40,0),
+                        new Point3D(19,40,0),
+                        new Point3D(19,39,0),
+                        new Point3D(20,39,0)).getCube(-12);
+        List<Geometry> secondLeg = new Rectangle
+                (new Point3D(20,10,0),
+                        new Point3D(19,10,0),
+                        new Point3D(19,9,0),
+                        new Point3D(20,9,0)).getCube(-12);
+        List<Geometry> thirdLeg = new Rectangle
+                (new Point3D(-20,10,0),
+                        new Point3D(-20,9,0),
+                        new Point3D(-19,9,0),
+                        new Point3D(-19,10,0)).getCube(-12);
+        List<Geometry> fourthLeg = new Rectangle
+                (new Point3D(-20,40,0),
+                        new Point3D(-20,39,0),
+                        new Point3D(-19,39,0),
+                        new Point3D(-19,40,0)).getCube(-12);
+
+
+        List<Geometry> cover1 = new Rectangle
+                (new Point3D(10,20,0),
+                        new Point3D(-2,20,0),
+                        new Point3D(-2,15,0),
+                        new Point3D(10,15,0)).getCube(0.08);
+
+
+        List<Geometry> pages = new LinkedList<>();
+        for(int i = 0; i< 10; i++){
+                    pages.addAll( new Rectangle
+                        (new Point3D(8,20, 0.1+i*0.1),
+                        new Point3D(-1.5,20,0.1 + i*0.1),
+                        new Point3D(-1.5,15,0.1 + i*0.1),
+                        new Point3D(8,15,0.1 + i*0.1)).getCube(0.08));
+        }
+
+
+        List<Geometry> cover2 = new Rectangle
+                (new Point3D(10,20,1),
+                        new Point3D(-2,20,1),
+                        new Point3D(-2,15,1),
+                        new Point3D(10,15,1)).getCube(0.08);
+
+
+
+
+
+
+
+
+        List<Geometry> board = new Rectangle
+                (new Point3D(20,40,0),
+                        new Point3D(20,9,0),
+                        new Point3D(-20,9,0),
+                        new Point3D(-20,40,0)).getCube(1);
+
+        Color brown = new Color(23,13,2);
+        Geometries geometries = new Geometries();
+        geometries.add(
+//
+//                //################        TABLE            #####################
+                firstLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                firstLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                secondLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                thirdLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                fourthLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                board.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+                cover1.get(0)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(1)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(2)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(3)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(4)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(5)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+
+
+
+
+
+
+                cover2.get(0)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(1)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(2)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(3)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(4)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(5)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+                new Sphere(new Point3D(-2,19.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,18.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                new Sphere(new Point3D(-2,17.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,16.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,15.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+
+
+
+                /////////           WALLS                 ///////////
+
+
+
+                //      FLOOR
+                new Polygon(
+                      new Point3D(100,-40,-14),
+                       new Point3D(-100,-40,-14),
+                      new Point3D(-100,100,-14),
+                      new Point3D(100,100,-14))
+                     .setEmission(new Color(0,0,74))
+                     .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+                new Polygon(
+                        new Point3D(100,-40,100),
+                        new Point3D(-100,-40,100),
+                        new Point3D(-100,100,100),
+                        new Point3D(100,100,100))
+                        .setEmission(new Color(3,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(100,100,-14),
+                        new Point3D(100,100,100),
+                        new Point3D(100,-40,100))
+                        .setEmission(new Color(0,67,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+                new Polygon(
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,100,-14),
+                        new Point3D(-100,100,100),
+                        new Point3D(-100,-40,100))
+                        .setEmission(new Color(0,67,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,-40,100),
+                        new Point3D(100, -40, 100)).
+                        setEmission(new Color(3,67,74))
+                        .setMaterial(new Material()),
+
+
+
+
+
+                //MIRROR
+                new Polygon(
+                        new Point3D(60,-39,-8),
+                        new Point3D(-60,-39,-8),
+                        new Point3D(-60,-39,50),
+                        new Point3D(60, -39, 50)).
+                        setEmission(new Color(0, 134, 0))
+                        .setMaterial(new Material().setKs(0.8).setNShininess(180).setKr(0.5))
+                        );
+
+
+
+        for(int i = 0; i< 60; i++){
+            geometries.add(  pages.get(i)
+                            .setEmission(new Color(255, 255, 255))
+                            .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)));
+        }
+
+
+
+        LinkedList<LightSource> lightSources = new LinkedList<>();
+
+
+
+        lightSources.add(
+                new DirectionalLight(
+                        new Color(100,60, 0),
+                        new Vector(-1, -1, -1)));
+
+        sceneBuilder.setGeometries(geometries)
+                .setLights(lightSources)
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.1));
+        Scene scene = sceneBuilder.build();
+
+        ImageWriter imageWriter = new ImageWriter("ex_10_our_picture", 600, 600);
+        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
+        RenderThread render = renderBuilder.build();
+
+        render.renderImage();
+        render.writeToImage();
+    }
+
+
+
+
+    /**
+     * Produce a picture of some shapes lighted by some lights
+     */
+    @Test
+    public void ex_11_our_picture() {
+        Camera.CameraBuilder cameraBuilder =
+                new Camera.CameraBuilder(
+                        new Point3D(0, 1000, 20),
+                        new Vector(0, -1, 0),
+                        new Vector(0, 0, 1))
+                        .setViewPlaneSize(200, 200)
+                        .setDistance(700);
+        Camera camera = cameraBuilder.build();
+
+        int legRadius = 3;
+        List<Geometry> firstLeg = new Rectangle
+                (new Point3D(20,40,0),
+                        new Point3D(19,40,0),
+                        new Point3D(19,39,0),
+                        new Point3D(20,39,0)).getCube(-12);
+        List<Geometry> secondLeg = new Rectangle
+                (new Point3D(20,10,0),
+                        new Point3D(19,10,0),
+                        new Point3D(19,9,0),
+                        new Point3D(20,9,0)).getCube(-12);
+        List<Geometry> thirdLeg = new Rectangle
+                (new Point3D(-20,10,0),
+                        new Point3D(-20,9,0),
+                        new Point3D(-19,9,0),
+                        new Point3D(-19,10,0)).getCube(-12);
+        List<Geometry> fourthLeg = new Rectangle
+                (new Point3D(-20,40,0),
+                        new Point3D(-20,39,0),
+                        new Point3D(-19,39,0),
+                        new Point3D(-19,40,0)).getCube(-12);
+
+
+        List<Geometry> cover1 = new Rectangle
+                (new Point3D(10,20,0),
+                        new Point3D(-2,20,0),
+                        new Point3D(-2,15,0),
+                        new Point3D(10,15,0)).getCube(0.8);
+
+
+        List<Geometry> pages = new LinkedList<>();
+        for(int i = 0; i< 10; i++){
+            pages.addAll( new Rectangle
+                    (new Point3D(8,20, 1+i),
+                            new Point3D(-1.5,20,1 + 0.1*i),
+                            new Point3D(-1.5,15,1 + 0.1*i),
+                            new Point3D(8,15,1 + i)).getCube(0.08));
+        }
+
+
+        List<Geometry> cover2 = new Rectangle
+                (new Point3D(10,20,10 + 1),
+                        new Point3D(-2,20,1),
+                        new Point3D(-2,15,1),
+                        new Point3D(10,15,10 + 1)).getCube(0.8);
+
+
+
+
+
+
+
+
+        List<Geometry> board = new Rectangle
+                (new Point3D(20,40,0),
+                        new Point3D(20,9,0),
+                        new Point3D(-20,9,0),
+                        new Point3D(-20,40,0)).getCube(1);
+
+        Color brown = new Color(23,13,2);
+        Geometries geometries = new Geometries();
+        geometries.add(
+//
+//                //################        TABLE            #####################
+                firstLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                firstLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                firstLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                secondLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                secondLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                thirdLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                thirdLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                fourthLeg.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                fourthLeg.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                board.get(0)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(1)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(2)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(3)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(4)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                board.get(5)
+                        .setEmission(brown)
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+                cover1.get(0)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(1)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(2)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(3)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(4)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover1.get(5)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+
+
+
+
+
+
+                cover2.get(0)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(1)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(2)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(3)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(4)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                cover2.get(5)
+                        .setEmission(new Color(0,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+                new Sphere(new Point3D(-2,19.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,18.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+                new Sphere(new Point3D(-2,17.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,16.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+                new Sphere(new Point3D(-2,15.5,0.5),1)
+                        .setEmission(new Color(255,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+
+
+
+
+
+
+
+                /////////           WALLS                 ///////////
+
+
+
+                //      FLOOR
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,100,-14),
+                        new Point3D(100,100,-14))
+                        .setEmission(new Color(0,0,74))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+                new Polygon(
+                        new Point3D(100,-40,100),
+                        new Point3D(-100,-40,100),
+                        new Point3D(-100,100,100),
+                        new Point3D(100,100,100))
+                        .setEmission(new Color(3,0,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(100,100,-14),
+                        new Point3D(100,100,100),
+                        new Point3D(100,-40,100))
+                        .setEmission(new Color(0,67,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+                new Polygon(
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,100,-14),
+                        new Point3D(-100,100,100),
+                        new Point3D(-100,-40,100))
+                        .setEmission(new Color(0,67,0))
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50))
+                ,
+
+
+                new Polygon(
+                        new Point3D(100,-40,-14),
+                        new Point3D(-100,-40,-14),
+                        new Point3D(-100,-40,100),
+                        new Point3D(100, -40, 100)).
+                        setEmission(new Color(3,67,74))
+                        .setMaterial(new Material()),
+
+
+
+
+
+                //MIRROR
+                new Polygon(
+                        new Point3D(60,-39,-8),
+                        new Point3D(-60,-39,-8),
+                        new Point3D(-60,-39,50),
+                        new Point3D(60, -39, 50)).
+                        setEmission(new Color(0, 134, 0))
+                        .setMaterial(new Material().setKs(0.8).setNShininess(180))
+        );
+
+
+
+        for(int i = 0; i< 60; i++){
+            geometries.add(  pages.get(i)
+                    .setEmission(new Color(255, 255, 255))
+                    .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)));
+        }
+
+
+
+        LinkedList<LightSource> lightSources = new LinkedList<>();
+
+
+
+        lightSources.add(
+                new DirectionalLight(
+                        new Color(100,60, 0),
+                        new Vector(-1, -1, -1)));
+
+        sceneBuilder.setGeometries(geometries)
+                .setLights(lightSources)
+                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.1));
+        Scene scene = sceneBuilder.build();
+
+        ImageWriter imageWriter = new ImageWriter("ex_10_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
         RenderThread render = renderBuilder.build();
 

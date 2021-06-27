@@ -1,7 +1,12 @@
 package elements;
 
 import primitives.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+
 import static primitives.Util.*;
 
 /**
@@ -51,7 +56,7 @@ public class Camera {
      * Builder Pattern, by this class we are updating the parent class (Camera),
      * instance that we are interested in creating even before we create it
      */
-    public static class CameraBuilder {
+    public static class CameraBuilder{
 
         // the camera location in 3D
         private Point3D p0;
@@ -220,6 +225,81 @@ public class Camera {
         }
         return rayList;
     }
+
+    public HashMap<Integer, Ray> construct5RaysFromRay(HashMap<Integer, Ray> myRays, double nX, double nY) {
+
+        //Ry = h / nY - pixel height ratio
+        double rY = alignZero(height / nY);
+        //Rx = h / nX - pixel width ratio
+        double rX = alignZero(width / nX);
+
+        Ray myRay = myRays.get(3);
+
+        double t0 = distance;
+        double t = t0 / (vTo.dotProduct(myRay.getDir())); //cosinus on the angle
+        Point3D center = myRay.getTargetPoint(t);
+
+        //[-1/2, -1/2]
+        myRays.put(1, new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(rY / 2)).subtract(p0)));
+        //[1/2, -1/2]
+        myRays.put(2, new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(rY / 2)).subtract(p0)));
+        //[-1/2, 1/2]
+        myRays.put(4, new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0)));
+        //[1/2, 1/2]
+        myRays.put(5, new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0)));
+        return myRays;
+    }
+
+    public Ray constructPixelCenterRay(Ray ray, double nX, double nY){
+
+        //Ry = h / nY - pixel height ratio
+        double height = alignZero(this.height / nY);
+        //Rx = h / nX - pixel width ratio
+        double width = alignZero(this.width / nX);
+
+        double t0 = distance;
+        double t = t0/(vTo.dotProduct(ray.getDir())); //cosinus on the angle
+        Point3D point = ray.getTargetPoint(t);
+        point = point.add(vRight.scale(width/2)).add(vUp.scale(-height/2));
+        return new Ray(p0, point.subtract(p0));
+    }
+
+    public List<Ray> construct4RaysThroughPixel(Ray ray, double nX, double nY) {
+
+        //Ry = h / nY - pixel height ratio
+        double height = alignZero(this.height / nY);
+        //Rx = h / nX - pixel width ratio
+        double width = alignZero(this.width / nX);
+
+        List<Ray> myRays = new ArrayList<>();
+        Point3D center = getPointOnViewPlane(ray);
+
+
+        Point3D point1 = center.add(vUp.scale(height / 2));
+        Point3D point2 = center.add(vRight.scale(-width / 2));
+        Point3D point3 = center.add(vRight.scale(width / 2));
+        Point3D point4 = center.add(vUp.scale(-height / 2));
+        myRays.add(new Ray(p0, point1.subtract(p0)));
+        myRays.add(new Ray(p0, point2.subtract(p0)));
+        myRays.add(new Ray(p0, point3.subtract(p0)));
+        myRays.add(new Ray(p0, point4.subtract(p0)));
+        return myRays;
+    }
+
+    /**
+     * Function to find a specific point on the plane
+     * we need to calculate the distance from the point on the camera to the plane
+     * for that we use the cos of the angle of the direction ray with vTo vector
+     * @param ray ray to the specific point
+     * @return the distance to the point
+     */
+    private Point3D getPointOnViewPlane(Ray ray) {
+        double t0 = distance;
+        double t = t0 / (vTo.dotProduct(ray.getDir())); //cosinus of the angle
+        return ray.getTargetPoint(t);
+    }
+
+
 
     /**
      * todo
