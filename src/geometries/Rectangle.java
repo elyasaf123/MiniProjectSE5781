@@ -85,7 +85,7 @@ public class Rectangle extends Polygon{
         // and X changes according to the level of Z according to Pythagoras' theorem
         Point3D newX =
                 new Point3D(
-                        x.getXDouble() - Math.sqrt(x.getXDouble() * x.getXDouble() - zMove * zMove -2 * zMove * x.getZDouble()),
+                        Math.sqrt(x.getXDouble() * x.getXDouble() - zMove * zMove -2 * zMove * x.getZDouble()),
                         x.getYDouble(),
                         x.getZDouble() + zMove);
 
@@ -94,7 +94,7 @@ public class Rectangle extends Polygon{
         // and X changes according to the level of Z according to Pythagoras' theorem
         Point3D newW =
                 new Point3D(
-                        w.getXDouble() - Math.sqrt(w.getXDouble() * w.getXDouble() - zMove * zMove -2 * zMove * w.getZDouble()),
+                        Math.sqrt(w.getXDouble() * w.getXDouble() - zMove * zMove -2 * zMove * w.getZDouble()),
                         w.getYDouble(),
                         w.getZDouble() + zMove);
 

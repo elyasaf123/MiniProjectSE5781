@@ -642,31 +642,36 @@ public class ReflectionRefractionTests {
                 (new Point3D(8.5,20,0),
                         new Point3D(4,20,0),
                         new Point3D(4,15,0),
-                        new Point3D(8.5,15,0)).getCube(0.18);
+                        new Point3D(8.5,15,0)).getCube(0.28);
 
 
         List<Geometry> pages = new LinkedList<>();
         for(int i = 0; i< 10; i++){
                     pages.addAll( new Rectangle
-                        (new Point3D(8,20, 0.2+i*0.1 + 2),
-                        new Point3D(4,20,0.2 + i*0.1),
-                        new Point3D(4,15,0.2 + i*0.1),
-                        new Point3D(8,15,0.2 + i*0.1 + 2)).getCube(0.08));
+                        (new Point3D(8,20, 0.3+i*0.1),
+                        new Point3D(4,20,0.3 + i*0.1),
+                        new Point3D(4,15,0.3 + i*0.1),
+                        new Point3D(8,15,0.3 + i*0.1)).moveByZ(2).getCube(0.08));
         }
 
 
         List<Geometry> cover2 = new Rectangle
-                (new Point3D(8.5,20,1.3 +2),
-                        new Point3D(4,20,1.3),
-                        new Point3D(4,15,1.3),
-                        new Point3D(8.5,15,1.3+2)).getCube(0.18);
-
+                (new Point3D(8.5,20,1.4),
+                        new Point3D(4,20,1.4),
+                        new Point3D(4,15,1.4),
+                        new Point3D(8.5,15,1.4)).moveByZ(2).getCube(0.18);
 
         List<Geometry> cover3 = new Rectangle
                 (new Point3D(4,20,0),
                         new Point3D(3.5,20,0),
                         new Point3D(3.5,15,0),
                         new Point3D(4,15,0)).getCube(1.3);
+
+
+
+
+
+
 
 
 
@@ -874,6 +879,16 @@ public class ReflectionRefractionTests {
 
 
 
+
+
+
+
+
+
+
+
+
+
                 lamp.get(0)
                         .setEmission(new Color(220,150,0))
                         .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
@@ -923,29 +938,19 @@ public class ReflectionRefractionTests {
 
 
 
-                new Sphere(new Point3D(40,60,20),3)
-                        .setEmission(new Color(188,255,255))
+                new Sphere(new Point3D(39.5,60,20),3)
+                        .setEmission(new Color(0,190,190))
                         .setMaterial(new Material().setKt(0.3).setKd(0.4).setKs(0.3).setNShininess(100)),
 
 
 
 
-                new Sphere(new Point3D(40,60,20),1)
-                        .setEmission(new Color(255,0,0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100)),
 
-
-
-                new Sphere(new Point3D(-40,60,20),3)
-                        .setEmission(new Color(188,255,255))
+                new Sphere(new Point3D(-39.5,60,20),3)
+                        .setEmission(new Color(0,190,190))
                         .setMaterial(new Material().setKt(0.3).setKd(0.4).setKs(0.3).setNShininess(100)),
 
 
-
-
-                new Sphere(new Point3D(-40,60,20),1)
-                        .setEmission(new Color(255,0,0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100)),
 
 
 
@@ -1011,7 +1016,7 @@ public class ReflectionRefractionTests {
                         new Point3D(-60,-39,-8),
                         new Point3D(-60,-39,30),
                         new Point3D(60, -39, 30)).
-                        setEmission(new Color(255, 222, 0))
+                        setEmission(new Color(202, 202, 202))
                         .setMaterial(new Material().setKs(0.8).setNShininess(180).setKr(0.1))
                         );
 
@@ -1038,7 +1043,7 @@ public class ReflectionRefractionTests {
         lightSources.add(
                 new PointLight(
                         new Color(100,60, 0),
-                        new Point3D(40, 0, 20)));
+                        new Point3D(-40, 60, 20)));
 
         sceneBuilder.setGeometries(geometries)
                 .setLights(lightSources)
