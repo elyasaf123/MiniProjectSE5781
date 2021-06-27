@@ -209,6 +209,7 @@ public class Camera {
             Pij = Pij.add(vRight.scale(Xj));
         }
 
+
         if(!isZero(Yi)) {
             //only move on Y axis
             Pij = Pij.add(vUp.scale(Yi));
