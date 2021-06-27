@@ -1159,10 +1159,6 @@ public class ReflectionRefractionTests {
 
 
 
-
-
-
-
                 cover2.get(0)
                         .setEmission(new Color(0,0,0))
                         .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
