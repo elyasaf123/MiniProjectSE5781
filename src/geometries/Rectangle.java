@@ -44,7 +44,7 @@ public class Rectangle extends Polygon{
         ret.add(new Rectangle(y, y.add(normal.scale(width)), z.add(normal.scale(width)), z));
         return ret;
     }
-
+//aaa
     public double getXMove(double oldX, double oldZ, double zMove) {
         return oldX + Math.sqrt(oldX * oldX - zMove * zMove -2 * zMove * oldZ);
     }
