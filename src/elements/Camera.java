@@ -1,12 +1,10 @@
 package elements;
 
 import primitives.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 import static primitives.Util.*;
 
 /**
@@ -34,7 +32,9 @@ public class Camera {
      // the camera location in 3D
     private final Point3D p0;
 
-    // vector toward - the direction vector in which the camera is aimed
+    /**
+     * vector toward - the direction vector in which the camera is aimed
+     */
     private final Vector vTo;
 
     // Direction vector that defines what is the "top" of the camera

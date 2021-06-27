@@ -72,7 +72,6 @@ public class ThreadPool<T> {
         return this;
     }
 
-
     /**
      * Chaining method for setting the threads' job.
      * @param target implementation of {@link Runnable<T>}
