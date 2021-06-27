@@ -52,14 +52,14 @@ public class Rectangle extends Polygon{
         Point3D w = this.vertices.get(3);
         Point3D newX =
                 new Point3D(
-                        x.getXDouble() - Math.sqrt(x.getXDouble() * x.getXDouble() - zMove * zMove -2 * zMove * x.getZDouble()),
+                        Math.sqrt(x.getXDouble() * x.getXDouble() - zMove * zMove -2 * zMove * x.getZDouble()),
                         x.getYDouble(),
                         x.getZDouble() + zMove);
         Point3D newY = this.vertices.get(1);
         Point3D newZ = this.vertices.get(2);
         Point3D newW =
                 new Point3D(
-                        w.getXDouble() - Math.sqrt(w.getXDouble() * w.getXDouble() - zMove * zMove -2 * zMove * w.getZDouble()),
+                        Math.sqrt(w.getXDouble() * w.getXDouble() - zMove * zMove -2 * zMove * w.getZDouble()),
                         w.getYDouble(),
                         w.getZDouble() + zMove);
 

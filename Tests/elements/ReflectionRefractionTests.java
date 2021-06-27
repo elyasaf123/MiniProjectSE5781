@@ -642,7 +642,7 @@ public class ReflectionRefractionTests {
                 (new Point3D(8.5,20,0),
                         new Point3D(4,20,0),
                         new Point3D(4,15,0),
-                        new Point3D(8.5,15,0)).getCube(0.18);
+                        new Point3D(8.5,15,0)).getCube(0.28);
 
 
         List<Geometry> pages = new LinkedList<>();
@@ -651,7 +651,7 @@ public class ReflectionRefractionTests {
                         (new Point3D(8,20, 0.3+i*0.1),
                         new Point3D(4,20,0.3 + i*0.1),
                         new Point3D(4,15,0.3 + i*0.1),
-                        new Point3D(8,15,0.3 + i*0.1)).getCube(0.08));
+                        new Point3D(8,15,0.3 + i*0.1)).moveByZ(2).getCube(0.08));
         }
 
 
@@ -659,7 +659,7 @@ public class ReflectionRefractionTests {
                 (new Point3D(8.5,20,1.4),
                         new Point3D(4,20,1.4),
                         new Point3D(4,15,1.4),
-                        new Point3D(8.5,15,1.4)).getCube(0.18);
+                        new Point3D(8.5,15,1.4)).moveByZ(2).getCube(0.18);
 
         List<Geometry> cover3 = new Rectangle
                 (new Point3D(4,20,0),
@@ -672,35 +672,6 @@ public class ReflectionRefractionTests {
 
 
 
-        List<Geometry> cover1_2 = new Rectangle
-                (new Point3D(-8.5,20,0),
-                        new Point3D(-8.5,15,0),
-                        new Point3D(-4,15,0),
-                        new Point3D(-4,20,0)).getCube(0.18);
-
-
-        List<Geometry> pages_2 = new LinkedList<>();
-        for(int i = 0; i< 10; i++){
-            pages_2.addAll( new Rectangle
-                    (new Point3D(-8,20, 0.3+i*0.1),
-                            new Point3D(-4,20,0.3 + i*0.1),
-                            new Point3D(-4,15,0.3 + i*0.1),
-                            new Point3D(-8,15,0.3 + i*0.1)).getCube(0.08));
-        }
-
-
-        List<Geometry> cover2_2 = new Rectangle
-                (new Point3D(-8.5,20,1.4),
-                        new Point3D(-8.5,15,1.4),
-                        new Point3D(-4,15,1.4),
-                        new Point3D(-4,20,1.4)).getCube(0.18);
-
-
-        List<Geometry> cover3_2 = new Rectangle
-                (new Point3D(-4,20,0),
-                        new Point3D(-4,15,0),
-                        new Point3D(-3.5,15,0),
-                        new Point3D(-3.5,20,0)).getCube(1.3);
 
 
 
@@ -913,74 +884,7 @@ public class ReflectionRefractionTests {
 
 
 
-                cover1_2.get(0)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover1_2.get(1)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover1_2.get(2)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover1_2.get(3)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover1_2.get(4)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover1_2.get(5)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
 
-
-
-
-
-
-
-
-
-
-                cover2_2.get(0)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover2_2.get(1)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover2_2.get(2)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover2_2.get(3)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover2_2.get(4)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover2_2.get(5)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-
-
-
-
-                cover3_2.get(0)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover3_2.get(1)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover3_2.get(2)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover3_2.get(3)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover3_2.get(4)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-                cover3_2.get(5)
-                        .setEmission(new Color(220,150,0))
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
 
 
 
@@ -1122,10 +1026,6 @@ public class ReflectionRefractionTests {
             geometries.add(  pages.get(i)
                             .setEmission(new Color(255, 255, 255))
                             .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)));
-
-            geometries.add(  pages_2.get(i)
-                    .setEmission(new Color(255, 255, 255))
-                    .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)));
         }
 
 
