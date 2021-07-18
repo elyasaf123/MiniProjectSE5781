@@ -64,6 +64,7 @@ public class Render {
         double gColor = 0;
         double bColor = 0;
 
+
         for(int i = 0; i < imageWriter.getNy(); i++) {
             for(int j = 0; j < imageWriter.getNx(); j++) {
                 if(superS) {
