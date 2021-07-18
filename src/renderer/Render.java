@@ -1,7 +1,9 @@
 package renderer;
 
 import elements.Camera;
-import primitives.*;
+import primitives.Color;
+import primitives.Ray;
+
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -74,13 +76,21 @@ public class Render {
                                     rColor / (divide*divide + 1),
                                     gColor / (divide*divide + 1),
                                     bColor / (divide*divide + 1)));
+//
+//
+//                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
+////                    Color  color = renderPixel(...?);
+//                    HashMap<Integer,Ray> myRays = new HashMap<>();
+//                    myRays.put(3,ray);
+//                    imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
                 }
                 else {
                     Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
-//                    Color  color = renderPixel(...?);
-                    HashMap<Integer,Ray> myRays = new HashMap<>();
-                    myRays.put(3,ray);
-                    imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
+////                    Color  color = renderPixel(...?);
+//                    HashMap<Integer,Ray> myRays = new HashMap<>();
+//                    myRays.put(3,ray);
+//                    imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
+                    imageWriter.writePixel(j,i,basicRayTracer.traceRay(ray));
                 }
             }
         }
