@@ -50,8 +50,8 @@ public class ReflectionRefractionTests {
                         .setKl(0.0004)
                         .setKq(0.0000006));
 
-        sceneBuilder.setGeometries(geometries).setLights(lightSources);
-        Scene scene = sceneBuilder.build();
+        Scene.SceneBuilder sceneBuilder = this.sceneBuilder.setGeometries(geometries).setLights(lightSources);
+        Scene scene = this.sceneBuilder.build();
 
         renderBuilder.setImageWriter(
                 new ImageWriter("refractionTwoSpheres", 500, 500))
@@ -298,8 +298,8 @@ public class ReflectionRefractionTests {
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("ex_7_our_picture", 600, 600);
-        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        RenderThread.RenderBuilder renderBuilder = this.renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene)).setMultithreading(3).setPrintPercent(true).setSuperS(true);
+        RenderThread render = this.renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();

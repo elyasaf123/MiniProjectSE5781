@@ -16,6 +16,12 @@ public class RenderThread {
     private RayTraceBase basicRayTracer;
     // the information about camera & view - plane
     private Camera camera;
+
+    /**
+     *
+     */
+    private boolean superS = false;
+
     private ThreadPool<Pixel> _threadPool = null;
     private Pixel _nextPixel = null;
     private boolean _printPercent = false;
@@ -29,6 +35,7 @@ public class RenderThread {
         this.imageWriter = renderBuilder.imageWriter;
         this.basicRayTracer = renderBuilder.basicRayTracer;
         this.camera = renderBuilder.camera;
+        this.superS = renderBuilder.superS;
     }
 
     /**
@@ -46,7 +53,6 @@ public class RenderThread {
         else if(basicRayTracer == null)
             throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-        boolean flag = false;
         double divide = 8;
         double rColor = 0;
         double gColor = 0;
@@ -54,7 +60,7 @@ public class RenderThread {
 
         for(int i = 0; i < imageWriter.getNy(); i++) {
             for(int j = 0; j < imageWriter.getNx(); j++) {
-                if(flag) {
+                if(superS) {
                     LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
                     rColor = 0;
                     gColor = 0;
@@ -127,6 +133,11 @@ public class RenderThread {
         // the information about camera & view - plane
         private Camera camera;
 
+        /**
+         *
+         */
+        private boolean superS = false;
+
         private ThreadPool<Pixel> _threadPool = null;
         private Pixel _nextPixel = null;
         private boolean _printPercent = false;
@@ -167,6 +178,15 @@ public class RenderThread {
             return this;
         }
 
+        /**
+         * todo
+         * @param superS
+         * @return
+         */
+        public RenderBuilder setSuperS(boolean superS) {
+            this.superS = superS;
+            return this;
+        }
 
         /**
          * Chaining method for setting number of threads.
@@ -195,13 +215,8 @@ public class RenderThread {
                 _threadPool.setNumThreads(threads);
             }
 
-
-
-
             return this;
         }
-
-
 
         /**
          * Chaining method for making the render to print the progress of the rendering in percents.
@@ -212,7 +227,6 @@ public class RenderThread {
             _printPercent = print;
             return this;
         }
-
 
         /**
          * Returns the next pixel to draw on multithreaded rendering.
@@ -241,8 +255,6 @@ public class RenderThread {
             result.row = _nextPixel.row;
             return result;
         }
-
-
 
         /**
          * Renders a given pixel on multithreaded rendering.
@@ -286,8 +298,6 @@ public class RenderThread {
         }
     }
 
-
-
     /**
      * Prints the progress in percents only if it is greater than the last time printed the progress.
      * @param currentPixel the index of the current pixel
@@ -304,12 +314,6 @@ public class RenderThread {
         }
         return lastPercent;
     }
-
-
-
-
-
-
 
     /**
      * Helper class to represent a pixel to draw in a multithreading rendering.
