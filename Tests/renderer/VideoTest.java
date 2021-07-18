@@ -144,7 +144,7 @@ class VideoTest {
                         (new Point3D(8,20, 0.3+i*0.1),
                                 new Point3D(4,20,0.3 + i*0.1),
                                 new Point3D(4,15,0.3 + i*0.1),
-                                new Point3D(8,15,0.3 + i*0.1)).moveByZ(0.2*j).getCube(0.08));
+                                new Point3D(8,15,0.3 + i*0.1)).moveByJ(0.2*j).getCube(0.08));
             }
 
 
@@ -152,7 +152,7 @@ class VideoTest {
                     (new Point3D(8.5,20,1.4),
                             new Point3D(4,20,1.4),
                             new Point3D(4,15,1.4),
-                            new Point3D(8.5,15,1.4)).moveByZ(0.2*j).getCube(0.18);
+                            new Point3D(8.5,15,1.4)).moveByJ(0.2*j).getCube(0.18);
             Geometries geometries = new Geometries();
             geometries.add(
 //
