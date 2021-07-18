@@ -1,17 +1,12 @@
 package renderer;
 
 import elements.Camera;
-import primitives.Color;
-import primitives.Point3D;
-import primitives.Ray;
-
+import primitives.*;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
-
-import static primitives.Util.alignZero;
 
 /**
  * Class which create the color matrix of the image from the scene
@@ -25,6 +20,10 @@ public class Render {
     private RayTraceBase basicRayTracer;
     // the information about camera & view - plane
     private Camera camera;
+    /**
+     * true if we want to use super sampling
+     */
+    private boolean superS = false;
 
     /**
      * Private CTOR of the class built by Builder Pattern only
@@ -35,6 +34,7 @@ public class Render {
         this.imageWriter = renderBuilder.imageWriter;
         this.basicRayTracer = renderBuilder.basicRayTracer;
         this.camera = renderBuilder.camera;
+        this.superS = renderBuilder.superS;
     }
 
     /**
@@ -52,7 +52,6 @@ public class Render {
         else if(basicRayTracer == null)
             throw new MissingResourceException("basicRayTracer is null","Render","basicRayTracer");
 
-        boolean flag = true;
         double divide = 8;
         double rColor = 0;
         double gColor = 0;
@@ -60,7 +59,7 @@ public class Render {
 
         for(int i = 0; i < imageWriter.getNy(); i++) {
             for(int j = 0; j < imageWriter.getNx(); j++) {
-                if(flag) {
+                if(superS) {
                     LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
                     rColor = 0;
                     gColor = 0;
@@ -78,9 +77,7 @@ public class Render {
                 }
                 else {
                     Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
-                    HashMap<Integer,Ray> myRays = new HashMap<>();
-                    myRays.put(3,ray);
-                    Color  color = renderPixel(imageWriter.getNx(),imageWriter.getNy(),5,myRays);
+//                    Color  color = renderPixel(...?);
                     imageWriter.writePixel(j, i, basicRayTracer.traceRay(ray));
                 }
             }
@@ -135,6 +132,10 @@ public class Render {
 
         // the information about camera & view - plane
         private Camera camera;
+        /**
+         *todo
+         */
+        private boolean superS = false;
 
         /**
          * setter for imageWriter
@@ -173,6 +174,17 @@ public class Render {
         }
 
         /**
+         *todo
+         * @param superS
+         *
+         * @return
+         */
+        public RenderBuilder setSuperS(boolean superS) {
+            this.superS = superS;
+            return this;
+        }
+
+        /**
          * We call this function when we have finished giving values to all the fields of the class,
          * and we are interested in creating an entity
          *
@@ -182,63 +194,83 @@ public class Render {
             return new Render(this);
         }
 
-    }
-    private Color renderPixel(double nX, double nY, int depth, HashMap<Integer, Ray> firstRays) {
-        HashMap<Integer, Ray> myRays = camera.construct5RaysFromRay(firstRays, nX, nY);
-        return renderPixelRecursive(myRays, nX, nY, depth);
-    }
+        /**
+         *
+         * @param myRays
+         * @param nX
+         * @param nY
+         * @param depth
+         * @return
+         */
+        private Color renderPixelRecursive(HashMap<Integer, Ray> myRays, double nX, double nY, int depth) {
 
-
-    private Color renderPixelRecursive(HashMap<Integer, Ray> myRays, double nX, double nY, int depth) {
-
-        boolean flag = false;
-        Ray mainRay = myRays.get(3);
-        Color mainColor = basicRayTracer.traceRay(mainRay);
-        if (depth >= 1) {
-            for (Integer integer : myRays.keySet()) {
-                if (integer != 3) {
-                    Color tmpColor = basicRayTracer.traceRay(myRays.get(integer));
-                    if (!tmpColor.equals(mainColor)) {
-                        flag = true;
-                        break;
+            boolean flag = false;
+            Ray mainRay = myRays.get(3);
+            Color mainColor = basicRayTracer.traceRay(mainRay);
+            if (depth >= 1) {
+                for (Integer integer : myRays.keySet()) {
+                    if (integer != 3) {
+                        Color tmpColor = basicRayTracer.traceRay(myRays.get(integer));
+                        if (!tmpColor.equals(mainColor)) {
+                            flag = true;
+                            break;
+                        }
                     }
                 }
+                if (flag) {
+                    List<Ray> newRays = camera.construct4RaysThroughPixel(myRays.get(3), nX, nY);
+                    HashMap<Integer, Ray> rays = new HashMap<>();
+                    rays.put(1, myRays.get(1));
+                    rays.put(2, newRays.get(0));
+                    rays.put(3, camera.constructPixelCenterRay(myRays.get(1), nX * 2, nY * 2));
+                    rays.put(4, newRays.get(1));
+                    rays.put(5, myRays.get(3));
+                    mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                    rays = new HashMap<>();
+                    rays.put(1, newRays.get(0));
+                    rays.put(2, myRays.get(2));
+                    rays.put(3, camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2));
+                    rays.put(4, myRays.get(3));
+                    rays.put(5, newRays.get(2));
+                    mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                    rays = new HashMap<>();
+                    rays.put(1, newRays.get(1));
+                    rays.put(2, myRays.get(3));
+                    rays.put(3, camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2));
+                    rays.put(4, myRays.get(4));
+                    rays.put(5, newRays.get(3));
+                    mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                    rays = new HashMap<>();
+                    rays.put(1, myRays.get(3));
+                    rays.put(2, newRays.get(2));
+                    rays.put(3, camera.constructPixelCenterRay(myRays.get(3), nX * 2, nY * 2));
+                    rays.put(4, newRays.get(3));
+                    rays.put(5, myRays.get(5));
+                    mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                    mainColor = mainColor.reduce(5);
+                }
             }
-            if (flag) {
-                List<Ray> newRays = camera.construct4RaysThroughPixel(myRays.get(3), nX, nY);
-                HashMap<Integer, Ray> rays = new HashMap<>();
-                rays.put(1, myRays.get(1));
-                rays.put(2, newRays.get(0));
-                rays.put(3, camera.constructPixelCenterRay(myRays.get(1), nX * 2, nY * 2));
-                rays.put(4, newRays.get(1));
-                rays.put(5, myRays.get(3));
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, newRays.get(0));
-                rays.put(2, myRays.get(2));
-                rays.put(3, camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2));
-                rays.put(4, myRays.get(3));
-                rays.put(5, newRays.get(2));
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, newRays.get(1));
-                rays.put(2, myRays.get(3));
-                rays.put(3, camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2));
-                rays.put(4, myRays.get(4));
-                rays.put(5, newRays.get(3));
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, myRays.get(3));
-                rays.put(2, newRays.get(2));
-                rays.put(3, camera.constructPixelCenterRay(myRays.get(3), nX * 2, nY * 2));
-                rays.put(4, newRays.get(3));
-                rays.put(5, myRays.get(5));
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                mainColor = mainColor.reduce(5);
-            }
+            return mainColor;
         }
-        return mainColor;
+
+        /**
+         *
+         * @param nX
+         * @param nY
+         * @param depth
+         * @param firstRays
+         * @return
+         */
+        private Color renderPixel(double nX, double nY, int depth, HashMap<Integer, Ray> firstRays) {
+            HashMap<Integer, Ray> myRays = camera.construct5RaysFromRay(firstRays, nX, nY);
+            return renderPixelRecursive(myRays, nX, nY, depth);
+        }
     }
+
+    /**
+     *
+     * @return
+     */
     public BufferedImage getImage(){
         return this.imageWriter.getImage();
     }
