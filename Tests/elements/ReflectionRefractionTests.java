@@ -651,7 +651,7 @@ public class ReflectionRefractionTests {
                         (new Point3D(8,20, 0.3+i*0.1),
                         new Point3D(4,20,0.3 + i*0.1),
                         new Point3D(4,15,0.3 + i*0.1),
-                        new Point3D(8,15,0.3 + i*0.1)).moveByZ(2).getCube(0.08));
+                        new Point3D(8,15,0.3 + i*0.1)).moveByJ(2).getCube(0.08));
         }
 
 
@@ -659,7 +659,7 @@ public class ReflectionRefractionTests {
                 (new Point3D(8.5,20,1.4),
                         new Point3D(4,20,1.4),
                         new Point3D(4,15,1.4),
-                        new Point3D(8.5,15,1.4)).moveByZ(2).getCube(0.18);
+                        new Point3D(8.5,15,1.4)).moveByJ(2).getCube(0.18);
 
         List<Geometry> cover3 = new Rectangle
                 (new Point3D(4,20,0),

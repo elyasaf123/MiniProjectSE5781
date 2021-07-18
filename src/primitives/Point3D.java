@@ -29,7 +29,7 @@ public class Point3D {
 
     /**
      * x getter as the value of a coordinate
-     *
+     *todo
      * @return x
      */
     public Coordinate getX() {
@@ -38,7 +38,7 @@ public class Point3D {
 
     /**
      * y getter as the value of a coordinate
-     *
+     *todo
      * @return y
      */
     public Coordinate getY() {
@@ -47,7 +47,7 @@ public class Point3D {
 
     /**
      * z getter as the value of a coordinate
-     *
+     *todo
      * @return z
      */
     public Coordinate getZ() {
