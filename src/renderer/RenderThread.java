@@ -1,10 +1,8 @@
 package renderer;
 
-import primitives.*;
 import elements.*;
-
+import primitives.*;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -50,6 +48,7 @@ public class RenderThread {
      * - if the parameter is 0 - number of cores less 2 is taken
      *
      * @param threads number of threads
+     *
      * @return the Render object itself
      */
     public RenderThread setMultithreading(int threads) {
@@ -80,8 +79,6 @@ public class RenderThread {
      * the Renderer and for follow up its progress.<br/>
      * There is a main follow up object and several secondary objects - one in each
      * thread.
-     *
-     * @author Dan
      */
     private class Pixel {
         private long maxRows = 0;
@@ -160,6 +157,7 @@ public class RenderThread {
          *
          * @param target target secondary Pixel object to copy the row/column of the
          *               next pixel
+         *
          * @return true if the work still in progress, -1 if it's done
          */
         public boolean nextPixel(Pixel target) {
@@ -198,6 +196,7 @@ public class RenderThread {
      * Camera setter
      *
      * @param camera to set
+     *
      * @return renderer itself - for chaining
      */
     public RenderThread setCamera(Camera camera) {
@@ -209,6 +208,7 @@ public class RenderThread {
      * Image writer setter
      *
      * @param imgWriter the image writer to set
+     *
      * @return renderer itself - for chaining
      */
     public RenderThread setImageWriter(ImageWriter imgWriter) {
@@ -220,6 +220,7 @@ public class RenderThread {
      * Ray tracer setter
      *
      * @param tracer to use
+     *
      * @return renderer itself - for chaining
      */
     public RenderThread setRayTracer(BasicRayTracer tracer) {
@@ -289,8 +290,8 @@ public class RenderThread {
                         if (superS) {
                             if (adaptiveSS) {
                                 Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row);
-                                HashMap<Integer, Ray> myRays = new HashMap<>();
-                                myRays.put(3, ray);
+                                Ray myRays[] = new Ray[6];
+                                myRays[3] = ray;
                                 imageWriter.writePixel(pixel.col, pixel.row, renderPixel(nX, nY, 4, myRays));
                             } else {
                                 double divide = 8;
@@ -359,9 +360,9 @@ public class RenderThread {
                     if (superS) {
                         if (adaptiveSS) {
                             Ray ray = camera.constructRayThroughPixel(nX, nY, j, i);
-                            HashMap<Integer, Ray> myRays = new HashMap<>();
-                            myRays.put(3, ray);
-                            imageWriter.writePixel(j, i, renderPixel(nX, nY, 15, myRays));
+                            Ray myRays[] = new Ray[6];
+                            myRays[3] = ray;
+                            imageWriter.writePixel(j, i, renderPixel(nX, nY, 4, myRays));
                         } else {
                             double divide = 8;
                             double rColor = 0;
@@ -420,22 +421,32 @@ public class RenderThread {
      * @param nY
      * @param depth
      * @param firstRays
+     *
      * @return
      */
-    private Color renderPixel(double nX, double nY, int depth, HashMap<Integer, Ray> firstRays) {
-        HashMap<Integer, Ray> myRays = camera.construct5RaysFromRay(firstRays, nX, nY);
+    private Color renderPixel(double nX, double nY, int depth, Ray firstRays[]) {
+        Ray myRays[] = camera.construct5RaysFromRay(firstRays, nX, nY);
         return renderPixelRecursive(myRays, nX, nY, depth);
     }
 
-    private Color renderPixelRecursive(HashMap<Integer, Ray> myRays, double nX, double nY, int depth) {
+    /**
+     *
+     * @param myRays
+     * @param nX
+     * @param nY
+     * @param depth
+     *
+     * @return
+     */
+    private Color renderPixelRecursive(Ray myRays[], double nX, double nY, int depth) {
 
         boolean flag = false;
-        Ray mainRay = myRays.get(3);
+        Ray mainRay = myRays[3];
         Color mainColor = tracer.traceRay(mainRay);
         if (depth >= 1) {
-            for (Integer integer : myRays.keySet()) {
+            for (int integer = 1; integer< 6; integer++) {
                 if (integer != 3) {
-                    Color tmpColor = tracer.traceRay(myRays.get(integer));
+                    Color tmpColor = tracer.traceRay(myRays[integer]);
                     if (!tmpColor.equals(mainColor)) {
                         flag = true;
                         break;
@@ -443,34 +454,34 @@ public class RenderThread {
                 }
             }
             if (flag) {
-                List<Ray> newRays = camera.construct4RaysThroughPixel(myRays.get(3), nX, nY);
-                HashMap<Integer, Ray> rays = new HashMap<>();
-                rays.put(1, myRays.get(1));
-                rays.put(2, newRays.get(0));
-                rays.put(3, camera.constructPixelCenterRay(myRays.get(1), nX * 2, nY * 2));
-                rays.put(4, newRays.get(1));
-                rays.put(5, myRays.get(3));
+                List<Ray> newRays = camera.construct4RaysThroughPixel(myRays[3], nX, nY);
+                Ray rays[] = new Ray[6];
+                rays[1] = myRays[1];
+                rays[2] = newRays.get(0);
+                rays[3] = camera.constructPixelCenterRay(myRays[1], nX * 2, nY * 2);
+                rays[4] = newRays.get(1);
+                rays[5] = myRays[3];
                 mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, newRays.get(0));
-                rays.put(2, myRays.get(2));
-                rays.put(3, camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2));
-                rays.put(4, myRays.get(3));
-                rays.put(5, newRays.get(2));
+                rays = new Ray[6];
+                rays[1] = newRays.get(0);
+                rays[2] = myRays[2];
+                rays[3] = camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2);
+                rays[4] = myRays[3];
+                rays[5] = newRays.get(2);
                 mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, newRays.get(1));
-                rays.put(2, myRays.get(3));
-                rays.put(3, camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2));
-                rays.put(4, myRays.get(4));
-                rays.put(5, newRays.get(3));
+                rays = new Ray[6];
+                rays[1] = newRays.get(1);
+                rays[2] = myRays[3];
+                rays[3] = camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2);
+                rays[4] = myRays[4];
+                rays[5] = newRays.get(3);
                 mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                rays = new HashMap<>();
-                rays.put(1, myRays.get(3));
-                rays.put(2, newRays.get(2));
-                rays.put(3, camera.constructPixelCenterRay(myRays.get(3), nX * 2, nY * 2));
-                rays.put(4, newRays.get(3));
-                rays.put(5, myRays.get(5));
+                rays = new Ray[6];
+                rays[1] = myRays[3];
+                rays[2] = newRays.get(2);
+                rays[3] = camera.constructPixelCenterRay(myRays[3], nX * 2, nY * 2);
+                rays[4] = newRays.get(3);
+                rays[5] = myRays[5];
                 mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
                 mainColor = mainColor.reduce(5);
             }
@@ -481,5 +492,4 @@ public class RenderThread {
     public BufferedImage getImage(){
         return this.imageWriter.getImage();
     }
-
 }

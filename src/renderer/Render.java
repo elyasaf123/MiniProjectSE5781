@@ -3,8 +3,8 @@ package renderer;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
+
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -234,6 +234,14 @@ public class Render {
     }
 
 
+    /**
+     *
+     * @param myRays
+     * @param nX
+     * @param nY
+     * @param depth
+     * @return
+     */
     private Color renderPixelRecursive(Ray myRays[], double nX, double nY, int depth) {
 
         boolean flag = false;
