@@ -3,7 +3,6 @@ package renderer;
 import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
-
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.LinkedList;

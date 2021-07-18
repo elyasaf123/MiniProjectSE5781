@@ -9,7 +9,7 @@ import primitives.*;
 public class ImageWriterTest {
 
     /**
-     * Test method for {@link renderer.imageWriter.writeToImage()}.
+     * Test method for {@link renderer}.
      */
     @Test
     public void writeToImage(){
@@ -33,7 +33,7 @@ public class ImageWriterTest {
     }
 
     /**
-     *  Optional test method for {@link renderer.imageWriter.writeToImage()}.
+     *  Optional test method for {@link renderer()}.
      *
      *  Creates smiley :-)
      */
