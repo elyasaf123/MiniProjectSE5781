@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * This class is handling a thread pool.
+ *
  * @param <T> the parameter for the thread's job
  */
 public class ThreadPool<T> {
@@ -44,9 +45,10 @@ public class ThreadPool<T> {
 
     /**
      * Chaining method for setting the number of threads the thread pool will use.
+     *
      * @param numThreads the number of threads
-     * @exception IllegalArgumentException when {@code numThreads} is greater or equals to 0
      * @return the current thread pool
+     * @throws IllegalArgumentException when {@code numThreads} is greater or equals to 0
      */
     public ThreadPool<T> setNumThreads(int numThreads) {
         if (numThreads <= 0) {
@@ -59,9 +61,10 @@ public class ThreadPool<T> {
 
     /**
      * Chaining method for setting the method in order to give the threads the parameter for their job.
+     *
      * @param getter implementation of {@link ParamGetter<T>}
-     * @exception NullPointerException when {@code getter} is {@code null}
      * @return the current thread pool
+     * @throws NullPointerException when {@code getter} is {@code null}
      */
     public ThreadPool<T> setParamGetter(ParamGetter<T> getter) {
         if (getter == null) {
@@ -74,9 +77,10 @@ public class ThreadPool<T> {
 
     /**
      * Chaining method for setting the threads' job.
+     *
      * @param target implementation of {@link Runnable<T>}
-     * @exception NullPointerException when {@code target} is {@code null}
      * @return the current thread pool
+     * @throws NullPointerException when {@code target} is {@code null}
      */
     public ThreadPool<T> setTarget(Runnable<T> target) {
         if (target == null) {
@@ -89,7 +93,8 @@ public class ThreadPool<T> {
 
     /**
      * Executes all the threads with the given getter and target.
-     * @exception UnsupportedOperationException when already executing or missing 1 of getter and target
+     *
+     * @throws UnsupportedOperationException when already executing or missing 1 of getter and target
      */
     public void execute() {
         if (isRunning()) {
@@ -109,7 +114,7 @@ public class ThreadPool<T> {
             for (int i = 0; i < _numThreads; ++i) {
                 _threads[i] = new Thread(() -> {
                     // running until target returns false
-                    while (_target.run(_getter.get()));
+                    while (_target.run(_getter.get())) ;
                 });
             }
 
@@ -117,8 +122,7 @@ public class ThreadPool<T> {
             for (Thread thread : _threads) {
                 thread.start();
             }
-        }
-        catch (MissingResourceException e) {
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("ThreadPool didn't receive " + e.getClassName());
         }
     }
@@ -135,13 +139,15 @@ public class ThreadPool<T> {
         for (Thread thread : _threads) {
             try {
                 thread.join();
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
         }
         _threads = null;
     }
 
     /**
      * The {@code ParamGetter<T>} should be implemented in order to give the thread pool's threads a parameter when they start a new job.
+     *
      * @param <T> the type of the parameter to give the threads
      */
     public interface ParamGetter<T> {
@@ -151,6 +157,7 @@ public class ThreadPool<T> {
     /**
      * The {@code Runnable<T>} should be implemented in order the thread pool's threads to run with a given parameter.
      * If returns true, the thread will continue to the next job. Else, the thread will stop and die.
+     *
      * @param <T> the type of the parameter the method will get
      */
     public interface Runnable<T> {

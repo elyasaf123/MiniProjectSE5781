@@ -21,6 +21,10 @@ public class RenderThread {
      *
      */
     private boolean superS = false;
+    /**
+     *
+     */
+    private boolean adaptiveSS = false;
 
     private ThreadPool<Pixel> _threadPool = null;
     private Pixel _nextPixel = null;
@@ -36,6 +40,7 @@ public class RenderThread {
         this.basicRayTracer = renderBuilder.basicRayTracer;
         this.camera = renderBuilder.camera;
         this.superS = renderBuilder.superS;
+        this.adaptiveSS = renderBuilder.adaptiveSS;
     }
 
     /**
@@ -58,30 +63,32 @@ public class RenderThread {
         double gColor = 0;
         double bColor = 0;
 
-        for(int i = 0; i < imageWriter.getNy(); i++) {
-            for(int j = 0; j < imageWriter.getNx(); j++) {
-                if(superS) {
-                    LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
-                    rColor = 0;
-                    gColor = 0;
-                    bColor = 0;
-                    for (Ray ray : beam) {
-                        rColor += basicRayTracer.traceRay(ray).getColor().getRed();
-                        gColor += basicRayTracer.traceRay(ray).getColor().getGreen();
-                        bColor += basicRayTracer.traceRay(ray).getColor().getBlue();
-                    }
-                    imageWriter.writePixel(
-                            j, i, new Color(
-                                    rColor / (divide*divide + 1),
-                                    gColor / (divide*divide + 1),
-                                    bColor / (divide*divide + 1)));
-                }
-                else {
-                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
-                    imageWriter.writePixel(j, i, basicRayTracer.traceRay(ray));
-                }
-            }
-        }
+
+
+//        for(int i = 0; i < imageWriter.getNy(); i++) {
+//            for(int j = 0; j < imageWriter.getNx(); j++) {
+//                if(superS) {
+//                    LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
+//                    rColor = 0;
+//                    gColor = 0;
+//                    bColor = 0;
+//                    for (Ray ray : beam) {
+//                        rColor += basicRayTracer.traceRay(ray).getColor().getRed();
+//                        gColor += basicRayTracer.traceRay(ray).getColor().getGreen();
+//                        bColor += basicRayTracer.traceRay(ray).getColor().getBlue();
+//                    }
+//                    imageWriter.writePixel(
+//                            j, i, new Color(
+//                                    rColor / (divide*divide + 1),
+//                                    gColor / (divide*divide + 1),
+//                                    bColor / (divide*divide + 1)));
+//                }
+//                else {
+//                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
+//                    imageWriter.writePixel(j, i, basicRayTracer.traceRay(ray));
+//                }
+//            }
+//        }
     }
 
     /**
@@ -136,6 +143,11 @@ public class RenderThread {
         /**
          *
          */
+        private boolean adaptiveSS = false;
+
+        /**
+         *
+         */
         private boolean superS = false;
 
         private ThreadPool<Pixel> _threadPool = null;
@@ -175,6 +187,11 @@ public class RenderThread {
          */
         public RenderBuilder setRayTracer(BasicRayTracer basicRayTracer) {
             this.basicRayTracer = basicRayTracer;
+            return this;
+        }
+
+        public RenderBuilder setAdaptiveSS(boolean adaptiveSS) {
+            this.adaptiveSS = adaptiveSS;
             return this;
         }
 
