@@ -26,6 +26,10 @@ public class Render {
      * true if we want to use super sampling
      */
     private boolean superS = false;
+    /**
+     * true if we want to use adaptive super sampling
+     */
+    private boolean adaptiveSS = false;
 
     /**
      * Private CTOR of the class built by Builder Pattern only
@@ -37,6 +41,7 @@ public class Render {
         this.basicRayTracer = renderBuilder.basicRayTracer;
         this.camera = renderBuilder.camera;
         this.superS = renderBuilder.superS;
+        this.adaptiveSS = renderBuilder.adaptiveSS;
     }
 
     /**
@@ -62,34 +67,32 @@ public class Render {
         for(int i = 0; i < imageWriter.getNy(); i++) {
             for(int j = 0; j < imageWriter.getNx(); j++) {
                 if(superS) {
-                    LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
-                    rColor = 0;
-                    gColor = 0;
-                    bColor = 0;
-                    for (Ray ray : beam) {
-                        rColor += basicRayTracer.traceRay(ray).getColor().getRed();
-                        gColor += basicRayTracer.traceRay(ray).getColor().getGreen();
-                        bColor += basicRayTracer.traceRay(ray).getColor().getBlue();
+                    if (adaptiveSS) {
+                        Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
+//                    Color  color = renderPixel(...?);
+                        HashMap<Integer,Ray> myRays = new HashMap<>();
+                        myRays.put(3,ray);
+                        imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
                     }
-                    imageWriter.writePixel(
-                            j, i, new Color(
-                                    rColor / (divide*divide + 1),
-                                    gColor / (divide*divide + 1),
-                                    bColor / (divide*divide + 1)));
-//
-//
-//                    Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
-////                    Color  color = renderPixel(...?);
-//                    HashMap<Integer,Ray> myRays = new HashMap<>();
-//                    myRays.put(3,ray);
-//                    imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
+                    else {
+                        LinkedList<Ray> beam = camera.constructBeam(imageWriter.getNx(), imageWriter.getNy(), j, i, divide);
+                        rColor = 0;
+                        gColor = 0;
+                        bColor = 0;
+                        for (Ray ray : beam) {
+                            rColor += basicRayTracer.traceRay(ray).getColor().getRed();
+                            gColor += basicRayTracer.traceRay(ray).getColor().getGreen();
+                            bColor += basicRayTracer.traceRay(ray).getColor().getBlue();
+                        }
+                        imageWriter.writePixel(
+                                j, i, new Color(
+                                        rColor / (divide*divide + 1),
+                                        gColor / (divide*divide + 1),
+                                        bColor / (divide*divide + 1)));
+                    }
                 }
                 else {
                     Ray ray = camera.constructRayThroughPixel(imageWriter.getNx(), imageWriter.getNy(), j, i);
-////                    Color  color = renderPixel(...?);
-//                    HashMap<Integer,Ray> myRays = new HashMap<>();
-//                    myRays.put(3,ray);
-//                    imageWriter.writePixel(j, i, renderPixel(imageWriter.getNx(),imageWriter.getNy(),15,myRays));
                     imageWriter.writePixel(j,i,basicRayTracer.traceRay(ray));
                 }
             }
@@ -148,6 +151,10 @@ public class Render {
          *todo
          */
         private boolean superS = false;
+        /**
+         *todo
+         */
+        private boolean adaptiveSS = false;
 
         /**
          * setter for imageWriter
@@ -193,6 +200,16 @@ public class Render {
          */
         public RenderBuilder setSuperS(boolean superS) {
             this.superS = superS;
+            return this;
+        }
+
+        /**
+         * todo
+         * @param adaptiveSS
+         * @return
+         */
+        public RenderBuilder setAdaptiveSS(boolean adaptiveSS) {
+            this.adaptiveSS = adaptiveSS;
             return this;
         }
 
