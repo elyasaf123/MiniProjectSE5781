@@ -227,27 +227,28 @@ public class Camera {
         return rayList;
     }
 
-    public HashMap<Integer, Ray> construct5RaysFromRay(HashMap<Integer, Ray> myRays, double nX, double nY) {
+
+    public Ray[] construct5RaysFromRay(Ray myRays[], double nX, double nY) {
 
         //Ry = h / nY - pixel height ratio
         double rY = alignZero(height / nY);
         //Rx = h / nX - pixel width ratio
         double rX = alignZero(width / nX);
 
-        Ray myRay = myRays.get(3);
+        Ray myRay = myRays[3];
 
         double t0 = distance;
-        double t = t0 / (vTo.dotProduct(myRay.getDir())); //cosinus on the angle
+        double t = t0 / (vTo.dotProduct(myRay.getDir()));
         Point3D center = myRay.getTargetPoint(t);
 
         //[-1/2, -1/2]
-        myRays.put(1, new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(rY / 2)).subtract(p0)));
+        myRays[1] =  new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(rY / 2)).subtract(p0));
         //[1/2, -1/2]
-        myRays.put(2, new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(rY / 2)).subtract(p0)));
+        myRays[2] = new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(rY / 2)).subtract(p0));
         //[-1/2, 1/2]
-        myRays.put(4, new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0)));
+        myRays[4] = new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
         //[1/2, 1/2]
-        myRays.put(5, new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0)));
+        myRays[5] = new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
         return myRays;
     }
 
