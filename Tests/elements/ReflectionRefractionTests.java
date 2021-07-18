@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ReflectionRefractionTests {
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
-    private RenderThread.RenderBuilder renderBuilder = new RenderThread.RenderBuilder().setMultithreading(3).setPrintPercent(true);
+    private Render.RenderBuilder renderBuilder = new Render.RenderBuilder();
 
     /**
      * Produce a picture of a sphere lighted by a spot light
@@ -53,11 +53,11 @@ public class ReflectionRefractionTests {
         Scene.SceneBuilder sceneBuilder = this.sceneBuilder.setGeometries(geometries).setLights(lightSources);
         Scene scene = this.sceneBuilder.build();
 
-        renderBuilder.setSuperS(true).setImageWriter(
+        renderBuilder.setSuperS(true).setAdaptiveSS(true).setImageWriter(
                 new ImageWriter("refractionTwoSpheres", 500, 500))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -118,7 +118,7 @@ public class ReflectionRefractionTests {
         renderBuilder.setImageWriter(imageWriter)
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -172,7 +172,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -298,8 +298,8 @@ public class ReflectionRefractionTests {
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("ex_7_our_picture", 600, 600);
-        RenderThread.RenderBuilder renderBuilder = this.renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene)).setMultithreading(3).setPrintPercent(true).setSuperS(false);
-        RenderThread render = this.renderBuilder.build();
+        Render.RenderBuilder renderBuilder = this.renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene)).setSuperS(false);
+        Render render = this.renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -373,7 +373,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("ex_8_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -590,7 +590,7 @@ public class ReflectionRefractionTests {
 
         ImageWriter imageWriter = new ImageWriter("ex_9_our_picture", 600, 600);
         renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -706,83 +706,83 @@ public class ReflectionRefractionTests {
 //                //################        TABLE            #####################
                 firstLeg.get(0)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 firstLeg.get(1)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 firstLeg.get(2)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
 
                 firstLeg.get(3)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 firstLeg.get(4)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 firstLeg.get(5)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
 
 
                 secondLeg.get(0)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 secondLeg.get(1)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 secondLeg.get(2)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 secondLeg.get(3)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 secondLeg.get(4)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 secondLeg.get(5)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
 
 
                 thirdLeg.get(0)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 thirdLeg.get(1)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 thirdLeg.get(2)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 thirdLeg.get(3)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 thirdLeg.get(4)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 thirdLeg.get(5)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
 
 
                 fourthLeg.get(0)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 fourthLeg.get(1)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 fourthLeg.get(2)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 fourthLeg.get(3)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 fourthLeg.get(4)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
                 fourthLeg.get(5)
                         .setEmission(brown)
-                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
+                        .setMaterial(new Material().setKd(1).setKt(0.5).setKs(0).setNShininess(50)),
 
 
                 board.get(0)
@@ -875,12 +875,6 @@ public class ReflectionRefractionTests {
                 cover3.get(5)
                         .setEmission(new Color(220,150,0))
                         .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
-
-
-
-
-
-
 
 
 
@@ -1004,7 +998,7 @@ public class ReflectionRefractionTests {
                         new Point3D(-70,-40,50),
                         new Point3D(70, -40, 50)).
                         setEmission(new Color(3,67,74))
-                        .setMaterial(new Material()),
+                        .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)),
 
 
 
@@ -1017,7 +1011,7 @@ public class ReflectionRefractionTests {
                         new Point3D(-60,-39,30),
                         new Point3D(60, -39, 30)).
                         setEmission(new Color(202, 202, 202))
-                        .setMaterial(new Material().setKs(0.8).setNShininess(180).setKr(0.1))
+                        .setMaterial(new Material().setKs(0.8).setNShininess(100).setKr(0.1))
                         );
 
 
@@ -1046,13 +1040,12 @@ public class ReflectionRefractionTests {
                         new Point3D(-40, 60, 20)));
 
         sceneBuilder.setGeometries(geometries)
-                .setLights(lightSources)
-                .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.1));
+                .setLights(lightSources);
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("ex_10_our_picture", 600, 600);
-        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene));
-        RenderThread render = renderBuilder.build();
+        renderBuilder.setImageWriter(imageWriter).setCamera(camera).setRayTracer(new BasicRayTracer(scene)).setSuperS(true);
+        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
