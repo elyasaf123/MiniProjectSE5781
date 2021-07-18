@@ -285,8 +285,39 @@ public class RenderThread {
         for (int i = threadsCount - 1; i >= 0; --i) {
             threads[i] = new Thread(() -> {
                 Pixel pixel = new Pixel();
-                while (thePixel.nextPixel(pixel))
-                    castRay(nX, nY, pixel.col, pixel.row);
+                while (thePixel.nextPixel(pixel)) {
+                        if (superS) {
+                            if (adaptiveSS) {
+                                Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row);
+                                HashMap<Integer, Ray> myRays = new HashMap<>();
+                                myRays.put(3, ray);
+                                imageWriter.writePixel(pixel.col, pixel.row, renderPixel(nX, nY, 4, myRays));
+                            } else {
+                                double divide = 8;
+                                double rColor = 0;
+                                double gColor = 0;
+                                double bColor = 0;
+
+                                LinkedList<Ray> beam = camera.constructBeam(nX, nY, pixel.col, pixel.row, divide);
+                                rColor = 0;
+                                gColor = 0;
+                                bColor = 0;
+                                for (Ray ray : beam) {
+                                    rColor += tracer.traceRay(ray).getColor().getRed();
+                                    gColor += tracer.traceRay(ray).getColor().getGreen();
+                                    bColor += tracer.traceRay(ray).getColor().getBlue();
+                                }
+                                imageWriter.writePixel(
+                                        pixel.col, pixel.row, new Color(
+                                                rColor / (divide * divide + 1),
+                                                gColor / (divide * divide + 1),
+                                                bColor / (divide * divide + 1)));
+                            }
+                        }
+                        else {
+                            castRay(nX, nY, pixel.col, pixel.row);;
+                        }
+                    }
             });
         }
         // Start threads

@@ -53,7 +53,7 @@ public class ReflectionRefractionTests {
         Scene.SceneBuilder sceneBuilder = this.sceneBuilder.setGeometries(geometries).setLights(lightSources);
         Scene scene = this.sceneBuilder.build();
 
-        render.setSuperS(true).setImageWriter(
+        render.setSuperS(true).setAdaptiveSS(true).setImageWriter(
                 new ImageWriter("refractionTwoSpheres", 500, 500))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene)).setMultithreading(3).setDebugPrint();
