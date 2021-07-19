@@ -210,6 +210,7 @@ public class Camera {
      * @param nY amount of pixels in height
      * @param j the pixel's column
      * @param i the pixel's row
+     * @param divide size of single pixels view plane
      *
      * @return list of internal rays
      */
@@ -310,17 +311,21 @@ public class Camera {
         myRays[4] = new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
         // down right
         myRays[5] = new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
+        //list of rays to be returned
+        // *     *
+        //    *
+        // *     *
         return myRays;
     }
 
     /**
+     *gets the middle of pixel
      *
+     * @param ray ray to move to the middle of it
+     * @param nX number of pixels in the view plane in the x axis
+     * @param nY number of pixels in the view plane in the y axis
      *
-     * @param ray
-     * @param nX
-     * @param nY
-     *
-     * @return
+     * @return ray in the middle of the pixel
      */
     public Ray constructPixelCenterRay(Ray ray, double nX, double nY){
 
@@ -330,9 +335,8 @@ public class Camera {
         double width = alignZero(this.width / nX);
 
         double dis = distance;
-        /**
-         * distance from camera to our pixel
-         */
+
+        //use trigonemetry to get to the point
         double t = dis/(vTo.dotProduct(ray.getDir())); //cosinus on the angle
         Point3D point = ray.getTargetPoint(t);
         point = point.add(vRight.scale(width/2)).add(vUp.scale(-height/2));
@@ -344,9 +348,9 @@ public class Camera {
      * in the 'square' of the pixel
      *
      * @param ray the ray to separate
-     * @param nX
-     * @param nY
-     * @return
+     * @param nX number of pixels in x axis
+     * @param nY number of pixels in y axis
+     * @return list of 4 rays for adaptive super sampling
      */
     public List<Ray> constructFourRays(Ray ray, double nX, double nY) {
 
@@ -355,13 +359,29 @@ public class Camera {
         // pixel width
         double width = alignZero(this.width / nX);
 
+        //creates a list of 4 rays in the middle
+        //     *
+        //  *     *
+        //     *
         List<Ray> myRays = new ArrayList<>();
         Point3D center = getPointOnViewPlane(ray);
 
         Point3D point1 = center.add(vUp.scale(height / 2));
+        //     #
+        //  *     *
+        //     *
         Point3D point2 = center.add(vRight.scale(-width / 2));
+        //     *
+        //  #     *
+        //     *
         Point3D point3 = center.add(vRight.scale(width / 2));
+        //     *
+        //  *     #
+        //     *
         Point3D point4 = center.add(vUp.scale(-height / 2));
+        //     *
+        //  *     *
+        //     #
         myRays.add(new Ray(p0, point1.subtract(p0)));
         myRays.add(new Ray(p0, point2.subtract(p0)));
         myRays.add(new Ray(p0, point3.subtract(p0)));

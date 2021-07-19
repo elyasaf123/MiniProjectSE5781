@@ -13,7 +13,13 @@ import java.util.List;
  * (with transparency)
  */
 public class ReflectionRefractionTests {
+    /**
+     * scene builder for reflection class
+     */
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
+    /**
+     * render for reflection refracted test
+     */
     private Render render = new Render();
 
     /**
@@ -589,6 +595,13 @@ public class ReflectionRefractionTests {
         render.writeToImage();
     }
 
+    /**
+     * calculate tildat
+     * @param zmove move in z
+     * @param x move in x
+     * @param z move in z
+     * @return the tilda that is calculated
+     */
     double calcTilda(double zmove,double x,double z){
         return x + Math.sqrt(x*x - zmove*zmove - 2* zmove*z);
     }

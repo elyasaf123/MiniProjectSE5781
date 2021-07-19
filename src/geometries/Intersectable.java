@@ -17,7 +17,13 @@ public interface Intersectable {
      * so we built a static internal help class (in the form of PDS - Passive Data Structure)
      */
     public static class GeoPoint {
+        /**
+         * geometry of point
+         */
         public Geometry geometry;
+        /**
+         * point in geo point
+         */
         public Point3D point3D;
 
         /**

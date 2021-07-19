@@ -11,9 +11,18 @@ import java.util.List;
  * Test rendering a basic image
  */
 public class LightsTests {
+    /**
+     * scene builder for light test
+     */
     private Scene.SceneBuilder sceneBuilder1 = new Scene.SceneBuilder("Test scene");
-    private Scene.SceneBuilder sceneBuilder2 = new Scene.SceneBuilder("Test scene") //
+    /**
+     * second scene builder for light test
+     */
+    private Scene.SceneBuilder sceneBuilder2 = new Scene.SceneBuilder("Test scene")
             .setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+    /**
+     * camera builder for light test
+     */
     private Camera.CameraBuilder cameraBuilder1 =
             new Camera.CameraBuilder(
                     new Point3D(0, 0, 1000),
@@ -21,7 +30,13 @@ public class LightsTests {
                     new Vector(0, 1, 0)) //
             .setViewPlaneSize(150, 150) //
             .setDistance(1000);
+    /**
+     * camera for light test
+     */
     private Camera camera1 = cameraBuilder1.build();
+    /**
+     * camera builder for light tests
+     */
     private Camera.CameraBuilder cameraBuilder2 =
             new Camera.CameraBuilder(
                     new Point3D(0, 0, 1000),
@@ -29,18 +44,30 @@ public class LightsTests {
                     new Vector(0, 1, 0)) //
             .setViewPlaneSize(200, 200) //
             .setDistance(1000);
+    /**
+     * second camera for light test
+     */
     private Camera camera2 = cameraBuilder2.build();
 
-    private static Geometry triangle1 = new Triangle( //
+    /**
+     * triangle for light test
+     */
+    private static Geometry triangle1 = new Triangle(
             new Point3D(-150, -150, -150),
             new Point3D(150, -150, -150),
             new Point3D(75, 75, -150));
-    private static Geometry triangle2 = new Triangle( //
+    /**
+     * second triangle for light test
+     */
+    private static Geometry triangle2 = new Triangle(
             new Point3D(-150, -150, -150),
             new Point3D(-70, 70, -50),
             new Point3D(75, 75, -150));
-    private static Geometry sphere = new Sphere(new Point3D(0, 0, -50), 50) //
-            .setEmission(new Color(java.awt.Color.BLUE)) //
+    /**
+     * for light test
+     */
+    private static Geometry sphere = new Sphere(new Point3D(0, 0, -50), 50)
+            .setEmission(new Color(java.awt.Color.BLUE))
             .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100));
 
     /**

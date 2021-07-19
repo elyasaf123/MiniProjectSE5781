@@ -7,6 +7,9 @@ import scene.*;
  * Abstract class to find the intersections of ray with the scene
  */
 public abstract class RayTraceBase {
+    /**
+     * scene for raytracer
+     */
     protected Scene scene;
 
     /**

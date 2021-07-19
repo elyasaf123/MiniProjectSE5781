@@ -7,10 +7,14 @@ import primitives.*;
  */
 public abstract class Geometry implements Intersectable {
 
-    // The color of the shape (black in default)
+    /**
+     *     // The color of the shape (black in default)
+     */
     protected Color emission =  Color.BLACK;
 
-    // The material from which the shape is made
+    /**
+     *     // The material from which the shape is made
+     */
     private Material material = new Material();
 
     /**

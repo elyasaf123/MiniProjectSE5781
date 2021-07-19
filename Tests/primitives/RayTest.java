@@ -8,6 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * test to check getClosestPoint functions in RAY class
  */
 class RayTest {
+    /**
+     * ray for all tests
+     */
     Ray ray = new Ray(Point3D.ZERO, new Vector(0,0,1));
 
     /**

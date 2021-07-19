@@ -9,8 +9,17 @@ import static primitives.Util.*;
  */
 class VectorTests {
 
+    /**
+     * vector for tests
+     */
     Vector v1 = new Vector(1, 2, 3);
+    /**
+     * vector for tests
+     */
     Vector v2 = new Vector(-2, -4, -6);
+    /**
+     * vector for tests
+     */
     Vector v3 = new Vector(0, 3, -2);
 
     /**

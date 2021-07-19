@@ -4,6 +4,9 @@ import org.junit.jupiter.api.*;
 import primitives.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * class for geometries
+ */
 class GeometriesTests {
 
     /**

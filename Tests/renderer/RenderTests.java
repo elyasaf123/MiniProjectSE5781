@@ -20,12 +20,18 @@ import static java.lang.Double.*;
  */
 public class RenderTests {
 
+    /**
+     * camera builder for camera
+     */
     Camera.CameraBuilder cameraBuilder = new Camera.CameraBuilder(
                     Point3D.ZERO,
                     new Vector(0, 0, -1),
                     new Vector(0, 1, 0))
                     .setDistance(100)
                     .setViewPlaneSize(500, 500);
+    /**
+     * camera for render tests
+     */
     Camera camera = cameraBuilder.build();
 
    /**
@@ -60,8 +66,10 @@ public class RenderTests {
         render.writeToImage();
     }
 
+
     /**
-     * Test for XML based scene
+     * parse an xml file
+     * @throws ParserConfigurationException needed in case throw exception
      */
     @Test
     public void basicRenderXml() throws ParserConfigurationException {
@@ -82,13 +90,29 @@ public class RenderTests {
         render.writeToImage();
     }
 
+    /**
+     *         // parse a XML file
+     */
     public class DalXml {
 
-        // parse a XML file
+        /**
+         * document builder
+         */
         private DocumentBuilder db;
+        /**
+         * path of file
+         */
         private final String path = "xml files\\";
+        /**
+         * file name of xml
+         */
         private final String fileName;
 
+        /**
+         * ctor
+         * @param fileName name of xml file
+         * @throws ParserConfigurationException in case exception is thrown
+         */
         public DalXml(String fileName) throws ParserConfigurationException {
             this.fileName = fileName;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -96,6 +120,10 @@ public class RenderTests {
             db = dbf.newDocumentBuilder();
         }
 
+        /**
+         * get scene for xml file
+         * @return object of type scene
+         */
         public Scene getSceneFromXML() {
             try {
                 Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder(fileName);

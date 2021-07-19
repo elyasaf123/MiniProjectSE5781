@@ -25,19 +25,29 @@ public class Scene {
         this.lights = sceneBuilder.lights;
     }
 
-    // list of light-sources we got in the scene
+    /**
+     *     // list of light-sources we got in the scene
+     */
     public List<LightSource> lights;
 
-    // The scene's name
+    /**
+     *     // The scene's name
+     */
     public String name;
 
-    // The background's color
+    /**
+     *     The background's color
+     */
     public Color background;
 
-    // The light's ambient in the scene (expressed as color)
+    /**
+     *     The light's ambient in the scene (expressed as color)
+     */
     public AmbientLight ambientLight;
 
-    // The positions of the shapes in 3D
+    /**
+     *     The positions of the shapes in 3D
+     */
     public Geometries geometries;
 
     /**
@@ -46,19 +56,29 @@ public class Scene {
      */
     public static class SceneBuilder{
 
-        // list of light-sources we got in the scene
+        /**
+         * // list of light-sources we got in the scene
+         */
         private List<LightSource> lights;
 
-        // The scene's name
+        /**
+         *         // The scene's name
+         */
         private final String name;
 
-        // The background's color
+        /**
+         *         // The background's color
+         */
         private Color background;
 
-        // The light's ambient in the scene (expressed as color)
+        /**
+         *         // The light's ambient in the scene (expressed as color)
+         */
         private AmbientLight ambientLight;
 
-        // The positions of the shapes in 3D
+        /**
+         *         // The positions of the shapes in 3D
+         */
         private Geometries geometries;
 
         /**

@@ -33,9 +33,7 @@ public class ImageWriterTest {
     }
 
     /**
-     *  Optional test method for {@link renderer()}.
-     *
-     *  Creates smiley :-)
+     * creates smiley:)
      */
     @Test
     public void writeToImage2(){

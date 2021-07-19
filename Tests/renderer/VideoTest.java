@@ -11,11 +11,22 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * class for video test
+ */
 class VideoTest {
 
+    /**
+     * scene where the video will be generated
+     */
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
+    /**
+     * render for video
+     */
     private Render render = new Render();
-
+    /**
+     * camera for video
+     */
     private  Camera.CameraBuilder cameraBuilder =
             new Camera.CameraBuilder(
                     new Point3D(0, 500, 20),
@@ -25,9 +36,16 @@ class VideoTest {
                     .setDistance(700);
 
 
+    /**
+     * private attribute camera
+     */
     private     Camera camera = cameraBuilder.build();
 
 
+    /**
+     * generates a video of a lot of pictures
+     * @throws IOException if exception is thrown
+     */
     @Test
     void generateVideo() throws IOException {
 
