@@ -119,13 +119,25 @@ public class RenderThread {
          * maxRows * maxCols
          */
         private long pixels = 0;
+        /**
+         * number of row
+         */
         public volatile int row = 0;
+        /**
+         * number of  column
+         */
         public volatile int col = -1;
         /**
          * pixels / 100
          */
         private long counter = 0;
+        /**
+         * percent accomplished
+         */
         private int percents = 0;
+        /**
+         *next counter to be executed
+         */
         private long nextCounter = 0;
 
         /**
