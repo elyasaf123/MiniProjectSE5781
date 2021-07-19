@@ -2,7 +2,6 @@ package elements;
 
 import primitives.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import static primitives.Util.*;
@@ -29,7 +28,9 @@ public class Camera {
         this.vRight = cameraBuilder.vRight;
     }
 
-     // the camera location in 3D
+    /**
+     * the camera location in 3D
+     */
     private final Point3D p0;
 
     /**
@@ -37,19 +38,29 @@ public class Camera {
      */
     private final Vector vTo;
 
-    // Direction vector that defines what is the "top" of the camera
+    /**
+     * Direction vector that defines what is the "top" of the camera
+     */
     private final Vector vUp;
 
-    // Direction vector that defines what is the "right" direction of the camera
+    /**
+     * Direction vector that defines what is the "right" direction of the camera
+     */
     private final Vector vRight;
 
-    // distance from camera to view plane
+    /**
+     * distance from camera to view plane
+     */
     private double distance;
 
-    // view - plane's width
+    /**
+     * view - plane's width
+     */
     private double width;
 
-    // view - plane's height
+    /**
+     * view - plane's height
+     */
     private double height;
 
     /**
@@ -58,25 +69,39 @@ public class Camera {
      */
     public static class CameraBuilder{
 
-        // the camera location in 3D
+        /**
+         * the camera location in 3D
+         */
         private Point3D p0;
 
-        // Direction vector that defines what is the "top" of the camera
+        /**
+         * Direction vector that defines what is the "top" of the camera
+         */
         private Vector vUp;
 
-        // vector toward - the direction vector in which the camera is aimed
+        /**
+         * vector toward - the direction vector in which the camera is aimed
+         */
         private Vector vTo;
 
-        // Direction vector that defines what is the "right" direction of the camera
+        /**
+         * Direction vector that defines what is the "right" direction of the camera
+         */
         private Vector vRight;
 
-        // distance from camera to view plane
+        /**
+         * distance from camera to view plane
+         */
         private double distance;
 
-        // view - plane's width
+        /**
+         * view - plane's width
+         */
         private double width;
 
-        // view - plane's height
+        /**
+         * view - plane's height
+         */
         private double height;
 
         /**
@@ -178,28 +203,41 @@ public class Camera {
     }
 
     /**
-     * todo
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
-     * @return
+     * consruct a beam of rays around one ray, inside the pixel, according to the division it received,
+     * and inside each sub-square takes out a random point for checking the color
+     *
+     * @param nX amount of pixels in width
+     * @param nY amount of pixels in height
+     * @param j the pixel's column
+     * @param i the pixel's row
+     *
+     * @return list of internal rays
      */
     public LinkedList<Ray> constructBeam(int nX,  int nY, int j , int i, double divide) {
 
-        // the image's center
+        /**
+         * the image's center
+         */
         Point3D Pc = getP0().add(vTo.scale(distance));
 
-        //height of single pixel
+        /**
+         * height of single pixel
+         */
         double Ry = alignZero(height/nY);
 
-        //width of single pixel
+        /**
+         * width of single pixel
+         */
         double Rx = alignZero(width/nX);
 
-        //amount of pixels to move in y axis from pc to i
+        /**
+         * amount of pixels to move in y axis from pc to i
+         */
         double Yi = alignZero(-(i - ((nY - 1) / 2d)) * Ry);
 
-        //amount of pixels  to move in x axis from pc to j
+        /**
+         * amount of pixels  to move in x axis from pc to j
+         */
         double Xj = alignZero((j - ((nX - 1) / 2d)) * Rx);
 
         Point3D Pij = Pc;
@@ -217,8 +255,12 @@ public class Camera {
 
         var rayList = new LinkedList<Ray>();
         rayList.add(constructRayThroughPixel(nX, nY, j, i));
+        /**
+         * up left corner of pixel
+         */
         Point3D pixStart = Pij.add(vRight.scale(-Rx / 2)).add(vUp.scale(Ry / 2));
-
+        // The formation of the rays within the division of the pixel,
+        // in each square a point of intersection is selected at random
         for (double row = 0; row < divide; row++) {
             for (double col = 0; col < divide; col++) {
                 rayList.add(randomPointRay(pixStart, col/divide, -row/divide));
@@ -227,55 +269,94 @@ public class Camera {
         return rayList;
     }
 
+    /**
+     * In the first iteration we want to check the colors in all the corners of the pixel and in the center
+     * and of course keep them in order to avoid re-checking later
+     *
+     * @param myRays array of the rays, at first it contains only the central ray in the third index
+     * @param nX number of pixels in row
+     * @param nY  number of pixels in column
+     *
+     * @return array of the rays
+     */
+    public Ray[] constructFiveRays(Ray myRays[], double nX, double nY) {
 
-    public Ray[] construct5RaysFromRay(Ray myRays[], double nX, double nY) {
-
-        //Ry = h / nY - pixel height ratio
+        /**
+         * pixel height
+         */
         double rY = alignZero(height / nY);
-        //Rx = h / nX - pixel width ratio
+        /**
+         * pixel width
+         */
         double rX = alignZero(width / nX);
 
         Ray myRay = myRays[3];
 
-        double t0 = distance;
-        double t = t0 / (vTo.dotProduct(myRay.getDir()));
+        double dis = distance;
+        /**
+         * distance from camera to our pixel
+         */
+        double t = dis / vTo.dotProduct(myRay.getDir());
+        /**
+         * the middle of the pixel
+         */
         Point3D center = myRay.getTargetPoint(t);
 
-        //[-1/2, -1/2]
+        // up left
         myRays[1] =  new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(rY / 2)).subtract(p0));
-        //[1/2, -1/2]
+        // up right
         myRays[2] = new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(rY / 2)).subtract(p0));
-        //[-1/2, 1/2]
+        // down left
         myRays[4] = new Ray(p0, center.add(vRight.scale(-rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
-        //[1/2, 1/2]
+        // down right
         myRays[5] = new Ray(p0, center.add(vRight.scale(rX / 2)).add(vUp.scale(-rY / 2)).subtract(p0));
         return myRays;
     }
 
+    /**
+     *
+     *
+     * @param ray
+     * @param nX
+     * @param nY
+     *
+     * @return
+     */
     public Ray constructPixelCenterRay(Ray ray, double nX, double nY){
 
-        //Ry = h / nY - pixel height ratio
+        // pixel height
         double height = alignZero(this.height / nY);
-        //Rx = h / nX - pixel width ratio
+        // pixel width
         double width = alignZero(this.width / nX);
 
-        double t0 = distance;
-        double t = t0/(vTo.dotProduct(ray.getDir())); //cosinus on the angle
+        double dis = distance;
+        /**
+         * distance from camera to our pixel
+         */
+        double t = dis/(vTo.dotProduct(ray.getDir())); //cosinus on the angle
         Point3D point = ray.getTargetPoint(t);
         point = point.add(vRight.scale(width/2)).add(vUp.scale(-height/2));
         return new Ray(p0, point.subtract(p0));
     }
 
-    public List<Ray> construct4RaysThroughPixel(Ray ray, double nX, double nY) {
+    /**
+     * constructing 4 rays from one ray, using if we got a different color in the previous test of the colors
+     * in the 'square' of the pixel
+     *
+     * @param ray the ray to separate
+     * @param nX
+     * @param nY
+     * @return
+     */
+    public List<Ray> constructFourRays(Ray ray, double nX, double nY) {
 
-        //Ry = h / nY - pixel height ratio
+        // pixel height
         double height = alignZero(this.height / nY);
-        //Rx = h / nX - pixel width ratio
+        // pixel width
         double width = alignZero(this.width / nX);
 
         List<Ray> myRays = new ArrayList<>();
         Point3D center = getPointOnViewPlane(ray);
-
 
         Point3D point1 = center.add(vUp.scale(height / 2));
         Point3D point2 = center.add(vRight.scale(-width / 2));
@@ -296,17 +377,22 @@ public class Camera {
      * @return the distance to the point
      */
     private Point3D getPointOnViewPlane(Ray ray) {
-        double t0 = distance;
-        double t = t0 / (vTo.dotProduct(ray.getDir())); //cosinus of the angle
+        double dis = distance;
+        /**
+         * distance from camera to our pixel
+         */
+        double t = dis / (vTo.dotProduct(ray.getDir())); //cosinus of the angle
         return ray.getTargetPoint(t);
     }
 
     /**
-     * todo
-     * @param pixStart
-     * @param col
-     * @param row
-     * @return
+     * using in simple anti alysing for calculate color in a point in a sub-square
+     *
+     * @param pixStart up left corner of the sub-square
+     * @param col the column
+     * @param row the row
+     *
+     * @return random ray inside the range
      */
     private Ray randomPointRay(Point3D pixStart, double col, double row) {
         Point3D point = pixStart;

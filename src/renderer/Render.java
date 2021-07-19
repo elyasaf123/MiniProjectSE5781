@@ -258,7 +258,7 @@ public class Render {
                 }
             }
             if (flag) {
-                List<Ray> newRays = camera.construct4RaysThroughPixel(myRays[3], nX, nY);
+                List<Ray> newRays = camera.constructFourRays(myRays[3], nX, nY);
                 Ray rays[] = new Ray[6];
                 rays[1] = myRays[1];
                 rays[2] = newRays.get(0);
@@ -302,7 +302,7 @@ public class Render {
      * @return
      */
     private Color renderPixel(double nX, double nY, int depth, Ray firstRays[]) {
-        Ray myRays[] = camera.construct5RaysFromRay(firstRays, nX, nY);
+        Ray myRays[] = camera.constructFiveRays(firstRays, nX, nY);
         return renderPixelRecursive(myRays, nX, nY, depth);
     }
 }

@@ -33,15 +33,38 @@ public class RenderThread {
      * true if we want to use adaptive super sampling
      */
     private boolean adaptiveSS = false;
+    /**
+     * uses when Renderer resource not set
+     */
     private static final String RESOURCE_ERROR = "Renderer resource not set";
+    /**
+     * uses in case of exception
+     */
     private static final String RENDER_CLASS = "Render";
+    /**
+     * uses in case of exception
+     */
     private static final String IMAGE_WRITER_COMPONENT = "Image writer";
+    /**
+     * uses in case of exception
+     */
     private static final String CAMERA_COMPONENT = "Camera";
+    /**
+     * uses in case of exception
+     */
     private static final String RAY_TRACER_COMPONENT = "Ray tracer";
-
+    /**
+     * counter for number of threads
+     */
     private int threadsCount = 0;
-    private static final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
-    private boolean print = false; // printing progress percentage
+    /**
+     * Spare threads if trying to use all the cores
+     */
+    private static final int SPARE_THREADS = 2;
+    /**
+     * printing progress percentage
+     */
+    private boolean print = false;
 
     /**
      * Set multi-threading <br>
@@ -57,6 +80,9 @@ public class RenderThread {
         if (threads != 0)
             this.threadsCount = threads;
         else {
+            /**
+             * Number of available cores less SPARE_THREADS, we will use what we can
+             */
             int cores = Runtime.getRuntime().availableProcessors() - SPARE_THREADS;
             this.threadsCount = cores <= 2 ? 1 : cores;
         }
@@ -81,11 +107,23 @@ public class RenderThread {
      * thread.
      */
     private class Pixel {
+        /**
+         * the amount of pixel rows
+         */
         private long maxRows = 0;
+        /**
+         * the amount of pixel columns
+         */
         private long maxCols = 0;
+        /**
+         * maxRows * maxCols
+         */
         private long pixels = 0;
         public volatile int row = 0;
         public volatile int col = -1;
+        /**
+         * pixels / 100
+         */
         private long counter = 0;
         private int percents = 0;
         private long nextCounter = 0;
@@ -119,6 +157,7 @@ public class RenderThread {
          *
          * @param target target secondary Pixel object to copy the row/column of the
          *               next pixel
+         *
          * @return the progress percentage for follow up: if it is 0 - nothing to print,
          * if it is -1 - the task is finished, any other value - the progress
          * percentage (only when it changes)
@@ -229,10 +268,11 @@ public class RenderThread {
     }
 
     /**
-     *todo
-     * @param superS
+     * super sampling setter
      *
-     * @return
+     * @param superS our determination - using it or not
+     *
+     * @return renderer itself - for chaining
      */
     public RenderThread setSuperS(boolean superS) {
         this.superS = superS;
@@ -240,9 +280,11 @@ public class RenderThread {
     }
 
     /**
-     * todo
-     * @param adaptiveSS
-     * @return
+     * adaptive super sampling setter
+     *
+     * @param adaptiveSS our determination - using it or not
+     *
+     * @return renderer itself - for chaining
      */
     public RenderThread setAdaptiveSS(boolean adaptiveSS) {
         this.adaptiveSS = adaptiveSS;
@@ -255,7 +297,6 @@ public class RenderThread {
     public void writeToImage() {
         if (imageWriter == null)
             throw new MissingResourceException(RESOURCE_ERROR, RENDER_CLASS, IMAGE_WRITER_COMPONENT);
-
         imageWriter.writeToImage();
     }
 
@@ -268,7 +309,13 @@ public class RenderThread {
      * @param row pixel's row number (pixel index in column)
      */
     private void castRay(int nX, int nY, int col, int row) {
+        /**
+         * ray from camera to the specific pixel
+         */
         Ray ray = camera.constructRayThroughPixel(nX, nY, col, row);
+        /**
+         * this ray's color
+         */
         Color color = tracer.traceRay(ray);
         imageWriter.writePixel(col, row, color);
     }
@@ -278,31 +325,62 @@ public class RenderThread {
      * the Renderer object - with multi-threading
      */
     private void renderImageThreaded() {
+
+        /**
+         * number of pixels in row
+         */
         final int nX = imageWriter.getNx();
+        /**
+         * number of pixels in column
+         */
         final int nY = imageWriter.getNy();
+        /**
+         * the main follow up Pixel object
+         */
         final Pixel thePixel = new Pixel(nY, nX);
-        // Generate threads
+        /**
+         * Generate threads
+         */
         Thread[] threads = new Thread[threadsCount];
         for (int i = threadsCount - 1; i >= 0; --i) {
             threads[i] = new Thread(() -> {
+                /**
+                 * our Pixel object
+                 */
                 Pixel pixel = new Pixel();
                 while (thePixel.nextPixel(pixel)) {
                         if (superS) {
                             if (adaptiveSS) {
+                                /**
+                                 * the central ray from camera to pixel.
+                                 * we save it in the middle of the array and all the others we will save later
+                                 */
                                 Ray ray = camera.constructRayThroughPixel(nX, nY, pixel.col, pixel.row);
-                                Ray myRays[] = new Ray[6];
+                                /**
+                                 * we use array to save all the rays we check
+                                 */
+                                Ray[] myRays = new Ray[6];
                                 myRays[3] = ray;
                                 imageWriter.writePixel(pixel.col, pixel.row, renderPixel(nX, nY, 4, myRays));
-                            } else {
+                            } else { // simple SS
+                                /**
+                                 * 64 pieces
+                                 */
                                 double divide = 8;
+                                /**
+                                 * counter for red color
+                                 */
                                 double rColor = 0;
+                                /**
+                                 * counter for green color
+                                 */
                                 double gColor = 0;
+                                /**
+                                 * counter for blue color
+                                 */
                                 double bColor = 0;
 
                                 LinkedList<Ray> beam = camera.constructBeam(nX, nY, pixel.col, pixel.row, divide);
-                                rColor = 0;
-                                gColor = 0;
-                                bColor = 0;
                                 for (Ray ray : beam) {
                                     rColor += tracer.traceRay(ray).getColor().getRed();
                                     gColor += tracer.traceRay(ray).getColor().getGreen();
@@ -316,25 +394,28 @@ public class RenderThread {
                             }
                         }
                         else {
-                            castRay(nX, nY, pixel.col, pixel.row);;
+                            castRay(nX, nY, pixel.col, pixel.row);
                         }
                     }
             });
         }
-        // Start threads
+        /**
+         * Start threads
+         */
         for (Thread thread : threads)
             thread.start();
-
-        // Print percents on the console
+        /**
+         * Print percents on the console
+         */
         thePixel.print();
-
-        // Ensure all threads have finished
+        /**
+         * Ensure all threads have finished
+         */
         for (Thread thread : threads)
             try {
                 thread.join();
             } catch (Exception e) {
             }
-
         if (print)
             System.out.print("\r100%");
     }
@@ -351,28 +432,51 @@ public class RenderThread {
         if (tracer == null)
             throw new MissingResourceException(RESOURCE_ERROR, RENDER_CLASS, RAY_TRACER_COMPONENT);
 
+        /**
+         * number of pixels in row
+         */
         final int nX = imageWriter.getNx();
+        /**
+         * number of pixels in column
+         */
         final int nY = imageWriter.getNy();
 
         if (threadsCount == 0) {
+            // iteration by columns and rows
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
                     if (superS) {
                         if (adaptiveSS) {
+                            /**
+                             * the central ray from camera to pixel.
+                             * we save it in the middle of the array and all the others we will save later
+                             */
                             Ray ray = camera.constructRayThroughPixel(nX, nY, j, i);
-                            Ray myRays[] = new Ray[6];
+                            /**
+                             * we use array to save all the rays we check
+                             */
+                            Ray[] myRays = new Ray[6];
                             myRays[3] = ray;
                             imageWriter.writePixel(j, i, renderPixel(nX, nY, 4, myRays));
-                        } else {
+                        } else { // simple SS
+                            /**
+                             * 64 pieces
+                             */
                             double divide = 8;
+                            /**
+                             * counter for red color
+                             */
                             double rColor = 0;
+                            /**
+                             * counter for green color
+                             */
                             double gColor = 0;
+                            /**
+                             * counter for blue color
+                             */
                             double bColor = 0;
 
                             LinkedList<Ray> beam = camera.constructBeam(nX, nY, j, i, divide);
-                            rColor = 0;
-                            gColor = 0;
-                            bColor = 0;
                             for (Ray ray : beam) {
                                 rColor += tracer.traceRay(ray).getColor().getRed();
                                 gColor += tracer.traceRay(ray).getColor().getGreen();
@@ -416,77 +520,105 @@ public class RenderThread {
     }
 
     /**
+     * the render function when we use adaptive
      *
-     * @param nX
-     * @param nY
-     * @param depth
-     * @param firstRays
+     * @param nX number of pixels in row
+     * @param nY number of pixels in column
+     * @param depth the recursive depth
+     * @param central array of the rays, at first it contains only the central ray in the third index
      *
-     * @return
+     * @return the color of the whole pixel
      */
-    private Color renderPixel(double nX, double nY, int depth, Ray firstRays[]) {
-        Ray myRays[] = camera.construct5RaysFromRay(firstRays, nX, nY);
-        return renderPixelRecursive(myRays, nX, nY, depth);
+    private Color renderPixel(double nX, double nY, int depth, Ray[] central) {
+        /**
+         * array of the first 5 rays
+         */
+        Ray[] rays = camera.constructFiveRays(central, nX, nY);
+        /**
+         * calls the recursive func to calculate the color
+         */
+        return renderPixelRecursive(rays, nX, nY, depth);
     }
 
     /**
+     * Function for calculating the color of a pixel by using a subdivision - squares when necessary,
+     * until stopped when we reached the maximum depth
      *
-     * @param myRays
-     * @param nX
-     * @param nY
-     * @param depth
+     * @param myRays array of rays we gonna full it
+     *               (or he is already full and we just compare it to know if new colors are added)
+     * @param nX number of pixels in row
+     * @param nY number of pixels in column
+     * @param depth the depth of the recursive
      *
-     * @return
+     * @return the average color of the pixel
      */
-    private Color renderPixelRecursive(Ray myRays[], double nX, double nY, int depth) {
+    private Color renderPixelRecursive(Ray[] myRays, double nX, double nY, int depth) {
 
         boolean flag = false;
-        Ray mainRay = myRays[3];
-        Color mainColor = tracer.traceRay(mainRay);
+        Ray centralRay = myRays[3];
+        Color central = tracer.traceRay(centralRay);
         if (depth >= 1) {
-            for (int integer = 1; integer< 6; integer++) {
+            for (int integer = 1; integer < 6; integer++) {
                 if (integer != 3) {
                     Color tmpColor = tracer.traceRay(myRays[integer]);
-                    if (!tmpColor.equals(mainColor)) {
+                    if (!tmpColor.equals(central)) {
                         flag = true;
                         break;
                     }
                 }
             }
+            // This means that there is at least one ray that has a different color
+            // from the center of the square we examined so we will do more iterative check
             if (flag) {
-                List<Ray> newRays = camera.construct4RaysThroughPixel(myRays[3], nX, nY);
-                Ray rays[] = new Ray[6];
+                List<Ray> newRays = camera.constructFourRays(myRays[3], nX, nY);
+                Ray[] rays = new Ray[6];
                 rays[1] = myRays[1];
                 rays[2] = newRays.get(0);
                 rays[3] = camera.constructPixelCenterRay(myRays[1], nX * 2, nY * 2);
                 rays[4] = newRays.get(1);
                 rays[5] = myRays[3];
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                /**
+                 * recursive call, now the depth is updated accordingly and the height and width are doubled
+                 */
+                central = central.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+
                 rays = new Ray[6];
                 rays[1] = newRays.get(0);
                 rays[2] = myRays[2];
                 rays[3] = camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2);
                 rays[4] = myRays[3];
                 rays[5] = newRays.get(2);
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                /**
+                 * recursive call, now the depth is updated accordingly and the height and width are doubled
+                 */
+                central = central.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+
                 rays = new Ray[6];
                 rays[1] = newRays.get(1);
                 rays[2] = myRays[3];
                 rays[3] = camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2);
                 rays[4] = myRays[4];
                 rays[5] = newRays.get(3);
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+                /**
+                 * recursive call, now the depth is updated accordingly and the height and width are doubled
+                 */
+                central = central.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+
                 rays = new Ray[6];
                 rays[1] = myRays[3];
                 rays[2] = newRays.get(2);
                 rays[3] = camera.constructPixelCenterRay(myRays[3], nX * 2, nY * 2);
                 rays[4] = newRays.get(3);
                 rays[5] = myRays[5];
-                mainColor = mainColor.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
-                mainColor = mainColor.reduce(5);
+                /**
+                 * recursive call, now the depth is updated accordingly and the height and width are doubled
+                 */
+                central = central.add(renderPixelRecursive(rays, nX * 2, nY * 2, depth - 1));
+
+                central = central.reduce(5);
             }
         }
-        return mainColor;
+        return central;
     }
 
     public BufferedImage getImage(){
