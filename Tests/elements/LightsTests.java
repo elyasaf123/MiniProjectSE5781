@@ -53,11 +53,10 @@ public class LightsTests {
                 List.of(new DirectionalLight(new Color(500, 300, 0), new Vector(1, 1, -1))));
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSphereDirectional", 1000, 1000);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera1) //
                 .setRayTracer(new BasicRayTracer(scene1));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -74,11 +73,10 @@ public class LightsTests {
                 .setKl(0.00001).setKq(0.000001)));
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSpherePoint", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera1) //
                 .setRayTracer(new BasicRayTracer(scene1));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -98,11 +96,10 @@ public class LightsTests {
                 .setKq(0.00000001)));
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSphereSpot", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera1) //
                 .setRayTracer(new BasicRayTracer(scene1));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -119,11 +116,10 @@ public class LightsTests {
                 List.of(new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1))));
         Scene scene2 = sceneBuilder2.build();
         ImageWriter imageWriter = new ImageWriter("lightTrianglesDirectional", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera2) //
                 .setRayTracer(new BasicRayTracer(scene2));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -144,11 +140,10 @@ public class LightsTests {
         Scene scene2 = sceneBuilder2.build();
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesPoint", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera2) //
                 .setRayTracer(new BasicRayTracer(scene2));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -172,11 +167,10 @@ public class LightsTests {
         Scene scene2 = sceneBuilder2.build();
 
         ImageWriter imageWriter = new ImageWriter("lightTrianglesSpot", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera2) //
                 .setRayTracer(new BasicRayTracer(scene2));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -210,11 +204,9 @@ public class LightsTests {
         Scene scene2 = sceneBuilder2.build();
 
         ImageWriter imageWriter = new ImageWriter("lightTriangles", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera2) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter).setCamera(camera2) //
                 .setRayTracer(new BasicRayTracer(scene2));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -244,11 +236,8 @@ public class LightsTests {
                         new DirectionalLight(new Color(400,350,355),new Vector( 10,10,-10))));//
         Scene scene1 = sceneBuilder1.build();
         ImageWriter imageWriter = new ImageWriter("lightSphereMulti", 500, 500);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()//
-                .setImageWriter(imageWriter) //
-                .setCamera(camera1) //
-                .setRayTracer(new BasicRayTracer(scene1));
-        Render render = renderBuilder.build();
+        Render render = new Render();
+        render.setImageWriter(imageWriter).setCamera(camera1).setRayTracer(new BasicRayTracer(scene1));
         render.renderImage();
         render.writeToImage();
     }

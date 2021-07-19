@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ReflectionRefractionTests {
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
-    private RenderThread render = new RenderThread();
+    private Render render = new Render();
 
     /**
      * Produce a picture of a sphere lighted by a spot light

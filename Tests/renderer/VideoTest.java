@@ -14,7 +14,7 @@ import java.util.List;
 class VideoTest {
 
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
-    private RenderThread render = new RenderThread();
+    private Render render = new Render();
 
     private  Camera.CameraBuilder cameraBuilder =
             new Camera.CameraBuilder(
@@ -759,11 +759,10 @@ class VideoTest {
             Scene scene = sceneBuilder.build();
 
 
-            Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                    setImageWriter(new ImageWriter("shadowSphereTriangleLinkedSpot", 400, 400))
+            Render render = new Render();
+            render.setImageWriter(new ImageWriter("shadowSphereTriangleLinkedSpot", 400, 400))
                     .setCamera(camera)
                     .setRayTracer(new BasicRayTracer(scene));
-            Render render = renderBuilder.build();
 
             render.renderImage();
             a[(int) j] = render.getImage();
