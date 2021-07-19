@@ -361,7 +361,7 @@ public class Render {
                                  */
                                 Ray[] myRays = new Ray[6];
                                 myRays[3] = ray;
-                                imageWriter.writePixel(pixel.col, pixel.row, renderPixel(nX, nY, 4, myRays));
+                                imageWriter.writePixel(pixel.col, pixel.row, renderPixel(nX, nY, 3, myRays));
                             } else { // simple SS
                                 /**
                                  * 64 pieces
