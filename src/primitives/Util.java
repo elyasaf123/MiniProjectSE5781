@@ -5,7 +5,9 @@ package primitives;
  */
 public abstract class Util {
 
-    // It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
+    /**
+     *     // It is binary, equivalent to ~1/1,000,000,000,000 in decimal (12 digits)
+     */
     private static final int ACCURACY = -40;
 
     /**
@@ -17,6 +19,15 @@ public abstract class Util {
     // 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
     // the number is m+2^e where 1<=m<2
     // NB: exponent is stored "normalized" (i.e. always positive by adding 1023)
+
+    /**
+     * double store format (bit level): seee eeee eeee (1.)mmmm � mmmm
+     * 1 bit sign, 11 bits exponent, 53 bits (52 stored) normalized mantissa
+     *     // the number is m+2^e where 1 greater or equal to m smaller than 2
+     *     // NB: exponent is stored "normalized" (i.e. always positive by adding 1023)
+     * @param num number to convert
+     * @return number returned
+     */
     private static int getExp(double num) {
         // 1. doubleToRawLongBits: "convert" the stored number to set of bits
         // 2. Shift all 52 bits to the right (removing mantissa)

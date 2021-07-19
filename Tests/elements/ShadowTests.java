@@ -9,17 +9,32 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * class for shadow tests
+ */
 public class ShadowTests {
 
+    /**
+     * scene builder for shadow test
+     */
     private Scene.SceneBuilder sceneBuilder = new Scene.SceneBuilder("Test scene");
+    /**
+     * camera builder for shadow tests
+     */
     private Camera.CameraBuilder cameraBuilder =
             new Camera.CameraBuilder(
                     new Point3D(0, 0, 1000),
                     new Vector(0, 0, -1),
                     new Vector(0, 1, 0))
             .setViewPlaneSize(200, 200).setDistance(1000);
+    /**
+     * camera for shadow tests
+     */
     private Camera camera = cameraBuilder.build();
 
+    /**
+     * sphere triangle test
+     */
     @Test
     public void sphereTriangleInitial() {
         Geometries geometries = new Geometries(
@@ -96,6 +111,9 @@ public class ShadowTests {
         render.writeToImage();
     }
 
+    /**
+     * sphere triangle test
+     */
     @Test
     public void sphereTriangleCloserTriangle() {
         Geometries geometries = new Geometries(
@@ -129,6 +147,9 @@ public class ShadowTests {
         render.writeToImage();
     }
 
+    /**
+     * sphere triangle test
+     */
     @Test
     public void sphereTriangleLinkedTriangle() {
         Geometries geometries = new Geometries(
@@ -162,6 +183,9 @@ public class ShadowTests {
         render.writeToImage();
     }
 
+    /**
+     * sphere triangle test
+     */
     @Test
     public void sphereTriangleCloserSpot() {
         Geometries geometries = new Geometries(
@@ -195,6 +219,9 @@ public class ShadowTests {
         render.writeToImage();
     }
 
+    /**
+     * test for triangle
+     */
     @Test
     public void sphereTriangleLinkedSpot() {
         Geometries geometries = new Geometries(

@@ -12,9 +12,18 @@ public class Color {
      * The internal fields tx`o maintain RGB components as double numbers from 0 to whatever...
      */
     private double r = 0.0;
+    /**
+     * default number for green
+     */
     private double g = 0.0;
+    /**
+     *default number for blue
+     */
     private double b = 0.0;
 
+    /**
+     * constant color for black
+     */
     public static final Color BLACK = new Color();
 
     /**
@@ -31,7 +40,7 @@ public class Color {
      * @param g Green component
      * @param b Blue component
      *
-     * @throws IllegalArgumentException if (r OR g or b) < 0
+     * @throws IllegalArgumentException if (r OR g or b) smaller than 0
      */
     public Color(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
@@ -86,7 +95,7 @@ public class Color {
      *
      * @return the Color object itself for chaining calls
      *
-     * @throws IllegalArgumentException if (r OR g or b) < 0
+     * @throws IllegalArgumentException if (r OR g or b) smaller than 0
      */
     public Color setColor(double r, double g, double b) {
         if (r < 0 || g < 0 || b < 0)
@@ -164,7 +173,7 @@ public class Color {
      *
      * @return new Color object which is the result of the operation
      *
-     * @throws IllegalArgumentException if k < 0
+     * @throws IllegalArgumentException if k smaller 0
      */
     public Color scale(double k) {
         if (k < 0)
@@ -179,7 +188,7 @@ public class Color {
      *
      * @return new Color object which is the result of the operation
      *
-     * @throws IllegalArgumentException if k < 1
+     * @throws IllegalArgumentException if k smaller than 1
      */
     public Color reduce(double k) {
         if (k < 1)

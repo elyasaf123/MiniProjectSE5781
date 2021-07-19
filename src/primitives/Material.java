@@ -5,23 +5,35 @@ package primitives;
  */
 public class Material {
 
-    // Fixed for the physical equation according to the pong model (kS + kD <= 1)/
-    //
-    // Coefficient of attenuation of the degree to which the material emits the light it illuminates
-    // (ranging from 0 to 1)
+
+    /**
+     *     // Fixed for the physical equation according to the pong model (kS + kD smaller of equal to 1)/
+     *     //
+     *     // Coefficient of attenuation of the degree to which the material emits the light it illuminates
+     *     // (ranging from 0 to 1)
+     */
     public double kD;
 
-    // Coefficient of attenuation of the degree to which the material glossy (Expressed in the reflection of light)
-    // (ranging from 0 to 1)
+
+    /**
+     *     // Coefficient of attenuation of the degree to which the material glossy (Expressed in the reflection of light)
+     *     // (ranging from 0 to 1)
+     */
     public double kS;
 
-    // Coefficient of attenuation of the degree to which the material reflected (ranging from 0 to 1)
+    /**
+     *     // Coefficient of attenuation of the degree to which the material reflected (ranging from 0 to 1)
+     */
     public double kR = 0.0;
 
-    // Coefficient of attenuation of the degree to which the material causes light to refract (ranging from 0 to 1)
+    /**
+     *     // Coefficient of attenuation of the degree to which the material causes light to refract (ranging from 0 to 1)
+     */
     public double kT = 0.0;
 
-    // How gloss the shape is
+    /**
+     *     // How gloss the shape is
+     */
     public int nShininess = 0;
 
     /**

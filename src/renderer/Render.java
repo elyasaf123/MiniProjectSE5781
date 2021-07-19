@@ -13,7 +13,7 @@ import java.util.MissingResourceException;
  */
 public class Render {
     /**
-     * the information about camera & view - plane
+     * the information about camera and view - plane
      */
     private Camera camera;
     /**
@@ -119,13 +119,25 @@ public class Render {
          * maxRows * maxCols
          */
         private long pixels = 0;
+        /**
+         * number of row
+         */
         public volatile int row = 0;
+        /**
+         * number of column
+         */
         public volatile int col = -1;
         /**
          * pixels / 100
          */
         private long counter = 0;
+        /**
+         * percent of work
+         */
         private int percents = 0;
+        /**
+         * next counter to work on
+         */
         private long nextCounter = 0;
 
         /**
@@ -553,15 +565,21 @@ public class Render {
      * @return the average color of the pixel
      */
     private Color renderPixelRecursive(Ray[] myRays, double nX, double nY, int depth) {
-
+        //check if there is a different color in my rays
         boolean flag = false;
+        //middle ray
         Ray centralRay = myRays[3];
+        //color of middle ray
         Color central = tracer.traceRay(centralRay);
+        //base case check depth
         if (depth >= 1) {
+            // go over my rays and check if there is a different color
             for (int integer = 1; integer < 6; integer++) {
+                //don't need to check the middke
                 if (integer != 3) {
                     Color tmpColor = tracer.traceRay(myRays[integer]);
                     if (!tmpColor.equals(central)) {
+                        //set flat to true
                         flag = true;
                         break;
                     }
@@ -570,6 +588,17 @@ public class Render {
             // This means that there is at least one ray that has a different color
             // from the center of the square we examined so we will do more iterative check
             if (flag) {
+                //myRays is a array of 5 corner rays
+                //  *      *
+                //     *
+                //  *      *
+                //newRays is an array of 5 corner middle ray
+                //     *
+                //  *  *   *
+                //     *
+
+
+
                 List<Ray> newRays = camera.constructFourRays(myRays[3], nX, nY);
                 Ray[] rays = new Ray[6];
                 rays[1] = myRays[1];
@@ -577,6 +606,10 @@ public class Render {
                 rays[3] = camera.constructPixelCenterRay(myRays[1], nX * 2, nY * 2);
                 rays[4] = newRays.get(1);
                 rays[5] = myRays[3];
+                //  *  *   #
+                //  *  *   #
+                //  #  #   #
+
                 /**
                  * recursive call, now the depth is updated accordingly and the height and width are doubled
                  */
@@ -588,6 +621,10 @@ public class Render {
                 rays[3] = camera.constructPixelCenterRay(newRays.get(0), nX * 2, nY * 2);
                 rays[4] = myRays[3];
                 rays[5] = newRays.get(2);
+                //  #  *   *
+                //  #  *   *
+                //  #  #   #
+
                 /**
                  * recursive call, now the depth is updated accordingly and the height and width are doubled
                  */
@@ -599,6 +636,9 @@ public class Render {
                 rays[3] = camera.constructPixelCenterRay(newRays.get(1), nX * 2, nY * 2);
                 rays[4] = myRays[4];
                 rays[5] = newRays.get(3);
+                //  #  #   #
+                //  *  *   #
+                //  *  *   #
                 /**
                  * recursive call, now the depth is updated accordingly and the height and width are doubled
                  */
@@ -610,6 +650,9 @@ public class Render {
                 rays[3] = camera.constructPixelCenterRay(myRays[3], nX * 2, nY * 2);
                 rays[4] = newRays.get(3);
                 rays[5] = myRays[5];
+                //  #  #   #
+                //  #  *   *
+                //  #  *   *
                 /**
                  * recursive call, now the depth is updated accordingly and the height and width are doubled
                  */
@@ -621,6 +664,10 @@ public class Render {
         return central;
     }
 
+    /**
+     * return list of images
+     * @return list of images
+     */
     public BufferedImage getImage(){
         return this.imageWriter.getImage();
     }

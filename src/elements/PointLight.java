@@ -7,23 +7,32 @@ import primitives.*;
  */
 public class PointLight extends Light implements LightSource{
 
-    // the point-light's position
+    /**
+     *     // the point-light's position
+     */
     private final Point3D position;
 
-    // (according to the Pong model there are three attenuation coefficients - constant, linear and quadratic)
-    //
-    // Constant attenuation coefficient for light intensity (constant = 1)
-    //
-    // It is a constant equal to 1 because in the calculation we put it in the denominator
-    // and thus make sure that the intensity does not increase with the distance from the light
-    // (does not make sense, so the denominator must be greater than 1
-    // in order for a result smaller or equal to the original intensity)
+
+    /**
+     *     // (according to the Pong model there are three attenuation coefficients - constant, linear and quadratic)
+     *     //
+     *     // Constant attenuation coefficient for light intensity (constant = 1)
+     *     //
+     *     // It is a constant equal to 1 because in the calculation we put it in the denominator
+     *     // and thus make sure that the intensity does not increase with the distance from the light
+     *     // (does not make sense, so the denominator must be greater than 1
+     *     // in order for a result smaller or equal to the original intensity)
+     */
     private double kC = 1;
 
-    // linear attenuation coefficient for light intensity
+    /**
+     *     // linear attenuation coefficient for light intensity
+     */
     private double kL = 0;
 
-    // quadratic attenuation coefficient for light intensity
+    /**
+     *     // quadratic attenuation coefficient for light intensity
+     */
     private double kQ = 0;
 
     /**

@@ -10,7 +10,13 @@ import static primitives.Point3D.*;
  */
 class Point3DTests {
 
+    /**
+     * point for tests
+     */
     Point3D p1 = new Point3D(1.0d, 2.0d, 3.0d);
+    /**
+     * point for tests
+     */
     Point3D p2 = new Point3D(1.0000000000000001, 2, 3);
 
     /**

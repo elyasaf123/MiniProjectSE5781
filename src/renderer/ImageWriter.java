@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.logging.*;
 
 /**
+ *CLASS FOR CREATING AN IMAGE INCLUDES WRITE PIXEL AND WRITE TO IMAGE
  * Image writer class combines accumulation of pixel color matrix and finally
  * producing a non-optimized jpeg image from this matrix. The class although is
  * responsible of holding image related parameters of View Plane - pixel matrix
@@ -14,17 +15,34 @@ import java.util.logging.*;
  */
 public class ImageWriter {
 
-    // amount of pixels by Width
+    /**
+     *     // amount of pixels by Width
+     */
     private int nX;
 
-    // amount of pixels by Height
+    /**
+     * amount of pixels by Height
+     */
     private int nY;
 
+    /**
+     * path to save the picture
+     */
     private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
 
+    /**
+     * image
+     */
     private BufferedImage image;
+
+    /**
+     * name of the image
+     */
     private String imageName;
 
+    /**
+     * logger
+     */
     private Logger logger = Logger.getLogger("ImageWriter");
 
     // ***************** Constructors ********************** //
@@ -79,6 +97,10 @@ public class ImageWriter {
         }
     }
 
+    /**
+     * getter
+     * @return image
+     */
     public BufferedImage getImage() {
         return image;
     }
