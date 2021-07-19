@@ -44,11 +44,10 @@ public class ShadowTests {
                         new Vector(1, 1, -3))
                         .setKl(1E-5).setKq(1.5E-7));
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                setImageWriter(new ImageWriter("shadowSphereTriangleInitial", 400, 400))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowSphereTriangleInitial", 400, 400))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -89,11 +88,10 @@ public class ShadowTests {
         sceneBuilder.setLights(lights);
         Scene scene  = sceneBuilder.build();
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder()
-                .setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
         render.renderImage();
         render.writeToImage();
     }
@@ -122,11 +120,10 @@ public class ShadowTests {
                         new Vector(1, 1, -3))
                         .setKl(1E-5).setKq(1.5E-7));
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                setImageWriter(new ImageWriter("shadowSphereTriangleCloserTriangle", 400, 400))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowSphereTriangleCloserTriangle", 400, 400))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -156,11 +153,10 @@ public class ShadowTests {
                         new Vector(1, 1, -3))
                         .setKl(1E-5).setKq(1.5E-7));
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                setImageWriter(new ImageWriter("shadowSphereTriangleLinkedTriangle", 400, 400))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowSphereTriangleLinkedTriangle", 400, 400))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -190,11 +186,10 @@ public class ShadowTests {
                         new Vector(1, 1, -3))
                         .setKl(1E-5).setKq(1.5E-7));
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                setImageWriter(new ImageWriter("shadowSphereTriangleCloserSpot", 400, 400))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowSphereTriangleCloserSpot", 400, 400))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();
@@ -224,11 +219,10 @@ public class ShadowTests {
                         new Vector(1, 1, -3))
                         .setKl(1E-5).setKq(1.5E-7));
 
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder().
-                setImageWriter(new ImageWriter("shadowSphereTriangleLinkedSpot", 400, 400))
+        Render render = new Render();
+        render.setImageWriter(new ImageWriter("shadowSphereTriangleLinkedSpot", 400, 400))
                 .setCamera(camera)
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.writeToImage();

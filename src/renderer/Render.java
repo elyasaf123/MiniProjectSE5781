@@ -11,7 +11,7 @@ import java.util.MissingResourceException;
  * Renderer class is responsible for generating pixel color map from a graphic
  * scene, using ImageWriter class
  */
-public class RenderThread {
+public class Render {
     /**
      * the information about camera & view - plane
      */
@@ -74,7 +74,7 @@ public class RenderThread {
      *
      * @return the Render object itself
      */
-    public RenderThread setMultithreading(int threads) {
+    public Render setMultithreading(int threads) {
         if (threads < 0)
             throw new IllegalArgumentException("Multithreading parameter must be 0 or higher");
         if (threads != 0)
@@ -94,7 +94,7 @@ public class RenderThread {
      *
      * @return the Render object itself
      */
-    public RenderThread setDebugPrint() {
+    public Render setDebugPrint() {
         print = true;
         return this;
     }
@@ -119,25 +119,13 @@ public class RenderThread {
          * maxRows * maxCols
          */
         private long pixels = 0;
-        /**
-         * number of row
-         */
         public volatile int row = 0;
-        /**
-         * number of  column
-         */
         public volatile int col = -1;
         /**
          * pixels / 100
          */
         private long counter = 0;
-        /**
-         * percent accomplished
-         */
         private int percents = 0;
-        /**
-         *next counter to be executed
-         */
         private long nextCounter = 0;
 
         /**
@@ -151,7 +139,7 @@ public class RenderThread {
             this.maxCols = maxCols;
             this.pixels = (long) maxRows * maxCols;
             this.nextCounter = this.pixels / 100;
-            if (RenderThread.this.print)
+            if (Render.this.print)
                 System.out.printf("\r %02d%%", this.percents);
         }
 
@@ -180,7 +168,7 @@ public class RenderThread {
             if (col < this.maxCols) {
                 target.row = this.row;
                 target.col = this.col;
-                if (RenderThread.this.print && this.counter == this.nextCounter) {
+                if (Render.this.print && this.counter == this.nextCounter) {
                     ++this.percents;
                     this.nextCounter = this.pixels * (this.percents + 1) / 100;
                     return this.percents;
@@ -192,7 +180,7 @@ public class RenderThread {
                 col = 0;
                 target.row = this.row;
                 target.col = this.col;
-                if (RenderThread.this.print && this.counter == this.nextCounter) {
+                if (Render.this.print && this.counter == this.nextCounter) {
                     ++this.percents;
                     this.nextCounter = this.pixels * (this.percents + 1) / 100;
                     return this.percents;
@@ -213,13 +201,13 @@ public class RenderThread {
          */
         public boolean nextPixel(Pixel target) {
             int percent = nextP(target);
-            if (RenderThread.this.print && percent > 0)
+            if (Render.this.print && percent > 0)
                 synchronized (this) {
                     notifyAll();
                 }
             if (percent >= 0)
                 return true;
-            if (RenderThread.this.print)
+            if (Render.this.print)
                 synchronized (this) {
                     notifyAll();
                 }
@@ -230,7 +218,7 @@ public class RenderThread {
          * Debug print of progress percentage - must be run from the main thread
          */
         public void print() {
-            if (RenderThread.this.print)
+            if (Render.this.print)
                 while (this.percents < 100)
                     try {
                         synchronized (this) {
@@ -250,7 +238,7 @@ public class RenderThread {
      *
      * @return renderer itself - for chaining
      */
-    public RenderThread setCamera(Camera camera) {
+    public Render setCamera(Camera camera) {
         this.camera = camera;
         return this;
     }
@@ -262,7 +250,7 @@ public class RenderThread {
      *
      * @return renderer itself - for chaining
      */
-    public RenderThread setImageWriter(ImageWriter imgWriter) {
+    public Render setImageWriter(ImageWriter imgWriter) {
         this.imageWriter = imgWriter;
         return this;
     }
@@ -274,7 +262,7 @@ public class RenderThread {
      *
      * @return renderer itself - for chaining
      */
-    public RenderThread setRayTracer(BasicRayTracer tracer) {
+    public Render setRayTracer(BasicRayTracer tracer) {
         this.tracer = tracer;
         return this;
     }
@@ -286,7 +274,7 @@ public class RenderThread {
      *
      * @return renderer itself - for chaining
      */
-    public RenderThread setSuperS(boolean superS) {
+    public Render setSuperS(boolean superS) {
         this.superS = superS;
         return this;
     }
@@ -298,7 +286,7 @@ public class RenderThread {
      *
      * @return renderer itself - for chaining
      */
-    public RenderThread setAdaptiveSS(boolean adaptiveSS) {
+    public Render setAdaptiveSS(boolean adaptiveSS) {
         this.adaptiveSS = adaptiveSS;
         return this;
     }

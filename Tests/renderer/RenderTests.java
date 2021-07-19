@@ -50,12 +50,10 @@ public class RenderTests {
 
         ImageWriter imageWriter = new ImageWriter("base render test", 1000, 1000);
 
-        Render.RenderBuilder renderBuilder =
-                new Render.RenderBuilder()
-                        .setImageWriter(imageWriter)
+        Render render = new Render();
+        render.setImageWriter(imageWriter)
                         .setCamera(camera)
                         .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -74,12 +72,10 @@ public class RenderTests {
 
         ImageWriter imageWriter = new ImageWriter("xml render test", 1000, 1000);
 
-        Render.RenderBuilder renderBuilder =
-                new Render.RenderBuilder()
-                        .setImageWriter(imageWriter)
+        Render render = new Render();
+        render.setImageWriter(imageWriter)
                         .setCamera(camera)
                         .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -211,11 +207,10 @@ public class RenderTests {
         Scene scene = sceneBuilder.build();
 
         ImageWriter imageWriter = new ImageWriter("color render test", 1000, 1000);
-        Render.RenderBuilder renderBuilder = new Render.RenderBuilder() //
-                .setImageWriter(imageWriter) //
+        Render render = new Render();
+        render.setImageWriter(imageWriter) //
                 .setCamera(camera) //
                 .setRayTracer(new BasicRayTracer(scene));
-        Render render = renderBuilder.build();
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.WHITE));
