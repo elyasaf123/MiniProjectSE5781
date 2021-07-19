@@ -597,8 +597,6 @@ public class Render {
                 //  *  *   *
                 //     *
 
-
-
                 List<Ray> newRays = camera.constructFourRays(myRays[3], nX, nY);
                 Ray[] rays = new Ray[6];
                 rays[1] = myRays[1];
