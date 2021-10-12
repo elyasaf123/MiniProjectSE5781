@@ -751,7 +751,6 @@ class VideoTest {
                         .setMaterial(new Material().setKd(1).setKs(0).setNShininess(50)));
             }
 
-
             LinkedList<LightSource> lightSources = new LinkedList<>();
 
             sceneBuilder.setGeometries(geometries);
@@ -762,12 +761,10 @@ class VideoTest {
                             new Vector(1, 1, -3))
                             .setKl(1E-5).setKq(1.5E-7));
 
-
             lightSources.add(
                     new PointLight(
                             new Color(100, 60, 0),
                             new Point3D(40, 60, 20)));
-
 
             lightSources.add(
                     new PointLight(
@@ -775,7 +772,6 @@ class VideoTest {
                             new Point3D(-40, 60, 20)));
             sceneBuilder.setLights(lightSources);
             Scene scene = sceneBuilder.build();
-
 
             Render render = new Render();
             render.setImageWriter(new ImageWriter("shadowSphereTriangleLinkedSpot", 400, 400))
@@ -786,6 +782,5 @@ class VideoTest {
             a[(int) j] = render.getImage();
         }
         Video.generateVideo("first video", a, 20);
-
     }
 }
